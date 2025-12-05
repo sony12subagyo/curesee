@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'camera_page.dart';
+import 'features/camera/presentation/widgets/camera_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,16 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(title: Text("CureSee")),
       body: Center(
-        // child: ElevatedButton.icon(
-        //   onPressed: () {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => CameraPage()),
-        //     );
-        //   },
-        //   icon: Icon(Icons.camera_alt),
-        //   label: Text("Buka Kamera"),
-        // ),
+        
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
