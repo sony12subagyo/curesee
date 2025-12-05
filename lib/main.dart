@@ -1,3 +1,6 @@
+import 'package:curesee/features/history/presentation/pages/history_page.dart';
+import 'package:curesee/features/more/presentation/pages/more_page.dart';
+import 'package:curesee/features/profile/presentation/pages/profil_page.dart';
 import 'package:flutter/material.dart';
 import 'features/camera/presentation/widgets/camera_page.dart';
 
@@ -28,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(title: Text("CureSee")),
       body: Center(
-        
+
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
@@ -55,12 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void panggilHalaman(int index) {
     if (index == 2) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => CameraPage()));
-    // } else if (index == 2) {
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => const Mahasiswa()));
-    // } else if (index == 3) {
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => const Matakuliah()));
-    // } else if (index == 4) {
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => const Nilai()));
+    } else if (index == 1) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilPage()));
+    } else if (index == 3) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const HistoryPage()));
+    } else if (index == 4) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const MorePage()));
     }
   }
 }
