@@ -1,5 +1,5 @@
-import 'package:curesee/features/beranda/presentation/pages/card_page.dart';
-import 'package:curesee/features/beranda/presentation/pages/custom_header.dart';
+import 'package:curesee/features/beranda/presentation/widgets/card_page.dart';
+import 'package:curesee/features/beranda/presentation/widgets/custom_header.dart';
 import 'package:flutter/material.dart';
 
 
