@@ -5,9 +5,12 @@ class MorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Halaman More"),),
-      body: Center(child: Text("halaman more")),
+    return const Center(
+      child: Text(
+        "halaman more",
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }
+
