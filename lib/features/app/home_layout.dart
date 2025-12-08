@@ -1,5 +1,5 @@
+import 'package:curesee/features/app/background_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:curesee/background_wrapper.dart';
 import 'navigation/app_pages.dart';
 import 'navigation/bottom_nav.dart';
 

@@ -7,7 +7,7 @@ class MorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        "halaman moreee",
+        "halaman more",
         style: TextStyle(color: Colors.white),
       ),
     );
