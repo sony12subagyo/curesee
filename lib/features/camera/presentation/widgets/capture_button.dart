@@ -13,12 +13,12 @@ class CaptureButton extends StatelessWidget {
         width: 70,
         height: 70,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 22, 107, 199),
+          color: const Color.fromARGB(255, 0, 128, 255),
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.black, width: 4),
+          border: Border.all(color: const Color.fromARGB(255, 255, 255, 255), width: 4),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -27,8 +27,8 @@ class CaptureButton extends StatelessWidget {
         child: const Center(
           child: Icon(
             Icons.camera_alt,
-            size: 30,
-            color: Colors.black,
+            size: 35,
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
       ),
