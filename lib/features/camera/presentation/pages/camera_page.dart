@@ -168,7 +168,7 @@ class _CameraPageState extends State<CameraPage> {
                           child: GestureDetector(
                             onTap: () async {
                               try {
-                                final image = await _takePicture();
+                                final image = await _controller!.takePicture();
 
                                 Navigator.push(
                                   context,
