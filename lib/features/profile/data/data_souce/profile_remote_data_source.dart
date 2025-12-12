@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:curesee/features/profile/domain/entities/profil.dart';
 import 'package:http/http.dart' as http;
 
-final String baseUrl = "https://060616496327.ngrok-free.app/User";
+final String baseUrl = "https://9f83002094b5.ngrok-free.app/User";
 
 class ProfileRemoteDataSource {
   Future<List<Profile>> getAllProfile() async {
