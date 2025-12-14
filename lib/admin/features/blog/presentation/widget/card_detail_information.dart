@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CardDetail extends StatelessWidget {
+class CardDetailAdmin extends StatelessWidget {
   final String imageUrl;
+  final String title;
   final String description;
 
-  const CardDetail({
+  const CardDetailAdmin({
     super.key,
     required this.imageUrl,
+    required this.title,
     required this.description,
   });
 
@@ -14,61 +16,77 @@ class CardDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // ===== IMAGE =====
+        // ===== IMAGE + TITLE =====
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: SizedBox(
             width: double.infinity,
             height: 200,
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  alignment: Alignment.center,
-                  child: const Icon(Icons.broken_image, size: 40),
-                );
-              },
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                ),
+
+                // overlay gelap
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.7),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // JUDUL (INI YANG HARUS MUNCUL)
+                Positioned(
+                  left: 16,
+                  right: 16,
+                  bottom: 16,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
 
         const SizedBox(height: 16),
 
-        // ===== DESCRIPTION CARD =====
+        // ===== INFORMATION CARD =====
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Information",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
-                "",
-                style: TextStyle(
-                  fontSize: 14,
-                  height: 1.5,
-                  color: Colors.black87,
-                ),
+                description,
+                style: const TextStyle(fontSize: 14),
               ),
             ],
           ),

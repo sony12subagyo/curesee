@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CardPage extends StatelessWidget {
+class CardPageAdmin extends StatelessWidget {
   final String title;
   final String subtitle;
   final ImageProvider image;
   final VoidCallback? onTap;
 
-  const CardPage({
+  const CardPageAdmin({
     Key? key,
     this.title = "Kriteria Kulit",
     this.subtitle = "Deskripsi singkat...",

@@ -1,4 +1,5 @@
-import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
+import 'package:curesee/admin/features/blog/presentation/widget/card_detail_information.dart';
+
 import 'package:flutter/material.dart';
 
 
@@ -19,37 +20,40 @@ class DetailInformationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF1EA3FF),
-              Color(0xFF7BC9FF),
-              Color(0xFFEAF7FF),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+  decoration: const BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        Color(0xFF1EA3FF),
+        Color(0xFF7BC9FF),
+        Color(0xFFEAF7FF),
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    ),
+  ),
+  child: SafeArea(
+    child: Column(
+      children: [
+       
+        _Header(title: title),
+
+        const SizedBox(height: 12),
+
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CardDetailAdmin(
+              imageUrl: imageUrl,
+              title: "JUDUL DARI BLOG",
+              description: description,
+            ),
           ),
         ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              _Header(title: title),
+      ],
+    ),
+  ),
+),
 
-              const SizedBox(height: 12),
-
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: CardDetail(
-                    imageUrl: imageUrl,
-                    description: description,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

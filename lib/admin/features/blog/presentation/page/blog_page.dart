@@ -36,7 +36,7 @@ class BlogPage extends StatelessWidget {
 
                     return Column(
                       children: [
-                        CardPage(
+                        CardPageAdmin(
                           image: NetworkImage(imageUrl),
                           title: title,
                           subtitle: subtitle,
