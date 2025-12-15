@@ -4,6 +4,7 @@ import 'package:curesee/users/features/profile/presentation/bloc/profile_event.d
 import 'package:curesee/users/features/profile/presentation/bloc/profile_state.dart';
 import 'package:curesee/users/features/profile/presentation/widget/jumlah_analisis_card.dart';
 import 'package:curesee/users/features/profile/presentation/widget/profile_card.dart';
+import 'package:curesee/users/features/profile/presentation/widget/update_profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,6 +52,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [JumlahAnalisis()],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [UpdateProfileCard()],
                 ),
               ),
             ],
