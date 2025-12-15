@@ -1,7 +1,13 @@
+import 'package:curesee/features/registrasi/data/data_source/registrasi_remote_data_source.dart';
+import 'package:curesee/features/registrasi/data/repositories/registrasi_repository_impl.dart';
+import 'package:curesee/features/registrasi/domain/use_case/registrasi_use_case.dart';
+import 'package:curesee/features/registrasi/presentation/bloc/registrasi_bloc.dart';
+import 'package:curesee/features/registrasi/presentation/pages/registrasi_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curesee/app/login/presentation/widgets/login_header.dart';
 import 'package:curesee/app/login/presentation/widgets/login_form.dart';
 import 'package:curesee/app/login/presentation/widgets/login_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -61,12 +67,38 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Do you have not account?'),
-                  SizedBox(width: 4),
-                  Text('Create here', style: TextStyle(color: Colors.blue)),
+                children: [
+                  const Text('Do you have not account?'),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BlocProvider(
+                            create: (_) => RegistrasiBloc(
+                              RegistrasiUseCase(
+                                RegistrasiRepositoryImpl(
+                                  DummyRegistrasiRemoteDataSource(),
+                                ),
+                              ),
+                            ),
+                            child: const RegistrasiPage(),
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Create here',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
               ),
+
               const SizedBox(height: 40),
               const Text('by KelompokSigma', style: TextStyle(fontSize: 12)),
             ],
