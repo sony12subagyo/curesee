@@ -16,7 +16,7 @@ class HistoryCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 20),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: Colors.blue.shade600,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
@@ -25,7 +25,7 @@ class HistoryCard extends StatelessWidget {
             Text(
               "Your skin is",
               style: TextStyle(
-                color: Colors.white,
+                color: Color.fromARGB(255, 31, 31, 31),
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -33,7 +33,7 @@ class HistoryCard extends StatelessWidget {
             SizedBox(height: 6),
             Text(
               "Times New Roman is a font type ......",
-              style: TextStyle(color: Colors.white70),
+              style: TextStyle(color: Color.fromARGB(255, 46, 46, 46)),
             ),
             SizedBox(height: 12),
             Align(
@@ -44,12 +44,12 @@ class HistoryCard extends StatelessWidget {
                   Text(
                     "more",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 46, 46, 46),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_right_alt, color: Colors.white),
+                  Icon(Icons.arrow_right_alt, color: Color.fromARGB(255, 46, 46, 46)),
                 ],
               ),
             ),
