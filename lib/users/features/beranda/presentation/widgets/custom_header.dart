@@ -61,7 +61,7 @@ class CustomHeader extends StatelessWidget {
                   Text(
                     subtitle,
                     style: const TextStyle(
-                      color: Colors.white70,
+                      color: Color.fromARGB(179, 255, 255, 255),
                       fontSize: 13,
                       
                     ),
