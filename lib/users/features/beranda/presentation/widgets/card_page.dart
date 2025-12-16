@@ -79,7 +79,7 @@ class CardPage extends StatelessWidget {
                     Expanded(
                       child: Text(
                         subtitle,
-                        maxLines: 3,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           color: Colors.white70,
