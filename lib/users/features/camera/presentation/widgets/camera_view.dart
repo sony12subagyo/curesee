@@ -21,9 +21,7 @@ class CameraView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: controller == null
-          ? const Center(
-              child: CircularProgressIndicator(color: Colors.white),
-            )
+          ? const Center(child: CircularProgressIndicator(color: Colors.white))
           : FutureBuilder(
               future: initializeCamera,
               builder: (context, snapshot) {
@@ -66,39 +64,51 @@ class CameraView extends StatelessWidget {
                     const SizedBox(height: 48),
 
                     // 📷 SCAN FRAME (LEBIH BESAR & NORMAL RATIO)
+                    // 📷 SCAN FRAME (PERSEGI 1:1, CAMERA NORMAL)
                     Center(
                       child: Stack(
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.9,
+                            height:
+                                MediaQuery.of(context).size.width *
+                                0.9, // ⬅️ FIX 1:1
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 2,
-                              ),
+                              border: Border.all(color: Colors.white, width: 2),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(14),
-                              child: AspectRatio(
-                                aspectRatio:
-                                    controller!.value.aspectRatio,
-                                child: CameraPreview(controller!),
+                              child: LayoutBuilder(
+                                builder: (context, constraints) {
+                                  final squareSize = constraints.biggest.width;
+
+                                  return OverflowBox(
+                                    alignment: Alignment.center,
+                                    child: FittedBox(
+                                      fit: BoxFit
+                                          .cover, // ⬅️ CROP, BUKAN STRETCH
+                                      child: SizedBox(
+                                        width: squareSize,
+                                        height:
+                                            squareSize /
+                                            controller!.value.aspectRatio,
+                                        child: CameraPreview(controller!),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),
 
                           // 🔦 FLASH
-                          Positioned(
-                            top: 10,
-                            left: 10,
-                            child: flashButton,
-                          ),
+                          Positioned(top: 12, left: 12, child: flashButton),
 
                           // 🔄 SWITCH CAMERA
                           Positioned(
-                            top: 10,
-                            right: 10,
+                            top: 12,
+                            right: 12,
                             child: switchCameraButton,
                           ),
                         ],
