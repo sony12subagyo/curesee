@@ -35,26 +35,39 @@ class CameraView extends StatelessWidget {
                   children: [
                     // 🔝 HEADER
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Icon(Icons.arrow_back, color: Colors.white),
-                          Text(
-                            "SCAN",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 24),
-                        ],
-                      ),
-                    ),
+  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  child: Row(
+    children: [
+      GestureDetector(
+        onTap: () => Navigator.pop(context), // ⬅️ KEMBALI KE HOME
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 22,
+          ),
+        ),
+      ),
+
+      const SizedBox(width: 12),
+
+      const Text(
+        "SCAN",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ],
+  ),
+),
+
 
                     const Text(
                       "Scan your skin here",
@@ -64,58 +77,39 @@ class CameraView extends StatelessWidget {
                     const SizedBox(height: 48),
 
                     // 📷 SCAN FRAME (PERSEGI 1:1, CAMERA NORMAL)
-                    Center(
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            height:
-                                MediaQuery.of(context).size.width *
-                                0.9, // ⬅️ FIX 1:1
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: Colors.white, width: 2),
+                    
+                    Expanded(
+                      flex: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(24),
+                              child: CameraPreview(controller!),
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(14),
-                              child: LayoutBuilder(
-                                builder: (context, constraints) {
-                                  final size = constraints.biggest;
 
-                                  final previewSize =
-                                      controller!.value.previewSize!;
-                                  final previewAspectRatio =
-                                      previewSize.height / previewSize.width;
-
-                                  return ClipRect(
-                                    child: OverflowBox(
-                                      alignment: Alignment.center,
-                                      child: FittedBox(
-                                        fit: BoxFit.cover,
-                                        child: SizedBox(
-                                          width: size.width,
-                                          height:
-                                              size.width * previewAspectRatio,
-                                          child: CameraPreview(controller!),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
+                            // 🔲 OVERLAY FRAME (SCAN FEEL)
+                            Positioned.fill(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(
+                                    color: Colors.white.withOpacity(0.8),
+                                    width: 2,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
 
-                          // 🔦 FLASH
-                          Positioned(top: 12, left: 12, child: flashButton),
+                            // 🔦 FLASH
+                            Positioned(top: 16, left: 16, child: flashButton),
 
-                          // 🔄 SWITCH CAMERA
-                          Positioned(
-                            top: 12,
-                            right: 12,
-                            child: switchCameraButton,
-                          ),
-                        ],
+                            // 🔄 SWITCH CAMERA
+                            Positioned(
+                              top: 16, right: 16, child: switchCameraButton,),
+                          ],
+                        ),
                       ),
                     ),
 

@@ -10,8 +10,8 @@ class CaptureButton extends StatelessWidget {
     return GestureDetector(
       onTap: onCapture,
       child: Container(
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 0, 128, 255),
           shape: BoxShape.circle,
@@ -27,7 +27,7 @@ class CaptureButton extends StatelessWidget {
         child: const Center(
           child: Icon(
             Icons.camera_alt,
-            size: 25,
+            size: 30,
             color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
