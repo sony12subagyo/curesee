@@ -1,5 +1,6 @@
 import 'package:curesee/app/home_layout.dart';
 import 'package:curesee/app/navigation/app_pages.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       create: (_) => LoginBloc(usecase),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeLayout(),
+        home: LoginPage(),
       ),
     );
   }
