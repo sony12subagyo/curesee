@@ -1,4 +1,3 @@
-import 'package:curesee/app/login/domain/entities/login_entitiy.dart';
 import 'package:curesee/app/login/domain/repositories/login_repository.dart';
 
 class LoginUsecase {
@@ -6,7 +5,7 @@ class LoginUsecase {
 
   LoginUsecase(this.repository);
 
-  Future<LoginEntity> execute(String email, String password) {
+  Future<Map<String, dynamic>> execute(String email, String password) {
     return repository.login(email, password);
   }
 }

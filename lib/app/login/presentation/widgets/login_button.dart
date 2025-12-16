@@ -1,3 +1,4 @@
+import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/login_bloc.dart';
@@ -20,10 +21,18 @@ class LoginButton extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const HomeLayout()),
-          );
+          // 🔥 PEMBEDA USER & ADMIN
+          if (state.role == 'user') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const HomeLayout()),
+            );
+          } else if (state.role == 'admin') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const BlogPage()),
+            );
+          }
         }
 
         if (state is LoginFailure) {
@@ -54,7 +63,14 @@ class LoginButton extends StatelessWidget {
               ),
             ),
             child: state is LoginLoading
-                ? const CircularProgressIndicator(color: Colors.white)
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
+                  )
                 : const Text(
                     'Login Now',
                     style: TextStyle(color: Colors.white),

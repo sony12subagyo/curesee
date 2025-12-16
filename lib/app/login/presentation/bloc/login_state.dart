@@ -1,5 +1,3 @@
-import 'package:curesee/app/login/domain/entities/login_entitiy.dart';
-
 abstract class LoginState {}
 
 class LoginInitial extends LoginState {}
@@ -7,8 +5,8 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final LoginEntity user;
-  LoginSuccess(this.user);
+  final String role;
+  LoginSuccess(this.role);
 }
 
 class LoginFailure extends LoginState {

@@ -3,9 +3,13 @@ class DummyLoginDataSource {
     await Future.delayed(const Duration(seconds: 1));
 
     if (email == "user@gmail.com" && password == "123") {
-      return {"email": email, "password": password};
-    } else {
-      throw Exception("Email atau password salah!");
+      return {"email": email, "role": "user"};
     }
+
+    if (email == "admin@gmail.com" && password == "123") {
+      return {"email": email, "role": "admin"};
+    }
+
+    throw Exception("Email atau password salah!");
   }
 }

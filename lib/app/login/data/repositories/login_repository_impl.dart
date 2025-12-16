@@ -1,7 +1,5 @@
-import 'package:curesee/app/login/domain/entities/login_entitiy.dart';
-import '../../domain/repositories/login_repository.dart';
-import '../data_source/login_remote_datasource.dart';
-import '../model/login_model.dart';
+import 'package:curesee/app/login/data/data_source/login_remote_datasource.dart';
+import 'package:curesee/app/login/domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
   final DummyLoginDataSource dataSource;
@@ -9,8 +7,10 @@ class LoginRepositoryImpl implements LoginRepository {
   LoginRepositoryImpl(this.dataSource);
 
   @override
-  Future<LoginEntity> login(String email, String password) async {
-    final json = await dataSource.login(email, password);
-    return LoginModel.fromJson(json);
+  Future<Map<String, dynamic>> login(
+    String email,
+    String password,
+  ) {
+    return dataSource.login(email, password);
   }
 }
