@@ -27,7 +27,7 @@ class CaptureButton extends StatelessWidget {
         child: const Center(
           child: Icon(
             Icons.camera_alt,
-            size: 35,
+            size: 25,
             color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),

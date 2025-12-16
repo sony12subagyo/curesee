@@ -1,5 +1,5 @@
-import 'package:curesee/features/registrasi/domain/entities/registrasi_entitity.dart';
-import 'package:curesee/features/registrasi/domain/repositories/registrasi_repository.dart';
+import 'package:curesee/app/registrasi/domain/entities/registrasi_entitity.dart';
+import 'package:curesee/app/registrasi/domain/repositories/registrasi_repository.dart';
 
 class RegistrasiUseCase {
   final RegistrasiRepository repository;

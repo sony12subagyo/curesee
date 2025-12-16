@@ -1,6 +1,6 @@
-import 'package:curesee/features/registrasi/domain/use_case/registrasi_use_case.dart';
-import 'package:curesee/features/registrasi/presentation/bloc/regisrasi_event.dart';
-import 'package:curesee/features/registrasi/presentation/bloc/registrasi_state.dart';
+import 'package:curesee/app/registrasi/domain/use_case/registrasi_use_case.dart';
+import 'package:curesee/app/registrasi/presentation/bloc/regisrasi_event.dart';
+import 'package:curesee/app/registrasi/presentation/bloc/registrasi_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegistrasiBloc extends Bloc<RegistrasiEvent, RegistrasiState> {

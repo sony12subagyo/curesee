@@ -1,4 +1,4 @@
-import 'package:curesee/features/registrasi/presentation/bloc/regisrasi_event.dart';
+import 'package:curesee/app/registrasi/presentation/bloc/regisrasi_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

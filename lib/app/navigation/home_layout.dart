@@ -1,7 +1,7 @@
-import 'package:curesee/app/background_wrapper.dart';
+import 'package:curesee/app/navigation/background_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'navigation/app_pages.dart';
-import 'navigation/bottom_nav.dart';
+import 'app_pages.dart';
+import 'bottom_nav.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});

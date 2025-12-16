@@ -1,8 +1,8 @@
-import 'package:curesee/features/registrasi/data/data_source/registrasi_remote_data_source.dart';
-import 'package:curesee/features/registrasi/data/repositories/registrasi_repository_impl.dart';
-import 'package:curesee/features/registrasi/domain/use_case/registrasi_use_case.dart';
-import 'package:curesee/features/registrasi/presentation/bloc/registrasi_bloc.dart';
-import 'package:curesee/features/registrasi/presentation/pages/registrasi_page.dart';
+import 'package:curesee/app/registrasi/data/data_source/registrasi_remote_data_source.dart';
+import 'package:curesee/app/registrasi/data/repositories/registrasi_repository_impl.dart';
+import 'package:curesee/app/registrasi/domain/use_case/registrasi_use_case.dart';
+import 'package:curesee/app/registrasi/presentation/bloc/registrasi_bloc.dart';
+import 'package:curesee/app/registrasi/presentation/pages/registrasi_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curesee/app/login/presentation/widgets/login_header.dart';
 import 'package:curesee/app/login/presentation/widgets/login_form.dart';

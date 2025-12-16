@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
-import '../../../home_layout.dart';
+import '../../../navigation/home_layout.dart';
 
 class LoginButton extends StatelessWidget {
   final TextEditingController emailController;

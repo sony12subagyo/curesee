@@ -63,7 +63,6 @@ class CameraView extends StatelessWidget {
 
                     const SizedBox(height: 48),
 
-                    // 📷 SCAN FRAME (LEBIH BESAR & NORMAL RATIO)
                     // 📷 SCAN FRAME (PERSEGI 1:1, CAMERA NORMAL)
                     Center(
                       child: Stack(
@@ -81,19 +80,24 @@ class CameraView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(14),
                               child: LayoutBuilder(
                                 builder: (context, constraints) {
-                                  final squareSize = constraints.biggest.width;
+                                  final size = constraints.biggest;
 
-                                  return OverflowBox(
-                                    alignment: Alignment.center,
-                                    child: FittedBox(
-                                      fit: BoxFit
-                                          .cover, // ⬅️ CROP, BUKAN STRETCH
-                                      child: SizedBox(
-                                        width: squareSize,
-                                        height:
-                                            squareSize /
-                                            controller!.value.aspectRatio,
-                                        child: CameraPreview(controller!),
+                                  final previewSize =
+                                      controller!.value.previewSize!;
+                                  final previewAspectRatio =
+                                      previewSize.height / previewSize.width;
+
+                                  return ClipRect(
+                                    child: OverflowBox(
+                                      alignment: Alignment.center,
+                                      child: FittedBox(
+                                        fit: BoxFit.cover,
+                                        child: SizedBox(
+                                          width: size.width,
+                                          height:
+                                              size.width * previewAspectRatio,
+                                          child: CameraPreview(controller!),
+                                        ),
                                       ),
                                     ),
                                   );
