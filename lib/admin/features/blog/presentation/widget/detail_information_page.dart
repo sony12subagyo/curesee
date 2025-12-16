@@ -1,5 +1,6 @@
-import 'package:curesee/admin/features/blog/presentation/widget/card_detail_information.dart';
 
+
+import 'package:curesee/admin/features/blog/presentation/widget/card_detail_admin.dart';
 import 'package:flutter/material.dart';
 
 

@@ -95,3 +95,4 @@ class CardDetailAdmin extends StatelessWidget {
     );
   }
 }
+
