@@ -8,9 +8,9 @@ import 'package:curesee/users/features/more/presentation/pages/more_page.dart';
 class AppPages {
   static final pages = <Widget>[
     BerandaPage(),
-    ProfilePage(),
-    CameraPage(),
     HistoryPage(),
+    CameraPage(),
     MorePage(),
+    ProfilePage(),
   ];
 }

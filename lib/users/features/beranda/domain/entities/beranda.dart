@@ -1,12 +1,11 @@
-// beranda/domain/entities/beranda.dart
 import 'package:equatable/equatable.dart';
 
 class Beranda extends Equatable {
   final String id;
   final String title;
   final String subtitle;
-  final String imageUrl; 
-  final DateTime? createdAt; 
+  final String imageUrl;
+  final DateTime? createdAt;
 
   const Beranda({
     required this.id,
@@ -15,7 +14,6 @@ class Beranda extends Equatable {
     required this.imageUrl,
     this.createdAt,
   });
-
 
   Beranda copyWith({
     String? id,
@@ -34,8 +32,16 @@ class Beranda extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, title, subtitle, imageUrl, createdAt];
+  List<Object?> get props => [
+        id,
+        title,
+        subtitle,
+        imageUrl,
+        createdAt,
+      ];
 
   @override
-  String toString() => 'Beranda(id: $id, title: $title)';
+  String toString() {
+    return 'Beranda(id: $id, title: $title)';
+  }
 }

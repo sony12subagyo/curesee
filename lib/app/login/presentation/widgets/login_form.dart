@@ -17,7 +17,7 @@ class LoginForm extends StatelessWidget {
       children: [
         const Text('Email', style: TextStyle(color: Colors.white)),
         const SizedBox(height: 6),
-        _inputField(emailController, hint: 'Enter your name'),
+        _inputField(emailController, hint: 'Enter your email', isPass: false),
         const SizedBox(height: 12),
         const Text('Password', style: TextStyle(color: Colors.white)),
         const SizedBox(height: 6),
@@ -33,11 +33,12 @@ class LoginForm extends StatelessWidget {
   Widget _inputField(
     TextEditingController controller, {
     required String hint,
-    bool isPass = false,
+    required bool isPass,
   }) {
     return TextField(
       controller: controller,
       obscureText: isPass,
+      keyboardType: isPass ? TextInputType.text : TextInputType.emailAddress,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,

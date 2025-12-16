@@ -1,6 +1,6 @@
+import 'package:curesee/app/background_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-
 import '../widgets/camera_view.dart';
 import '../widgets/flash_button.dart';
 import '../widgets/switch_camera.dart';
@@ -51,7 +51,6 @@ class _CameraPageState extends State<CameraPage> {
     if (_cameras == null || _cameras!.length < 2) return;
 
     _selectedCameraIndex = _selectedCameraIndex == 0 ? 1 : 0;
-
     await _initCamera(_selectedCameraIndex);
   }
 
@@ -78,18 +77,19 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: CameraView(
-        controller: _controller,
-        initializeCamera: _initializeCamera,
-        flashButton: FlashButton(
-          flashMode: _flashMode,
-          onFlashChanged: _changeFlashMode,
+      body: BackgroundWrapper(
+        child: CameraView(
+          controller: _controller,
+          initializeCamera: _initializeCamera,
+          flashButton: FlashButton(
+            flashMode: _flashMode,
+            onFlashChanged: _changeFlashMode,
+          ),
+          switchCameraButton: SwitchCameraButton(
+            onSwitchCamera: _switchCamera,
+          ),
+          captureButton: CaptureButton(onCapture: _takePicture),
         ),
-        switchCameraButton: SwitchCameraButton(
-          onSwitchCamera: _switchCamera,
-        ),
-        captureButton: CaptureButton(onCapture: _takePicture),
       ),
     );
   }
