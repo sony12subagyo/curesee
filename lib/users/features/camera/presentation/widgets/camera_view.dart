@@ -35,39 +35,42 @@ class CameraView extends StatelessWidget {
                   children: [
                     // 🔝 HEADER
                     Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-  child: Row(
-    children: [
-      GestureDetector(
-        onTap: () => Navigator.pop(context), // ⬅️ KEMBALI KE HOME
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
-            shape: BoxShape.circle,
-          ),
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 22,
-          ),
-        ),
-      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () =>
+                                Navigator.pop(context), // ⬅️ KEMBALI KE HOME
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                                size: 22,
+                              ),
+                            ),
+                          ),
 
-      const SizedBox(width: 12),
+                          const SizedBox(width: 12),
 
-      const Text(
-        "SCAN",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ],
-  ),
-),
-
+                          const Text(
+                            "SCAN",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
 
                     const Text(
                       "Scan your skin here",
@@ -77,7 +80,6 @@ class CameraView extends StatelessWidget {
                     const SizedBox(height: 48),
 
                     // 📷 SCAN FRAME (PERSEGI 1:1, CAMERA NORMAL)
-                    
                     Expanded(
                       flex: 8,
                       child: Padding(
@@ -107,7 +109,10 @@ class CameraView extends StatelessWidget {
 
                             // 🔄 SWITCH CAMERA
                             Positioned(
-                              top: 16, right: 16, child: switchCameraButton,),
+                              top: 16,
+                              right: 16,
+                              child: switchCameraButton,
+                            ),
                           ],
                         ),
                       ),
