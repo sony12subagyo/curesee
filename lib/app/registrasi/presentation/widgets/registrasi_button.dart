@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/registrasi_bloc.dart';
-
 import '../bloc/registrasi_state.dart';
 
 class RegistrasiButton extends StatelessWidget {
@@ -39,21 +38,29 @@ class RegistrasiButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-
             onPressed: isLoading
                 ? null
                 : () {
+                    if (nameC.text.isEmpty ||
+                        emailC.text.isEmpty ||
+                        genderC.text.isEmpty ||
+                        ageC.text.isEmpty ||
+                        passC.text.isEmpty) {
+                      _showMessage(context, 'Semua field wajib diisi');
+                      return;
+                    }
+
                     context.read<RegistrasiBloc>().add(
                       RegistrasiSubmitted(
-                        name: nameC.text,
-                        email: emailC.text,
-                        gender: genderC.text,
+                        name: nameC.text.trim(),
+                        email: emailC.text.trim(),
+                        gender: genderC.text.trim(),
                         age: int.tryParse(ageC.text) ?? 0,
-                        password: passC.text,
+                        password: passC.text.trim(),
                       ),
                     );
                   },
-            child: state is RegistrasiLoading
+            child: isLoading
                 ? const SizedBox(
                     width: 20,
                     height: 20,
@@ -64,14 +71,17 @@ class RegistrasiButton extends StatelessWidget {
                   )
                 : const Text(
                     'Create your account',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
           ),
         );
       },
     );
+  }
+
+  void _showMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 }

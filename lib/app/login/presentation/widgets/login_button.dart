@@ -21,7 +21,6 @@ class LoginButton extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          // 🔥 PEMBEDA USER & ADMIN
           if (state.role == 'user') {
             Navigator.pushReplacement(
               context,
@@ -36,9 +35,7 @@ class LoginButton extends StatelessWidget {
         }
 
         if (state is LoginFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+          _showMessage(context, state.message);
         }
       },
       builder: (context, state) {
@@ -48,11 +45,24 @@ class LoginButton extends StatelessWidget {
             onPressed: state is LoginLoading
                 ? null
                 : () {
+                    final email = emailController.text.trim();
+                    final password = passwordController.text.trim();
+                    if (email.isEmpty && password.isEmpty) {
+                      _showMessage(context, 'Email dan sandi harap diisi');
+                      return;
+                    }
+
+                    if (email.isEmpty) {
+                      _showMessage(context, 'Email harap diisi');
+                      return;
+                    }
+
+                    if (password.isEmpty) {
+                      _showMessage(context, 'Sandi harap diisi');
+                      return;
+                    }
                     context.read<LoginBloc>().add(
-                      LoginSubmitted(
-                        emailController.text.trim(),
-                        passwordController.text.trim(),
-                      ),
+                      LoginSubmitted(email, password),
                     );
                   },
             style: ElevatedButton.styleFrom(
@@ -79,5 +89,11 @@ class LoginButton extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _showMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 }
