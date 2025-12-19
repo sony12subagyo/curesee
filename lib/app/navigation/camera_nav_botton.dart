@@ -1,35 +1,42 @@
-// class CameraNavButton extends StatelessWidget {
-//   final VoidCallback onTap;
+import 'package:flutter/material.dart';
 
-//   const CameraNavButton({super.key, required this.onTap});
+class CameraNavButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final Color color;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Positioned(
-//       bottom: 20,
-//       child: GestureDetector(
-//         onTap: onTap,
-//         child: Container(
-//           width: 64,
-//           height: 64,
-//           decoration: const BoxDecoration(
-//             shape: BoxShape.circle,
-//             color: Color.fromARGB(255, 0, 128, 255),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.black26,
-//                 blurRadius: 8,
-//                 offset: Offset(0, 4),
-//               ),
-//             ],
-//           ),
-//           child: const Icon(
-//             Icons.camera_alt,
-//             color: Colors.white,
-//             size: 30,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  const CameraNavButton({
+    super.key,
+    required this.onTap,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 20,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 64,
+          height: 64,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color,
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 8,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: const Icon(
+            Icons.camera_alt,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+      ),
+    );
+  }
+}

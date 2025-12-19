@@ -141,6 +141,7 @@
 // }
 
 
+import 'package:curesee/app/navigation/camera_nav_botton.dart';
 import 'package:flutter/material.dart';
 import 'nav_item.dart';
 
@@ -166,7 +167,10 @@ class BottomNav extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           children: [
             _buildBar(),
-            _buildCameraButton(),
+            CameraNavButton(
+              color: _primaryColor,
+              onTap: () => onTap(-1), // index khusus kamera
+            ),
           ],
         ),
       ),
@@ -223,34 +227,6 @@ class BottomNav extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildCameraButton() {
-    return Positioned(
-      bottom: 20,
-      child: GestureDetector(
-        onTap: () => onTap(-1), // khusus kamera
-        child: Container(
-          width: 64,
-          height: 64,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _primaryColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 8,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: const Icon(
-            Icons.camera_alt,
-            color: Colors.white,
-            size: 30,
-          ),
-        ),
-      ),
-    );
-  }
 }
+
 
