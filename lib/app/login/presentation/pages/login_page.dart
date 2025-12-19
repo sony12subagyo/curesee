@@ -1,13 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:curesee/responsive_desain/responsive_layout.dart';
 import 'package:curesee/app/registrasi/data/data_source/registrasi_remote_data_source.dart';
 import 'package:curesee/app/registrasi/data/repositories/registrasi_repository_impl.dart';
 import 'package:curesee/app/registrasi/domain/use_case/registrasi_use_case.dart';
 import 'package:curesee/app/registrasi/presentation/bloc/registrasi_bloc.dart';
 import 'package:curesee/app/registrasi/presentation/pages/registrasi_page.dart';
-import 'package:flutter/material.dart';
-import 'package:curesee/app/login/presentation/widgets/login_header.dart';
-import 'package:curesee/app/login/presentation/widgets/login_form.dart';
-import 'package:curesee/app/login/presentation/widgets/login_button.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../widgets/login_header.dart';
+import '../widgets/login_form.dart';
+import '../widgets/login_button.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -17,21 +18,12 @@ class LoginPage extends StatelessWidget {
     final emailC = TextEditingController();
     final passC = TextEditingController();
 
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFBEE3F8), Color(0xFFFFFFFF)],
-          ),
-        ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+    Widget content(double maxWidth) => Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxWidth),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 80),
               const LoginHeader(),
@@ -41,12 +33,8 @@ class LoginPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0xFF4CA6FE),
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    ),
+                  boxShadow: const [
+                    BoxShadow(color: Colors.black12, blurRadius: 10),
                   ],
                 ),
                 child: Column(
@@ -71,23 +59,21 @@ class LoginPage extends StatelessWidget {
                   const Text('Do you have not account?'),
                   const SizedBox(width: 4),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => BlocProvider(
-                            create: (_) => RegistrasiBloc(
-                              RegistrasiUseCase(
-                                RegistrasiRepositoryImpl(
-                                  DummyRegistrasiRemoteDataSource(),
-                                ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BlocProvider(
+                          create: (_) => RegistrasiBloc(
+                            RegistrasiUseCase(
+                              RegistrasiRepositoryImpl(
+                                DummyRegistrasiRemoteDataSource(),
                               ),
                             ),
-                            child: const RegistrasiPage(),
                           ),
+                          child: const RegistrasiPage(),
                         ),
-                      );
-                    },
+                      ),
+                    ),
                     child: const Text(
                       'Create here',
                       style: TextStyle(
@@ -98,11 +84,27 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-
               const SizedBox(height: 40),
               const Text('by KelompokSigma', style: TextStyle(fontSize: 12)),
             ],
           ),
+        ),
+      ),
+    );
+
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFBEE3F8), Color(0xFFFFFFFF)],
+          ),
+        ),
+        child: ResponsiveLayout(
+          mobile: content(double.infinity),
+          tablet: content(480),
+          desktop: content(420),
         ),
       ),
     );

@@ -32,12 +32,14 @@ class RegistrasiButton extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF0D6EFD),
+              backgroundColor: const Color(0xFF0A74FF),
+              foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 14),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
+
             onPressed: isLoading
                 ? null
                 : () {
@@ -51,18 +53,21 @@ class RegistrasiButton extends StatelessWidget {
                       ),
                     );
                   },
-            child: isLoading
+            child: state is RegistrasiLoading
                 ? const SizedBox(
-                    width: 22,
-                    height: 22,
+                    width: 20,
+                    height: 20,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Colors.white,
                     ),
                   )
                 : const Text(
                     'Create your account',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
           ),
         );
