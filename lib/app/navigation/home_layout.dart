@@ -11,40 +11,14 @@ class HomeLayout extends StatefulWidget {
   State<HomeLayout> createState() => _HomeLayoutState();
 }
 
-// class _HomeLayoutState extends State<HomeLayout> {
-//   int _currentIndex = 0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.transparent,
-
-//       body: BackgroundWrapper(
-//         child: IndexedStack(
-//           index: _currentIndex,
-//           children: AppPages.pages,
-//         ),
-//       ),
-
-//       bottomNavigationBar: BottomNav(
-//         currentIndex: _currentIndex,
-//         onTap: (index) => setState(() => _currentIndex = index),
-//       ),
-//     );
-//   }
-// }
-
 class _HomeLayoutState extends State<HomeLayout> {
   int _currentIndex = 0;
 
   void _onNavTap(int index) {
     if (index == -1) {
-      // 📷 CAMERA → PUSH PAGE (BUKAN TAB)
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => const CameraPage(),
-        ),
+        MaterialPageRoute(builder: (_) => const CameraPage()),
       );
       return;
     }
@@ -60,15 +34,12 @@ class _HomeLayoutState extends State<HomeLayout> {
       backgroundColor: Colors.transparent,
 
       body: BackgroundWrapper(
-        child: IndexedStack(
-          index: _currentIndex,
-          children: AppPages.pages,
-        ),
+        child: IndexedStack(index: _currentIndex, children: AppPages.pages),
       ),
 
       bottomNavigationBar: BottomNav(
         currentIndex: _currentIndex,
-        onTap: _onNavTap, // ⬅️ PAKAI METHOD BARU
+        onTap: _onNavTap,
       ),
     );
   }
