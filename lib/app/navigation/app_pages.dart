@@ -9,7 +9,7 @@ class AppPages {
   static final pages = <Widget>[
     BerandaPage(),
     HistoryPage(),
-    CameraPage(),
+    // CameraPage(),
     MorePage(),
     ProfilePage(),
   ];

@@ -53,14 +53,14 @@ Widget build(BuildContext context) {
                 _NavItem(
                   icon: Icons.more_horiz,
                   label: 'More',
-                  isActive: currentIndex == 3,
-                  onTap: () => onTap(3),
+                  isActive: currentIndex == 2,
+                  onTap: () => onTap(2),
                 ),
                 _NavItem(
                   icon: Icons.person,
                   label: 'Profil',
-                  isActive: currentIndex == 4,
-                  onTap: () => onTap(4),
+                  isActive: currentIndex == 3,
+                  onTap: () => onTap(3),
                 ),
               ],
             ),
@@ -69,7 +69,7 @@ Widget build(BuildContext context) {
           Positioned(
             bottom: 20,
             child: GestureDetector(
-              onTap: () => onTap(2),
+              onTap: () => onTap(-1),
               child: Container(
                 width: 64,
                 height: 64,
