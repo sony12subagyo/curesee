@@ -1,4 +1,4 @@
-import 'package:curesee/app/background_wrapper.dart';
+import 'package:curesee/app/navigation/background_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import '../widgets/camera_view.dart';

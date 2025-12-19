@@ -25,8 +25,8 @@ class FlashButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      color: Colors.white,
-      offset: const Offset(0, 40),
+      color: const Color.fromARGB(255, 255, 255, 255),
+      offset: const Offset(0, 30),
       onSelected: (value) {
         if (value == "auto") onFlashChanged(FlashMode.auto);
         if (value == "on") onFlashChanged(FlashMode.always);
@@ -38,7 +38,7 @@ class FlashButton extends StatelessWidget {
           color: Colors.white.withOpacity(0.25),
           shape: BoxShape.circle,
         ),
-        child: Icon(_flashIcon(), color: Colors.white, size: 28),
+        child: Icon(_flashIcon(), color: Colors.white, size: 30),
       ),
       itemBuilder: (_) => const [
         PopupMenuItem(value: "auto", child: Text("Auto")),

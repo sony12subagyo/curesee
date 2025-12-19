@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RegistrasiForm extends StatelessWidget {
+class RegistrasiForm extends StatefulWidget {
   final TextEditingController nameC;
   final TextEditingController emailC;
   final TextEditingController genderC;
@@ -15,6 +15,13 @@ class RegistrasiForm extends StatelessWidget {
     required this.ageC,
     required this.passC,
   });
+
+  @override
+  State<RegistrasiForm> createState() => _RegistrasiFormState();
+}
+
+class _RegistrasiFormState extends State<RegistrasiForm> {
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +39,11 @@ class RegistrasiForm extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        _input('Name', nameC),
-        _input('Email', emailC),
-        _input('Gender', genderC),
-        _input('Age', ageC, isNumber: true),
-        _input('Password', passC, isPassword: true),
+        _input('Name', widget.nameC),
+        _input('Email', widget.emailC),
+        _input('Gender', widget.genderC),
+        _input('Age', widget.ageC, isNumber: true),
+        _passwordInput(),
       ],
     );
   }
@@ -44,7 +51,6 @@ class RegistrasiForm extends StatelessWidget {
   Widget _input(
     String label,
     TextEditingController controller, {
-    bool isPassword = false,
     bool isNumber = false,
   }) {
     return Padding(
@@ -56,7 +62,6 @@ class RegistrasiForm extends StatelessWidget {
           const SizedBox(height: 6),
           TextField(
             controller: controller,
-            obscureText: isPassword,
             keyboardType: isNumber ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               filled: true,
@@ -65,6 +70,42 @@ class RegistrasiForm extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _passwordInput() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Password', style: TextStyle(color: Colors.white)),
+          const SizedBox(height: 6),
+          TextField(
+            controller: widget.passC,
+            obscureText: _obscurePassword,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              hintText: 'Enter your password',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
               ),
             ),
           ),

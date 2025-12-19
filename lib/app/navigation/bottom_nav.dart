@@ -1,35 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class BottomNav extends StatelessWidget {
-//   final int currentIndex;
-//   final Function(int) onTap;
-
-//   const BottomNav({
-//     super.key,
-//     required this.currentIndex,
-//     required this.onTap,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BottomNavigationBar(
-//       currentIndex: currentIndex,
-//       selectedItemColor: const Color.fromARGB(255, 0, 128, 255),
-//       backgroundColor: Colors.white,
-//       type: BottomNavigationBarType.fixed,
-//       items: const [
-//         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-//         BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-//         BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Scan"),
-//         BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: "More"),
-//         BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
-//       ],
-//       onTap: onTap,
-//     );
-//   }
-// }
-
-
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatelessWidget {
@@ -43,13 +11,14 @@ class BottomNav extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+Widget build(BuildContext context) {
+  return SafeArea(
+    top: false,
+    child: SizedBox(
       height: 90,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          // background bar
           Container(
             height: 65,
             decoration: const BoxDecoration(
@@ -60,8 +29,9 @@ class BottomNav extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black12,
-                  blurRadius: 10,
-                )
+                  blurRadius: 8,
+                  offset: Offset(0, -2),
+                ),
               ],
             ),
             child: Row(
@@ -79,7 +49,7 @@ class BottomNav extends StatelessWidget {
                   isActive: currentIndex == 1,
                   onTap: () => onTap(1),
                 ),
-                const SizedBox(width: 60), // space for scan button
+                const SizedBox(width: 60),
                 _NavItem(
                   icon: Icons.more_horiz,
                   label: 'More',
@@ -96,7 +66,6 @@ class BottomNav extends StatelessWidget {
             ),
           ),
 
-          // scan button (floating)
           Positioned(
             bottom: 20,
             child: GestureDetector(
@@ -104,28 +73,31 @@ class BottomNav extends StatelessWidget {
               child: Container(
                 width: 64,
                 height: 64,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color.fromARGB(255, 0, 128, 255),
-                  boxShadow: const [
+                  color: Color.fromARGB(255, 0, 128, 255),
+                  boxShadow: [
                     BoxShadow(
                       color: Colors.black26,
                       blurRadius: 8,
-                    )
+                      offset: Offset(0, 4),
+                    ),
                   ],
                 ),
                 child: const Icon(
-                  Icons.camera_sharp,
+                  Icons.camera_alt,
                   color: Colors.white,
-                  size: 45,
+                  size: 30,
                 ),
               ),
             ),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 }
 
 class _NavItem extends StatelessWidget {

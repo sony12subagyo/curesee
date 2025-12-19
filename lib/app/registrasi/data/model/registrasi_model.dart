@@ -1,4 +1,4 @@
-import 'package:curesee/features/registrasi/domain/entities/registrasi_entitity.dart';
+import 'package:curesee/app/registrasi/domain/entities/registrasi_entitity.dart';
 
 class RegistrasiModel extends RegistrasiEntity {
   RegistrasiModel({
