@@ -1,6 +1,8 @@
 import 'package:curesee/admin/features/blog/presentation/page/add_blog_page.dart';
 import 'package:curesee/admin/features/blog/presentation/widget/card_page_admin.dart';
 import 'package:curesee/users/features/beranda/presentation/pages/detail_information_page.dart';
+import 'package:curesee/admin/features/users/presentation/pages/admin_page.dart';
+import 'package:curesee/admin/app/navigation/background_wrapper.dart';
 import 'package:flutter/material.dart';
 
 class BlogPage extends StatelessWidget {
@@ -9,6 +11,32 @@ class BlogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // blog = aktif
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        backgroundColor: const Color(0xFF1EA3FF),
+        onTap: (index) {
+          if (index == 1) {
+            // contoh ke halaman admin account
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => AdminPage()),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.article),
+            label: 'Blog',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Account',
+          ),
+        ],
+      ),
       // ===== TOMBOL TAMBAH POJOK KANAN BAWAH =====
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF1EA3FF),
@@ -22,19 +50,7 @@ class BlogPage extends StatelessWidget {
         },
       ),
 
-      body: Container(
-        // ===== BACKGROUND GRADIENT BIRU - PUTIH =====
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF1EA3FF),
-              Color(0xFF7BC9FF),
-              Color(0xFFEAF7FF),
-            ],
-          ),
-        ),
+      body: BackgroundWrapper(
         child: SafeArea(
           child: Column(
             children: [

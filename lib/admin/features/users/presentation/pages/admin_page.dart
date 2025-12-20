@@ -1,6 +1,7 @@
 import 'package:curesee/admin/features/users/data/dummy_user.dart';
 import 'package:curesee/app/navigation/background_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
 import '../widgets/total_user_card.dart';
 import '../widgets/user_card.dart';
 
@@ -10,11 +11,41 @@ class AdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // blog = aktif
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        backgroundColor: const Color(0xFF1EA3FF),
+        onTap: (index) {
+          if (index == 1) {
+            // contoh ke halaman admin account
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => AdminPage()),
+            );
+          } else if (index == 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const BlogPage()),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.article),
+            label: 'Blog',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Account',
+          ),
+        ],
+      ),
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Information Account User'),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
       ),
       body: BackgroundWrapper(

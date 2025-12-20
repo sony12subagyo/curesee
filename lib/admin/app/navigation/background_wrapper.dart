@@ -13,7 +13,7 @@ class BackgroundWrapper extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/bg1.png'),
+          image: AssetImage('assets/images/bg1.jpg'),
           fit: BoxFit.cover,
         ),
       ),
