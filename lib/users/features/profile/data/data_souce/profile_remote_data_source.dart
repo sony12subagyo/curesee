@@ -18,7 +18,7 @@ class ProfileRemoteDataSource {
           name: item['name'] ?? "",
           gender: item['gender'] ?? "",
           email: item['email'] ?? "",
-          ege: int.tryParse(item['ege']?.toString() ?? "0") ?? 0,
+          age: int.tryParse(item['age']?.toString() ?? "0") ?? 0,
         );
       }).toList();
     } else {
@@ -35,7 +35,7 @@ class ProfileRemoteDataSource {
         "name": fp.name,
         "gender": fp.gender,
         "email": fp.email,
-        "ege": fp.ege,
+        "age": fp.age,
       }),
     );
     if (response.statusCode != 200) {

@@ -3,28 +3,28 @@ class Profile {
   final String name;
   final String gender;
   final String email;
-  final int ege;
+  final int age;
 
   Profile({
     required this.userid,
     required this.name,
     required this.gender,
     required this.email,
-    required this.ege,
+    required this.age,
   });
   Profile copyWith({
     int? userid,
     String? name,
     String? gender,
     String? email,
-    int? ege,
+    int? age,
   }) {
     return Profile(
       userid: userid ?? this.userid,
       name: name ?? this.name,
       gender: gender ?? this.gender,
       email: email ?? this.email,
-      ege: ege ?? this.ege,
+      age: age ?? this.age,
     );
   }
 }
