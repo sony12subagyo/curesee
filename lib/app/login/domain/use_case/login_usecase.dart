@@ -5,7 +5,8 @@ class LoginUsecase {
 
   LoginUsecase(this.repository);
 
-  Future<Map<String, dynamic>> execute(String email, String password) {
-    return repository.login(email, password);
+  Future<String> loginAndGetRole(String email, String password) async {
+    final token = await repository.login(email, password);
+    return repository.fetchRole(token);
   }
 }
