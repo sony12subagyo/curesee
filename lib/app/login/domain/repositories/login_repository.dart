@@ -1,3 +1,4 @@
 abstract class LoginRepository {
-  Future<Map<String, dynamic>> login(String email, String password);
+  Future<String> login(String email, String password);
+  Future<String> fetchRole(String token);
 }

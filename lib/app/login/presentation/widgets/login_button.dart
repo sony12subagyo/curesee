@@ -1,10 +1,10 @@
-import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
 import '../../../navigation/home_layout.dart';
+import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
 
 class LoginButton extends StatelessWidget {
   final TextEditingController emailController;
@@ -21,15 +21,15 @@ class LoginButton extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          if (state.role == 'user') {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => const HomeLayout()),
-            );
-          } else if (state.role == 'admin') {
+          if (state.role == 'admin') {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (_) => const BlogPage()),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const HomeLayout()),
             );
           }
         }
@@ -47,20 +47,20 @@ class LoginButton extends StatelessWidget {
                 : () {
                     final email = emailController.text.trim();
                     final password = passwordController.text.trim();
+
                     if (email.isEmpty && password.isEmpty) {
                       _showMessage(context, 'Email dan sandi harap diisi');
                       return;
                     }
-
                     if (email.isEmpty) {
                       _showMessage(context, 'Email harap diisi');
                       return;
                     }
-
                     if (password.isEmpty) {
                       _showMessage(context, 'Sandi harap diisi');
                       return;
                     }
+
                     context.read<LoginBloc>().add(
                       LoginSubmitted(email, password),
                     );
