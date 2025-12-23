@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "576869970938",
+    "project_id": "webapicuresee",
+    "storage_bucket": "webapicuresee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576869970938:android:14ebbc01ac9c86a9e3ea43",
+        "android_client_info": {
+          "package_name": "com.example.curesee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_sZ-gPCgbTqnvx5i4BI-1TolyD7K6pdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
