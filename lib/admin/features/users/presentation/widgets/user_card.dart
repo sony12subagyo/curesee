@@ -49,11 +49,40 @@ class UserCard extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.red),
             onPressed: () {
-              // UI only (no backend)
+              _showDeleteConfirmation(context);
             },
           ),
         ],
       ),
+    );
+  }
+
+  void _showDeleteConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Hapus'),
+          content: Text(
+            'Apakah anda yakin akan menghapus akun ${user.name}?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Tutup dialog
+              },
+              child: const Text('Tidak'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // nanti logic delete di sini
+                Navigator.pop(context); // Tutup dialog
+              },
+              child: const Text('Ya'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/responsive_desain/responsive_layout.dart';
-import 'package:curesee/app/registrasi/data/data_source/registrasi_remote_data_source.dart';
-import 'package:curesee/app/registrasi/data/repositories/registrasi_repository_impl.dart';
-import 'package:curesee/app/registrasi/domain/use_case/registrasi_use_case.dart';
-import 'package:curesee/app/registrasi/presentation/bloc/registrasi_bloc.dart';
-import 'package:curesee/app/registrasi/presentation/pages/registrasi_page.dart';
 import '../widgets/login_header.dart';
 import '../widgets/login_form.dart';
 import '../widgets/login_button.dart';
@@ -52,38 +46,6 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Do you have not account?'),
-                  const SizedBox(width: 4),
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => BlocProvider(
-                          create: (_) => RegistrasiBloc(
-                            RegistrasiUseCase(
-                              RegistrasiRepositoryImpl(
-                                DummyRegistrasiRemoteDataSource(),
-                              ),
-                            ),
-                          ),
-                          child: const RegistrasiPage(),
-                        ),
-                      ),
-                    ),
-                    child: const Text(
-                      'Create here',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               const SizedBox(height: 40),
               const Text('by KelompokSigma', style: TextStyle(fontSize: 12)),
             ],
@@ -98,7 +60,7 @@ class LoginPage extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFFBEE3F8), Color(0xFFFFFFFF)],
+            colors: [Color(0xFFBEE3F8), Colors.white],
           ),
         ),
         child: ResponsiveLayout(

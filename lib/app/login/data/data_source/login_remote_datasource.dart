@@ -1,15 +1,35 @@
-class DummyLoginDataSource {
-  Future<Map<String, dynamic>> login(String email, String password) async {
-    await Future.delayed(const Duration(seconds: 1));
+import 'package:firebase_auth/firebase_auth.dart';
 
-    if (email == "user@gmail.com" && password == "123") {
-      return {"email": email, "role": "user"};
+class LoginRemoteDataSource {
+  final FirebaseAuth _auth;
+
+  LoginRemoteDataSource({FirebaseAuth? auth})
+      : _auth = auth ?? FirebaseAuth.instance;
+
+  /// Login ke Firebase dan return ID TOKEN (JWT)
+  Future<String> login(String email, String password) async {
+    final UserCredential credential =
+        await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    final User? user = credential.user;
+    if (user == null) {
+      throw Exception('User Firebase tidak ditemukan');
     }
 
-    if (email == "admin@gmail.com" && password == "123") {
-      return {"email": email, "role": "admin"};
+    final String? token = await user.getIdToken();
+    if (token == null || token.isEmpty) {
+      throw Exception('Firebase ID Token kosong');
     }
 
-    throw Exception("Email atau password salah!");
+    return token;
   }
+
+  Future<void> logout() async {
+    await _auth.signOut();
+  }
+
+  User? get currentUser => _auth.currentUser;
 }

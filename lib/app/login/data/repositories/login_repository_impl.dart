@@ -1,16 +1,42 @@
-import 'package:curesee/app/login/data/data_source/login_remote_datasource.dart';
-import 'package:curesee/app/login/domain/repositories/login_repository.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+import '../data_source/login_remote_datasource.dart';
+import '../../domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
-  final DummyLoginDataSource dataSource;
+  final LoginRemoteDataSource remote;
 
-  LoginRepositoryImpl(this.dataSource);
+  LoginRepositoryImpl(this.remote);
 
   @override
-  Future<Map<String, dynamic>> login(
-    String email,
-    String password,
-  ) {
-    return dataSource.login(email, password);
+  Future<String> login(String email, String password) async {
+    return await remote.login(email, password);
+  }
+
+  @override
+  Future<String> fetchRole(String token) async {
+    final response = await http.get(
+      Uri.parse('https://d99c7493d460.ngrok-free.app/api/profile'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Gagal mengambil role (${response.statusCode}): ${response.body}',
+      );
+    }
+
+    final Map<String, dynamic> data =
+        jsonDecode(response.body) as Map<String, dynamic>;
+
+    if (!data.containsKey('role') || data['role'] == null) {
+      throw Exception('Response tidak memiliki field role');
+    }
+
+    return data['role'] as String;
   }
 }

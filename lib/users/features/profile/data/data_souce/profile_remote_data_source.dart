@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:curesee/users/features/profile/domain/entities/profil.dart';
 import 'package:http/http.dart' as http;
 
-final String baseUrl = "https://64ebb2d09652.ngrok-free.app/User";
+final String baseUrl = "https://594a14bebfdf.ngrok-free.app/User";
 
 class ProfileRemoteDataSource {
   Future<List<Profile>> getAllProfile() async {
@@ -18,7 +18,7 @@ class ProfileRemoteDataSource {
           name: item['name'] ?? "",
           gender: item['gender'] ?? "",
           email: item['email'] ?? "",
-          ege: int.tryParse(item['ege']?.toString() ?? "0") ?? 0,
+          age: int.tryParse(item['age']?.toString() ?? "0") ?? 0,
         );
       }).toList();
     } else {
@@ -35,7 +35,7 @@ class ProfileRemoteDataSource {
         "name": fp.name,
         "gender": fp.gender,
         "email": fp.email,
-        "ege": fp.ege,
+        "age": fp.age,
       }),
     );
     if (response.statusCode != 200) {

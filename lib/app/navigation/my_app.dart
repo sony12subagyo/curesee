@@ -1,9 +1,5 @@
-import 'package:curesee/app/navigation/home_layout.dart';
-import 'package:curesee/app/navigation/app_pages.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../login/presentation/bloc/login_bloc.dart';
 import '../login/domain/use_case/login_usecase.dart';
 import '../login/data/data_source/login_remote_datasource.dart';
@@ -15,12 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataSource = DummyLoginDataSource();
-    final repo = LoginRepositoryImpl(dataSource);
-    final usecase = LoginUsecase(repo);
+    final remoteDataSource = LoginRemoteDataSource();
+    final repository = LoginRepositoryImpl(remoteDataSource);
+    final loginUsecase = LoginUsecase(repository);
 
     return BlocProvider(
-      create: (_) => LoginBloc(usecase),
+      create: (_) => LoginBloc(loginUsecase),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: LoginPage(),
@@ -28,18 +24,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'home_layout.dart';
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: const HomeLayout(),
-//     );
-//   }
-// }

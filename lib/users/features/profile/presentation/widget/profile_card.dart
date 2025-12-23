@@ -37,7 +37,7 @@ class ProfileCard extends StatelessWidget {
 
                 Text(profile.gender, style: const TextStyle(fontSize: 16)),
                 Text(
-                  profile.ege.toString(),
+                  profile.age.toString(),
                   style: const TextStyle(fontSize: 16),
                 ),
                 Text(profile.email, style: const TextStyle(fontSize: 16)),
