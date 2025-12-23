@@ -1,6 +1,14 @@
+import 'dart:io';
+
 import 'package:curesee/app/navigation/background_wrapper.dart';
+import 'package:curesee/users/features/camera/data/data_source/mlkit_custom_model_datasource.dart';
+import 'package:curesee/users/features/camera/data/repositories/skin_detection_repository_impl.dart';
+import 'package:curesee/users/features/camera/domain/usecase/detect_skin_disease.dart';
+import 'package:curesee/users/features/camera/presentation/bloc/skin_detection_bloc.dart';
+import 'package:curesee/users/features/camera/presentation/bloc/skin_detection_event.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/camera_view.dart';
 import '../widgets/flash_button.dart';
 import '../widgets/switch_camera.dart';
@@ -64,12 +72,29 @@ class _CameraPageState extends State<CameraPage> {
 
     final image = await _controller!.takePicture();
 
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (_) => PreviewPage(imagePath: image.path),
+    //   ),
+    // );
+
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => PreviewPage(imagePath: image.path),
-      ),
-    );
+  context,
+  MaterialPageRoute(
+    builder: (_) => BlocProvider(
+      create: (_) => SkinDetectionBloc(
+        DetectSkinDisease(
+          SkinDetectionRepositoryImpl(
+            MlKitCustomModelDatasource(),
+          ),
+        ),
+      )..add(DetectSkinFromImage(File(image.path))),
+      child: PreviewPage(imagePath: image.path),
+    ),
+  ),
+);
+
 
     await _initCamera(_selectedCameraIndex);
   }
