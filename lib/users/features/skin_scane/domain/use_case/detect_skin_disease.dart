@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:curesee/users/features/camera/domain/reporitories/skin_detection_repository.dart';
+import 'package:curesee/users/features/skin_scane/domain/repositories/skin_detection_repository.dart';
 import '../entities/skin_detection_entity.dart';
 
 class DetectSkinDisease {

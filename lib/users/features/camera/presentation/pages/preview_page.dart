@@ -147,13 +147,12 @@
 //   }
 // }
 
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/skin_detection_bloc.dart';
-import '../bloc/skin_detection_state.dart';
+import '../../../skin_scane/presentation/skin_detection_bloc.dart';
+import '../../../skin_scane/presentation/skin_detection_state.dart';
 
 class PreviewPage extends StatelessWidget {
   final String imagePath;
@@ -179,9 +178,7 @@ class PreviewPage extends StatelessWidget {
               ),
             ),
 
-            // =======================
-            // HASIL DETEKSI
-            // =======================
+            //HASIL DETEKSI
             Expanded(
               flex: 2,
               child: Container(
@@ -189,25 +186,21 @@ class PreviewPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(24),
-                  ),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                 ),
                 child: BlocBuilder<SkinDetectionBloc, SkinDetectionState>(
                   builder: (context, state) {
                     if (state is SkinDetectionLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const Center(child: CircularProgressIndicator());
                     }
 
-                    if (state is SkinDetectionSuccess) {
+                    if (state is SkinDetectionLoaded) {
                       final result = state.result;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            result.diseaseName,
+                            result.mainDisease.toUpperCase(),
                             style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -215,19 +208,27 @@ class PreviewPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Confidence: ${(result.confidence * 100).toStringAsFixed(1)}%',
+                            'Confidence: ${(result.mainConfidence * 100).toStringAsFixed(1)}%',
                             style: const TextStyle(color: Colors.grey),
                           ),
                           const SizedBox(height: 12),
-                          Text(result.description),
-                          const SizedBox(height: 12),
-                          Text(
-                            'Saran:',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                          if (result.acneSubtype != null) ...[
+                            const Divider(),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Acne Type:',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          Text(result.suggestion),
+                            const SizedBox(height: 4),
+                            Text(
+                              result.acneSubtype!.toUpperCase(),
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                              'Subtype Confidence: ${(result.acneConfidence! * 100).toStringAsFixed(1)}%',
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
                         ],
                       );
                     }

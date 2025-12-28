@@ -1,18 +1,17 @@
 import 'dart:io';
 
 import 'package:curesee/app/navigation/background_wrapper.dart';
-import 'package:curesee/users/features/camera/data/data_source/mlkit_custom_model_datasource.dart';
-import 'package:curesee/users/features/camera/data/repositories/skin_detection_repository_impl.dart';
-import 'package:curesee/users/features/camera/domain/usecase/detect_skin_disease.dart';
-import 'package:curesee/users/features/camera/presentation/bloc/skin_detection_bloc.dart';
-import 'package:curesee/users/features/camera/presentation/bloc/skin_detection_event.dart';
+import 'package:curesee/users/features/skin_scane/data/repositories/skin_detection_repository_impl.dart';
+import 'package:curesee/users/features/skin_scane/domain/use_case/detect_skin_disease.dart';
+import 'package:curesee/users/features/skin_scane/presentation/skin_detection_bloc.dart';
+import 'package:curesee/users/features/skin_scane/presentation/skin_detection_event.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../widgets/camera_view.dart';
-import '../widgets/flash_button.dart';
-import '../widgets/switch_camera.dart';
-import '../widgets/capture_button.dart';
+import 'widgets/camera_view.dart';
+import 'widgets/flash_button.dart';
+import 'widgets/switch_camera.dart';
+import 'widgets/capture_button.dart';
 import 'preview_page.dart';
 
 class CameraPage extends StatefulWidget {
@@ -71,6 +70,8 @@ class _CameraPageState extends State<CameraPage> {
     if (_controller == null || !_controller!.value.isInitialized) return;
 
     final image = await _controller!.takePicture();
+    if (!mounted) return;
+
 
     // Navigator.push(
     //   context,
@@ -80,21 +81,18 @@ class _CameraPageState extends State<CameraPage> {
     // );
 
     Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (_) => BlocProvider(
-      create: (_) => SkinDetectionBloc(
-        DetectSkinDisease(
-          SkinDetectionRepositoryImpl(
-            MlKitCustomModelDatasource(),
-          ),
+      context,
+      MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => SkinDetectionBloc(
+            DetectSkinDisease(
+              SkinDetectionRepositoryImpl(),
+            ),
+          )..add(DetectSkinFromImage(File(image.path))),
+          child: PreviewPage(imagePath: image.path),
         ),
-      )..add(DetectSkinFromImage(File(image.path))),
-      child: PreviewPage(imagePath: image.path),
-    ),
-  ),
-);
-
+      ),
+    );
 
     await _initCamera(_selectedCameraIndex);
   }
@@ -110,9 +108,7 @@ class _CameraPageState extends State<CameraPage> {
             flashMode: _flashMode,
             onFlashChanged: _changeFlashMode,
           ),
-          switchCameraButton: SwitchCameraButton(
-            onSwitchCamera: _switchCamera,
-          ),
+          switchCameraButton: SwitchCameraButton(onSwitchCamera: _switchCamera),
           captureButton: CaptureButton(onCapture: _takePicture),
         ),
       ),

@@ -40,7 +40,6 @@ dependencies:
   camera: ^0.11.2+1
   flash: ^3.1.1
   tflite_flutter: ^0.12.1
-  google_mlkit_image_labeling: ^0.11.0
   image: ^4.7.2
   image_picker: ^1.0.4
   firebase_core: ^4.3.0
@@ -78,9 +77,8 @@ flutter:
     - assets/images/apk.png
     - assets/images/icon_curesee.png
     - assets/images/bg1.jpg
-    - assets/model/model.txt
-    - assets/model/dermnet_model_optimized.tflite
-
+    - assets/model/main_disease.tflite
+    - assets/model/acne_subtype.tflite
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

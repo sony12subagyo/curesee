@@ -1,3 +1,5 @@
+import 'package:curesee/app/navigation/home_layout.dart';
+import 'package:curesee/users/features/camera/presentation/pages/camera_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../login/presentation/bloc/login_bloc.dart';
