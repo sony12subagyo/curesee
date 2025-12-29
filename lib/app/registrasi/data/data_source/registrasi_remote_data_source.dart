@@ -12,7 +12,7 @@ class RegistrasiRemoteDataSource {
 
     final user = credential.user;
     if (user == null) {
-      throw Exception('Gagal membuat akun Firebase');
+      throw Exception('Gagal membuat akun');
     }
 
     // 🔥 KIRIM EMAIL VERIFIKASI KE GMAIL

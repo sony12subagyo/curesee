@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/responsive_desain/responsive_layout.dart';
 
+import '../../data/data_source/registrasi_remote_data_source.dart';
+import '../../data/repositories/registrasi_repository_impl.dart';
+import '../../domain/use_case/registrasi_use_case.dart';
 import '../bloc/registrasi_bloc.dart';
 import '../bloc/registrasi_state.dart';
 import '../widgets/registrasi_form.dart';
@@ -29,8 +32,6 @@ class RegistrasiPage extends StatelessWidget {
               const SizedBox(height: 60),
               const RegistrasiHeader(),
               const SizedBox(height: 24),
-
-              /// CARD FORM
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -64,7 +65,6 @@ class RegistrasiPage extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 40),
               const Text('by KelompokSigma', style: TextStyle(fontSize: 12)),
             ],
@@ -73,30 +73,45 @@ class RegistrasiPage extends StatelessWidget {
       ),
     );
 
-    return Scaffold(
-      body: BlocListener<RegistrasiBloc, RegistrasiState>(
-        listener: (context, state) {
-          if (state is RegistrasiSuccess) {
-            Navigator.pop(context);
-          }
-          if (state is RegistrasiFailure) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        },
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xFFBEE3F8), Colors.white],
+    return BlocProvider(
+      create: (_) => RegistrasiBloc(
+        RegistrasiUseCase(
+          RegistrasiRepositoryImpl(RegistrasiRemoteDataSource()),
+        ),
+      ),
+      child: Scaffold(
+        body: BlocListener<RegistrasiBloc, RegistrasiState>(
+          listener: (context, state) {
+            if (state is RegistrasiSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'Registrasi berhasil, cek email untuk verifikasi',
+                  ),
+                ),
+              );
+              Navigator.pop(context); // balik ke login
+            }
+
+            if (state is RegistrasiFailure) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFFBEE3F8), Colors.white],
+              ),
             ),
-          ),
-          child: ResponsiveLayout(
-            mobile: content(double.infinity),
-            tablet: content(520),
-            desktop: content(460),
+            child: ResponsiveLayout(
+              mobile: content(double.infinity),
+              tablet: content(520),
+              desktop: content(460),
+            ),
           ),
         ),
       ),

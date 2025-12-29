@@ -26,7 +26,6 @@ class RegistrasiHeader extends StatelessWidget {
         const Text(
           'Sign up and improve your health today',
           style: TextStyle(color: Colors.black54),
-          textAlign: TextAlign.center,
         ),
       ],
     );
