@@ -6,5 +6,10 @@ class RegistrasiModel extends RegistrasiEntity {
     required super.email,
     required super.gender,
     required super.age,
+    required super.password,
   });
+
+  Map<String, dynamic> toJson() {
+    return {'name': name, 'email': email, 'gender': gender, 'age': age};
+  }
 }
