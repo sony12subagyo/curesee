@@ -18,7 +18,14 @@ class LoginRepositoryImpl implements LoginRepository {
   Future<String> fetchRole(String token) async {
     final response = await http.get(
       Uri.parse('https://a9faa2a6661c.ngrok-free.app/api/profile'),
+<<<<<<< HEAD
       headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
+=======
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+      },
+>>>>>>> 6d1d96689f64c3456ae28dd746e1d555b8c76d7e
     );
 
     if (response.statusCode != 200) {
