@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
 
-class InformationHeader extends StatelessWidget {
-  const InformationHeader({super.key});
+class InformationHeaderAdd extends StatelessWidget {
+  final VoidCallback? onBack;
+
+  const InformationHeaderAdd({
+    super.key,
+    this.onBack,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text(
-            'Information Detail',
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          // ===== BACK BUTTON =====
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: onBack ?? () => Navigator.pop(context),
+          ),
+
+          const SizedBox(width: 8),
+
+          // ===== TITLE =====
+          const Text(
+            'Add Information',
             style: TextStyle(
+              color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
-          ),
-          SizedBox(height: 6),
-          Text(
-            'Admin dapat mengedit atau menghapus informasi.',
-            style: TextStyle(color: Colors.grey),
           ),
         ],
       ),

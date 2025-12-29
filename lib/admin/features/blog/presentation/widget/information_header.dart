@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class InformationHeader extends StatelessWidget {
+class InformationHeaderAdd extends StatelessWidget {
   final String title;
   final VoidCallback? onBack;
 
-  const InformationHeader({
+  const InformationHeaderAdd({
     super.key,
     this.title = 'INFORMATION',
     this.onBack,

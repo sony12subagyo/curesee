@@ -1,17 +1,36 @@
 import 'dart:io';
 
-abstract class AddImageState {}
+class AddImageState {
+  final File? image;
+  final bool isLoading;
+  final String? errorMessage;
 
-class AddImageInitial extends AddImageState {}
+  const AddImageState({
+    this.image,
+    this.isLoading = false,
+    this.errorMessage,
+  });
 
-class AddImageLoading extends AddImageState {}
+  AddImageState copyWith({
+    File? image,
+    bool? isLoading,
+    String? errorMessage,
+  }) {
+    return AddImageState(
+      image: image ?? this.image,
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage,
+    );
+  }
+}
 
+class AddImageInitial extends AddImageState{}
+class AddImageLoading extends AddImageState{}
 class AddImageSuccess extends AddImageState {
-  final File image;
-  AddImageSuccess(this.image);
-}
-
+   final File image; 
+   AddImageSuccess(this.image);
+    }
 class AddImageFailure extends AddImageState {
-  final String message;
-  AddImageFailure(this.message);
-}
+   final String message;
+    AddImageFailure(this.message);
+     }

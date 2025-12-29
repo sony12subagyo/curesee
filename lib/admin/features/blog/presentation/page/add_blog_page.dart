@@ -1,7 +1,8 @@
-import 'package:curesee/admin/features/blog/presentation/widget/actions_buttons.dart';
-import 'package:curesee/admin/features/blog/presentation/widget/description_page.dart';
-import 'package:curesee/admin/features/blog/presentation/widget/add_image.dart';
-import 'package:curesee/admin/features/blog/presentation/widget/information_header.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog%20add/actions_buttons.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog%20add/add_image.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog%20add/description_page.dart';
+
+import 'package:curesee/admin/features/blog/presentation/widget/information_header_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +38,7 @@ class AddBlogPage extends StatelessWidget {
           child: SafeArea(
             child: Column(
               children: const [
-                InformationHeader(),
+                InformationHeaderAdd(),
                 SizedBox(height: 16),
 
                 ImagePickerCard(), // ✅ SEKARANG AMAN

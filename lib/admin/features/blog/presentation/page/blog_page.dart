@@ -1,6 +1,6 @@
 import 'package:curesee/admin/features/blog/presentation/page/add_blog_page.dart';
-import 'package:curesee/admin/features/blog/presentation/widget/card_page_admin.dart';
-import 'package:curesee/users/features/beranda/presentation/pages/detail_information_page.dart';
+import 'package:curesee/admin/features/blog/presentation/page/edit_blog.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog%20widget/card_page_admin.dart';
 import 'package:curesee/admin/features/users/presentation/pages/admin_page.dart';
 import 'package:curesee/admin/app/navigation/background_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class BlogPage extends StatelessWidget {
           ),
         ],
       ),
-      // ===== TOMBOL TAMBAH POJOK KANAN BAWAH =====
+      // tombol buat tambah
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF1EA3FF),
         child: const Icon(Icons.add, color: Colors.white),
@@ -99,7 +99,7 @@ class BlogPage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => DetailInformationPage(
+                                  builder: (_) => EditBlogPage(
                                     title: title,
                                     description: subtitle,
                                     imageUrl: imageUrl,
