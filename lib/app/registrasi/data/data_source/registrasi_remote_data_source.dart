@@ -1,26 +1,24 @@
-import '../model/registrasi_model.dart';
+import 'package:curesee/app/registrasi/domain/entities/registrasi_entitity.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class RegistrasiRemoteDataSource {
-  Future<RegistrasiModel> registrasi({
-    required String name,
-    required String email,
-    required String gender,
-    required int age,
-    required String password,
-  });
-}
+class RegistrasiRemoteDataSource {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class DummyRegistrasiRemoteDataSource implements RegistrasiRemoteDataSource {
-  @override
-  Future<RegistrasiModel> registrasi({
-    required String name,
-    required String email,
-    required String gender,
-    required int age,
-    required String password,
-  }) async {
-    await Future.delayed(const Duration(seconds: 1));
+  Future<void> register(RegistrasiEntity entity) async {
+    final credential = await _auth.createUserWithEmailAndPassword(
+      email: entity.email,
+      password: entity.password,
+    );
 
-    return RegistrasiModel(name: name, email: email, gender: gender, age: age);
+    final user = credential.user;
+    if (user == null) {
+      throw Exception('Gagal membuat akun Firebase');
+    }
+
+    // 🔥 KIRIM EMAIL VERIFIKASI KE GMAIL
+    await user.sendEmailVerification();
+
+    // Optional: update display name
+    await user.updateDisplayName(entity.name);
   }
 }
