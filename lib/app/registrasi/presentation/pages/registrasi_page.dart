@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/responsive_desain/responsive_layout.dart';
-
 import '../../data/data_source/registrasi_remote_data_source.dart';
 import '../../data/repositories/registrasi_repository_impl.dart';
 import '../../domain/use_case/registrasi_use_case.dart';
@@ -16,11 +15,15 @@ class RegistrasiPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+
     final nameC = TextEditingController();
     final emailC = TextEditingController();
-    final genderC = TextEditingController();
     final ageC = TextEditingController();
     final passC = TextEditingController();
+
+    /// 🔥 GENDER VIA RADIO
+    final gender = ValueNotifier<String?>(null);
 
     Widget content(double maxWidth) => Center(
       child: SingleChildScrollView(
@@ -32,6 +35,8 @@ class RegistrasiPage extends StatelessWidget {
               const SizedBox(height: 60),
               const RegistrasiHeader(),
               const SizedBox(height: 24),
+
+              /// CARD FORM
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -45,26 +50,32 @@ class RegistrasiPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    RegistrasiForm(
-                      nameC: nameC,
-                      emailC: emailC,
-                      genderC: genderC,
-                      ageC: ageC,
-                      passC: passC,
-                    ),
-                    const SizedBox(height: 20),
-                    RegistrasiButton(
-                      nameC: nameC,
-                      emailC: emailC,
-                      genderC: genderC,
-                      ageC: ageC,
-                      passC: passC,
-                    ),
-                  ],
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      RegistrasiForm(
+                        formKey: formKey,
+                        nameC: nameC,
+                        emailC: emailC,
+                        ageC: ageC,
+                        passC: passC,
+                        gender: gender,
+                      ),
+                      const SizedBox(height: 20),
+                      RegistrasiButton(
+                        formKey: formKey,
+                        nameC: nameC,
+                        emailC: emailC,
+                        ageC: ageC,
+                        passC: passC,
+                        gender: gender,
+                      ),
+                    ],
+                  ),
                 ),
               ),
+
               const SizedBox(height: 40),
               const Text('by KelompokSigma', style: TextStyle(fontSize: 12)),
             ],
@@ -90,7 +101,7 @@ class RegistrasiPage extends StatelessWidget {
                   ),
                 ),
               );
-              Navigator.pop(context); // balik ke login
+              Navigator.pop(context);
             }
 
             if (state is RegistrasiFailure) {
