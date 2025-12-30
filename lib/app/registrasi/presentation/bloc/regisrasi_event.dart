@@ -1,14 +1,9 @@
+import 'package:curesee/app/registrasi/domain/entities/registrasi_entitity.dart';
+
 abstract class RegistrasiEvent {}
 
 class RegistrasiSubmitted extends RegistrasiEvent {
-  final String name, email, gender, password;
-  final int age;
+  final RegistrasiEntity entity;
 
-  RegistrasiSubmitted({
-    required this.name,
-    required this.email,
-    required this.gender,
-    required this.age,
-    required this.password,
-  });
+  RegistrasiSubmitted(this.entity);
 }

@@ -1,8 +1,9 @@
+import 'package:curesee/app/registrasi/domain/entities/registrasi_entitity.dart';
+import 'package:curesee/app/registrasi/presentation/bloc/regisrasi_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/registrasi_bloc.dart';
 import '../bloc/registrasi_state.dart';
-import '../bloc/regisrasi_event.dart';
 
 class RegistrasiButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -34,22 +35,28 @@ class RegistrasiButton extends StatelessWidget {
             onPressed: isLoading
                 ? null
                 : () {
-                    // ✅ VALIDASI FORM
+                    // 🔥 VALIDASI FORM
                     if (!formKey.currentState!.validate()) return;
 
-                    // ✅ VALIDASI GENDER
+                    // 🔥 VALIDASI GENDER
                     if (gender.value == null) {
-                      _showMessage(context, 'Gender wajib dipilih');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Pilih gender terlebih dahulu'),
+                        ),
+                      );
                       return;
                     }
 
                     context.read<RegistrasiBloc>().add(
                       RegistrasiSubmitted(
-                        name: nameC.text.trim(),
-                        email: emailC.text.trim(),
-                        gender: gender.value!, // male / female
-                        age: int.parse(ageC.text),
-                        password: passC.text.trim(),
+                        RegistrasiEntity(
+                          name: nameC.text.trim(),
+                          email: emailC.text.trim(),
+                          gender: gender.value!,
+                          age: int.parse(ageC.text),
+                          password: passC.text.trim(),
+                        ),
                       ),
                     );
                   },
@@ -62,8 +69,8 @@ class RegistrasiButton extends StatelessWidget {
             ),
             child: isLoading
                 ? const SizedBox(
-                    width: 20,
-                    height: 20,
+                    width: 22,
+                    height: 22,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
                       color: Colors.white,
@@ -80,11 +87,5 @@ class RegistrasiButton extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _showMessage(BuildContext context, String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
   }
 }
