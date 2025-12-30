@@ -5,9 +5,13 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final String role;
+  final String token;
+  final bool isAdmin;
 
-  LoginSuccess(this.role);
+  LoginSuccess({
+    required this.token,
+    required this.isAdmin,
+  });
 }
 
 class LoginFailure extends LoginState {

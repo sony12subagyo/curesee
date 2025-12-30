@@ -1,8 +1,11 @@
+// login_button.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
+
 import '../../../navigation/home_layout.dart';
 import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
 
@@ -16,12 +19,16 @@ class LoginButton extends StatelessWidget {
     required this.passwordController,
   });
 
+  bool _isAdminEmail(String email) {
+    return email.endsWith('@curesee.com'); // ✅ penentu admin
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          if (state.role == 'admin') {
+          if (state.isAdmin) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (_) => const BlogPage()),
@@ -48,22 +55,23 @@ class LoginButton extends StatelessWidget {
                     final email = emailController.text.trim();
                     final password = passwordController.text.trim();
 
-                    if (email.isEmpty && password.isEmpty) {
-                      _showMessage(context, 'Email dan sandi harap diisi');
-                      return;
-                    }
-                    if (email.isEmpty) {
-                      _showMessage(context, 'Email harap diisi');
-                      return;
-                    }
-                    if (password.isEmpty) {
-                      _showMessage(context, 'Sandi harap diisi');
+                    if (email.isEmpty || password.isEmpty) {
+                      _showMessage(
+                        context,
+                        'Email dan password wajib diisi',
+                      );
                       return;
                     }
 
-                    context.read<LoginBloc>().add(
-                      LoginSubmitted(email, password),
-                    );
+                    if (_isAdminEmail(email)) {
+                      context.read<LoginBloc>().add(
+                            LoginAdminPressed(email, password),
+                          );
+                    } else {
+                      context.read<LoginBloc>().add(
+                            LoginUserPressed(email, password),
+                          );
+                    }
                   },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),
@@ -92,8 +100,8 @@ class LoginButton extends StatelessWidget {
   }
 
   void _showMessage(BuildContext context, String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 }

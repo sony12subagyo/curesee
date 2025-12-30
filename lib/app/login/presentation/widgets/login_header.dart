@@ -1,3 +1,5 @@
+// login_header.dart
+import 'package:curesee/app/registrasi/presentation/pages/registrasi_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginHeader extends StatelessWidget {
@@ -37,6 +39,32 @@ class LoginHeader extends StatelessWidget {
         const Text(
           'Ready to scan your skin now? Log in!',
           textAlign: TextAlign.center,
+        ),
+
+        const SizedBox(height: 4),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Don\'t have an account? '),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const RegistrasiPage(),
+                  ),
+                );
+              },
+              child: const Text(
+                'Sign up now!',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+          ],
         ),
 
         const SizedBox(height: 16),

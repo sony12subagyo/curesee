@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+
 import '../login/presentation/bloc/login_bloc.dart';
-import '../login/domain/use_case/login_usecase.dart';
-import '../login/data/data_source/login_remote_datasource.dart';
-import '../login/data/repositories/login_repository_impl.dart';
+import '../login/domain/use_case/admin_login_usecase.dart';
+import '../login/domain/use_case/user_login_usecase.dart';
+
+import '../login/data/repositories/admin_login_repository_impl.dart';
+import '../login/data/repositories/user_login_repository_impl.dart';
+
 import '../login/presentation/pages/login_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,12 +16,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final remoteDataSource = LoginRemoteDataSource();
-    final repository = LoginRepositoryImpl(remoteDataSource);
-    final loginUsecase = LoginUsecase(repository);
+    /// ===== USER LOGIN =====
+    final userRepository = UserLoginRepositoryImpl();
+    final userLoginUsecase = UserLoginUsecase(userRepository);
+
+    /// ===== ADMIN LOGIN =====
+    final adminRepository = AdminLoginRepositoryImpl(
+      client: http.Client(),
+      baseUrl: 'https://a9faa2a6661c.ngrok-free.app/api',
+    );
+    final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 
     return BlocProvider(
-      create: (_) => LoginBloc(loginUsecase),
+      create: (_) => LoginBloc(
+        userLoginUsecase: userLoginUsecase,
+        adminLoginUsecase: adminLoginUsecase,
+      ),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: LoginPage(),

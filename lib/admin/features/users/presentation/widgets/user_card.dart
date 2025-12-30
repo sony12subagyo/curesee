@@ -1,12 +1,14 @@
+import 'package:curesee/admin/features/users/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
-import '../../domain/user_model.dart';
 
 class UserCard extends StatelessWidget {
-  final UserModel user;
+  final UserEntity user;
+  final VoidCallback onDelete;
 
   const UserCard({
     super.key,
     required this.user,
+    required this.onDelete,
   });
 
   @override
@@ -48,41 +50,35 @@ class UserCard extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: () {
-              _showDeleteConfirmation(context);
-            },
+            onPressed: () => _confirmDelete(context),
           ),
         ],
       ),
     );
   }
 
-  void _showDeleteConfirmation(BuildContext context) {
+  void _confirmDelete(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Konfirmasi Hapus'),
-          content: Text(
-            'Apakah anda yakin akan menghapus akun ${user.name}?',
+      builder: (_) => AlertDialog(
+        title: const Text('Konfirmasi Hapus'),
+        content: Text(
+          'Apakah anda yakin akan menghapus akun ${user.name}?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Tidak'),
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Tutup dialog
-              },
-              child: const Text('Tidak'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // nanti logic delete di sini
-                Navigator.pop(context); // Tutup dialog
-              },
-              child: const Text('Ya'),
-            ),
-          ],
-        );
-      },
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              onDelete(); // 🔥 DISPATCH KE BLOC
+            },
+            child: const Text('Ya'),
+          ),
+        ],
+      ),
     );
   }
 }
