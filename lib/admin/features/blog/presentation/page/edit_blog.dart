@@ -1,6 +1,6 @@
 
 import 'package:curesee/admin/features/blog/presentation/widget/blog%20edit/button_edit.dart';
-import 'package:curesee/admin/features/blog/presentation/widget/blog%20widget/card_edit_blog.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog%20edit/card_edit_blog.dart';
 import 'package:flutter/material.dart';
 
 

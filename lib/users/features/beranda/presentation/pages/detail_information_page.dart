@@ -1,3 +1,4 @@
+
 import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +42,7 @@ class DetailInformationPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: CardDetail(
+                    title: title,
                     imageUrl: imageUrl,
                     description: description,
                   ),

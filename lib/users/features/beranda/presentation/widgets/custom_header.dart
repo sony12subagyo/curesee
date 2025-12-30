@@ -1,16 +1,18 @@
+
+import 'package:curesee/users/features/profile/presentation/pages/profil_page.dart';
 import 'package:flutter/material.dart';
 
 class CustomHeader extends StatelessWidget {
   final String title;
   final String subtitle;
-  final String extraText;
+  // final String extraText;
   final ImageProvider avatar;
 
   const CustomHeader({
     Key? key,
     required this.title,
     required this.subtitle,
-    required this.extraText,
+    // required this.extraText,
     required this.avatar,
   }) : super(key: key);
 
@@ -23,17 +25,13 @@ class CustomHeader extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF2E9AFE), Color(0xFF1B7DE0)],
+          colors: [Color.fromARGB(255, 1, 132, 255), Color.fromARGB(255, 0, 123, 245)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 8,
-            offset: Offset(0, 3),
-          ),
+          BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(0, 3)),
         ],
       ),
       child: SafeArea(
@@ -41,7 +39,15 @@ class CustomHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
             children: [
-              CircleAvatar(radius: 28, backgroundImage: avatar),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfilPage()),
+                  );
+                },
+                child: CircleAvatar(radius: 28, backgroundImage: avatar),
+              ),
               const SizedBox(width: 12),
 
               // Teks
@@ -62,23 +68,22 @@ class CustomHeader extends StatelessWidget {
                     subtitle,
                     style: const TextStyle(
                       color: Color.fromARGB(179, 255, 255, 255),
-                      fontSize: 13,
-                      
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
-                    
                   ),
-                  const SizedBox(height: 6),
-                    Text(
-                      extraText,
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0.6,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    )
+                  // const SizedBox(height: 6),
+                  // Text(
+                  //   extraText,
+                  //   style: const TextStyle(
+                  //     color: Colors.white70,
+                  //     fontSize: 12,
+                  //     fontWeight: FontWeight.w800,
+                  //     letterSpacing: 0.6,
+                  //   ),
+                  //   maxLines: 2,
+                  //   overflow: TextOverflow.ellipsis,
+                  // ),
                 ],
               ),
             ],

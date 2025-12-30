@@ -1,6 +1,7 @@
+
+import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/card_page.dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/custom_header.dart';
-import 'package:curesee/users/features/beranda/presentation/pages/detail_information_page.dart';
 import 'package:flutter/material.dart';
 
 class BerandaPage extends StatelessWidget {
@@ -8,67 +9,128 @@ class BerandaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea( // karena tidak pakai Scaffold
-      child: Column(
-        children: [
-          CustomHeader(
-            title: 'Good Morning Alex',
-            subtitle: 'How are you today?',
-            extraText: 'ALEXANDER',
-            avatar: NetworkImage('https://i.pravatar.cc/150?img=3'),
-          ),
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final width = constraints.maxWidth;
 
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
+          // tampilan hp
+          if (width < 600) {
+            return Column(
               children: [
-                const SizedBox(height: 8),
+                _buildHeader(),
+                Expanded(child: _buildList(context)),
+              ],
+            );
+          }
 
-                const Text(
-                  'Information Skin Type',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          // tampilan tablet
+          if (width < 1024) {
+            return Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: [
+                      _buildHeader(),
+                      Expanded(child: _buildList(context)),
+                    ],
+                  ),
                 ),
-
-                // Generate 10 CardPage
-                ...List.generate(
-                  10,
-                  (index) {
-                    final imageUrl =
-                        'https://picsum.photos/id/${1015 + index}/800/400';
-                    final title = 'Kriteria Kulit #${index + 1}';
-                    final subtitle =
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ke-${index + 1}.';
-
-                    return Column(
-                      children: [
-                        CardPage(
-                          image: NetworkImage(imageUrl),
-                          title: title,
-                          subtitle: subtitle,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => DetailInformationPage(
-                                  title: title,
-                                  description: subtitle,
-                                  imageUrl: imageUrl,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-
-                        const SizedBox(height: 16),
-                      ],
-                    );
-                  },
+                Expanded(
+                  flex: 3,
+                  child: const Center(
+                    child: Text(
+                      'Select an article',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
                 ),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+
+        //  tampilan dekstop
+          return Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: [
+                    _buildHeader(),
+                    Expanded(child: _buildList(context)),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: const Center(
+                  child: Text(
+                    'Detail Content Area',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
+    );
+  }
+
+  // header
+  Widget _buildHeader() {
+    return CustomHeader(
+      title: 'Welcome to Curesee app',
+      subtitle: 'How are you today?',
+      // extraText: 'ALEXANDER',
+      avatar: const NetworkImage('https://i.pravatar.cc/150?img=3'),
+    );
+  }
+
+  // list
+  Widget _buildList(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        const SizedBox(height: 8),
+        const Text(
+          'Information Skin Type',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        const SizedBox(height: 12),
+
+        ...List.generate(10, (index) {
+          final imageUrl =
+              'https://picsum.photos/200/300';
+          final title = 'Blog Curesee ${index + 1}';
+          final subtitle =
+              'ini nanti isinya deskripsi tentang blog ya ';
+
+          return Column(
+            children: [
+              CardPage(
+                image: NetworkImage(imageUrl),
+                title: title,
+                subtitle: subtitle,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CardDetail(
+                        title: title,
+                        description: subtitle,
+                        imageUrl: imageUrl,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+            ],
+          );
+        }),
+      ],
     );
   }
 }

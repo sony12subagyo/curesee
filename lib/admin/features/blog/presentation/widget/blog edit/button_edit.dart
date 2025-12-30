@@ -22,22 +22,41 @@ class ButtonEdit extends StatelessWidget {
             child: const Text('Edit'),
           ),
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              _showDeleteDialog(context);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+       const SizedBox(width: 12),
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
               ),
+              onPressed: () {
+                // TODO: save action
+              },
+              child: const Text('Hapus',
+              style: TextStyle (color: Colors.white),) ,
+               
             ),
-            child: const Text('Delete'),
           ),
-        ),
+
+        const SizedBox(width: 12),
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
+              onPressed: () {
+                // TODO: save action
+              },
+              child: const Text('Simpan',
+              style: TextStyle (color: Colors.white),) ,
+               
+            ),
+          ),
       ],
     );
   }

@@ -2,7 +2,7 @@ import 'package:curesee/admin/features/blog/presentation/widget/blog%20add/actio
 import 'package:curesee/admin/features/blog/presentation/widget/blog%20add/add_image.dart';
 import 'package:curesee/admin/features/blog/presentation/widget/blog%20add/description_page.dart';
 
-import 'package:curesee/admin/features/blog/presentation/widget/information_header_page.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog%20add/information_header_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
