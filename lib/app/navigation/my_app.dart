@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     /// ===== ADMIN LOGIN =====
     final adminRepository = AdminLoginRepositoryImpl(
       client: http.Client(),
-      baseUrl: 'https://a9faa2a6661c.ngrok-free.app/api',
+      baseUrl: 'https://henrietta-unsized-tillie.ngrok-free.dev /api',
     );
     final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 

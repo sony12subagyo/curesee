@@ -102,7 +102,7 @@ class BerandaPage extends StatelessWidget {
 
         ...List.generate(10, (index) {
           final imageUrl =
-              'https://picsum.photos/200/300';
+              'https://picsum.photos/seed/picsum/200/300';
           final title = 'Blog Curesee ${index + 1}';
           final subtitle =
               'ini nanti isinya deskripsi tentang blog ya ';
