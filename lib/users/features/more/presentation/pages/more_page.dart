@@ -102,7 +102,7 @@ class MorePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
-            vertical: 16, // ⬅️ tambah dikit biar lebih lega
+            vertical: 16, 
           ),
           child: Row(
             children: [

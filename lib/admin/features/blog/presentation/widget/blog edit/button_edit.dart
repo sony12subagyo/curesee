@@ -1,63 +1,62 @@
 import 'package:flutter/material.dart';
 
 class ButtonEdit extends StatelessWidget {
-  const ButtonEdit({super.key});
+  final bool isEditing;
+  final VoidCallback onEdit;
+  final VoidCallback onCancel;
+  final VoidCallback onSave;
+
+  const ButtonEdit({
+    super.key,
+
+    required this.isEditing,
+    required this.onEdit,
+    required this.onCancel,
+    required this.onSave,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return GridView.count(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisSpacing: 12,
+      mainAxisSpacing: 12,
+      childAspectRatio: 3.5, // kontrol tinggi tombol
       children: [
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              // TODO: navigate to edit form
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1EA3FF),
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text('Edit'),
-          ),
-        ),
-       const SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-              ),
-              onPressed: () {
-                // TODO: save action
-              },
-              child: const Text('Hapus',
-              style: TextStyle (color: Colors.white),) ,
-               
-            ),
-          ),
+        _buildButton(text: 'Edit', onPressed: onEdit),
 
-        const SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-              ),
-              onPressed: () {
-                // TODO: save action
-              },
-              child: const Text('Simpan',
-              style: TextStyle (color: Colors.white),) ,
-               
-            ),
-          ),
+        _buildButton(
+          text: 'Hapus',
+          onPressed: () => _showDeleteDialog(context),
+        ),
+        _buildButton(
+          text: 'Batal',
+          backgroundColor: Colors.blue,
+          onPressed: onCancel,
+        ),
+        _buildButton(text: 'Simpan', onPressed: onSave),
       ],
+    );
+  }
+
+  Widget _buildButton({
+    required String text,
+    required VoidCallback onPressed,
+    Color backgroundColor = Colors.blue,
+  }) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      ),
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.white),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
@@ -74,13 +73,9 @@ class ButtonEdit extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              // TODO: trigger delete bloc
               Navigator.pop(context);
             },
-            child: const Text(
-              'Hapus',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
