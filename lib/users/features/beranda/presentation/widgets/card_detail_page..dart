@@ -20,11 +20,7 @@ class CardDetail extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1EA3FF),
-              Color(0xFF7BC9FF),
-              Color(0xFFEAF7FF),
-            ],
+            colors: [Color(0xFF1EA3FF), Color(0xFF7BC9FF), Color(0xFFEAF7FF)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -74,14 +70,11 @@ class CardDetail extends StatelessWidget {
                           width: double.infinity,
                           height: 200,
                           fit: BoxFit.cover,
-                          loadingBuilder:
-                              (context, child, loadingProgress) {
+                          loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return const SizedBox(
                               height: 200,
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
+                              child: Center(child: CircularProgressIndicator()),
                             );
                           },
                           errorBuilder: (context, error, stackTrace) {
@@ -89,10 +82,7 @@ class CardDetail extends StatelessWidget {
                               height: 200,
                               color: Colors.grey[300],
                               alignment: Alignment.center,
-                              child: const Icon(
-                                Icons.broken_image,
-                                size: 40,
-                              ),
+                              child: const Icon(Icons.broken_image, size: 40),
                             );
                           },
                         ),

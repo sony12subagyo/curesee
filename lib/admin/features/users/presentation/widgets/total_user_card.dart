@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class TotalUserCard extends StatelessWidget {
   final int totalUser;
 
-  const TotalUserCard({
-    super.key,
-    required this.totalUser,
-  });
+  const TotalUserCard({super.key, required this.totalUser});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +20,7 @@ class TotalUserCard extends StatelessWidget {
           const SizedBox(width: 12),
           Text(
             '$totalUser Pengguna',
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
         ],
       ),

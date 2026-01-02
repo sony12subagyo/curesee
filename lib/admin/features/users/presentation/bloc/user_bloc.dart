@@ -8,10 +8,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final GetUsersUseCase getUsersUseCase;
   final DeleteUserUseCase deleteUserUseCase;
 
-  UserBloc({
-    required this.getUsersUseCase,
-    required this.deleteUserUseCase,
-  }) : super(UserLoading()) {
+  UserBloc({required this.getUsersUseCase, required this.deleteUserUseCase})
+    : super(UserLoading()) {
     on<LoadUsers>((event, emit) async {
       emit(UserLoading());
       try {
@@ -33,4 +31,3 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
   }
 }
-

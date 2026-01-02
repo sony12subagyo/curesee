@@ -14,7 +14,6 @@ import '../widgets/user_card.dart';
 import '../widgets/total_user_card.dart';
 import 'package:http/http.dart' as http;
 
-
 /// ================================
 /// ADMIN PAGE (FINAL FIX)
 /// ================================
@@ -53,9 +52,7 @@ class _AdminPageState extends State<AdminPage> {
     // LOADING TOKEN
     // =========================
     if (_loading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     // =========================

@@ -19,7 +19,7 @@ class CardPageAdmin extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        height: 140, 
+        height: 140,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(14),
           child: Stack(
@@ -32,7 +32,11 @@ class CardPageAdmin extends StatelessWidget {
                   return Container(
                     color: Colors.grey.shade300,
                     child: const Center(
-                      child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
                     ),
                   );
                 },
@@ -81,8 +85,10 @@ class CardPageAdmin extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 4),
-                    const Text("more  →",
-                        style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    const Text(
+                      "more  →",
+                      style: TextStyle(color: Colors.white70, fontSize: 13),
+                    ),
                   ],
                 ),
               ),

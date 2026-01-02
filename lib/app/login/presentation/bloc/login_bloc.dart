@@ -9,11 +9,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserLoginUsecase userLoginUsecase;
   final AdminLoginUsecase adminLoginUsecase;
 
-  LoginBloc({
-    required this.userLoginUsecase,
-    required this.adminLoginUsecase,
-  }) : super(LoginInitial()) {
-
+  LoginBloc({required this.userLoginUsecase, required this.adminLoginUsecase})
+    : super(LoginInitial()) {
     // ================= USER LOGIN =================
     on<LoginUserPressed>((event, emit) async {
       emit(LoginLoading());
@@ -27,10 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_token', token);
 
-        emit(LoginSuccess(
-          token: token,
-          isAdmin: false,
-        ));
+        emit(LoginSuccess(token: token, isAdmin: false));
       } catch (e) {
         emit(LoginFailure(e.toString()));
       }
@@ -49,10 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('admin_token', token);
 
-        emit(LoginSuccess(
-          token: token,
-          isAdmin: true,
-        ));
+        emit(LoginSuccess(token: token, isAdmin: true));
       } catch (e) {
         emit(LoginFailure(e.toString()));
       }

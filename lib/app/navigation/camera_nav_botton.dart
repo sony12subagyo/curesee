@@ -4,11 +4,7 @@ class CameraNavButton extends StatelessWidget {
   final VoidCallback onTap;
   final Color color;
 
-  const CameraNavButton({
-    super.key,
-    required this.onTap,
-    required this.color,
-  });
+  const CameraNavButton({super.key, required this.onTap, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +26,7 @@ class CameraNavButton extends StatelessWidget {
               ),
             ],
           ),
-          child: const Icon(
-            Icons.camera_alt,
-            color: Colors.white,
-            size: 30,
-          ),
+          child: const Icon(Icons.camera_alt, color: Colors.white, size: 30),
         ),
       ),
     );

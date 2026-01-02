@@ -16,9 +16,7 @@ class MorePage extends StatelessWidget {
         width: double.infinity,
         decoration: const BoxDecoration(
           color: Color(0xFFE0E0E0),
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(24),
-          ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
@@ -37,8 +35,7 @@ class MorePage extends StatelessWidget {
                     const SizedBox(height: 12),
 
                     _buildMenuCard(
-                      title:
-                          'How is machine learning used in the application?',
+                      title: 'How is machine learning used in the application?',
                       onTap: () {
                         print('Machine learning clicked');
                       },
@@ -75,10 +72,7 @@ class MorePage extends StatelessWidget {
 
               const Text(
                 'by Kelompoksigma',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.black54,
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.black54),
               ),
             ],
           ),
@@ -88,10 +82,7 @@ class MorePage extends StatelessWidget {
   }
 
   // ===== MENU CARD =====
-  Widget _buildMenuCard({
-    required String title,
-    required VoidCallback onTap,
-  }) {
+  Widget _buildMenuCard({required String title, required VoidCallback onTap}) {
     return Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(16),

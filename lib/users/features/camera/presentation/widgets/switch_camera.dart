@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class SwitchCameraButton extends StatelessWidget {
   final VoidCallback onSwitchCamera;
 
-  const SwitchCameraButton({
-    super.key,
-    required this.onSwitchCamera,
-  });
+  const SwitchCameraButton({super.key, required this.onSwitchCamera});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +15,7 @@ class SwitchCameraButton extends StatelessWidget {
           color: Colors.white.withOpacity(0.25),
           shape: BoxShape.circle,
         ),
-        child: const Icon(
-          Icons.cameraswitch,
-          color: Colors.white,
-          size: 30,
-        ),
+        child: const Icon(Icons.cameraswitch, color: Colors.white, size: 30),
       ),
     );
   }

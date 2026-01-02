@@ -1,7 +1,5 @@
-
 import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
 import 'package:flutter/material.dart';
-
 
 class DetailInformationPage extends StatelessWidget {
   final String title;
@@ -22,11 +20,7 @@ class DetailInformationPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1EA3FF),
-              Color(0xFF7BC9FF),
-              Color(0xFFEAF7FF),
-            ],
+            colors: [Color(0xFF1EA3FF), Color(0xFF7BC9FF), Color(0xFFEAF7FF)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -56,7 +50,6 @@ class DetailInformationPage extends StatelessWidget {
   }
 }
 
-
 class _Header extends StatelessWidget {
   final String title;
 
@@ -68,7 +61,6 @@ class _Header extends StatelessWidget {
       height: 56,
       child: Row(
         children: [
-          
           SizedBox(
             width: 56,
             child: GestureDetector(

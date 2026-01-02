@@ -1,8 +1,5 @@
-
-
 // import 'package:curesee/admin/features/blog/presentation/widget/card_detail_admin.dart';
 // import 'package:flutter/material.dart';
-
 
 // class DetailInformationPage extends StatelessWidget {
 //   final String title;
@@ -35,7 +32,7 @@
 //   child: SafeArea(
 //     child: Column(
 //       children: [
-       
+
 //         _Header(title: title),
 
 //         const SizedBox(height: 12),
@@ -59,7 +56,6 @@
 //   }
 // }
 
-
 // class _Header extends StatelessWidget {
 //   final String title;
 
@@ -71,7 +67,7 @@
 //       height: 56,
 //       child: Row(
 //         children: [
-          
+
 //           SizedBox(
 //             width: 56,
 //             child: GestureDetector(

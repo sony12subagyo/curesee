@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class HistoryCard extends StatelessWidget {
   final VoidCallback onTap;
 
-  const HistoryCard({
-    super.key,
-    required this.onTap,
-  });
+  const HistoryCard({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,10 @@ class HistoryCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_right_alt, color: Color.fromARGB(255, 46, 46, 46)),
+                  Icon(
+                    Icons.arrow_right_alt,
+                    color: Color.fromARGB(255, 46, 46, 46),
+                  ),
                 ],
               ),
             ),

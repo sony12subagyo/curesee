@@ -32,13 +32,7 @@ class Beranda extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        id,
-        title,
-        subtitle,
-        imageUrl,
-        createdAt,
-      ];
+  List<Object?> get props => [id, title, subtitle, imageUrl, createdAt];
 
   @override
   String toString() {

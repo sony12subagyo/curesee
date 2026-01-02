@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ButtonEdit extends StatelessWidget {
-  final bool isEditing;
-  final VoidCallback onEdit;
-  final VoidCallback onCancel;
-  final VoidCallback onSave;
+  
+ 
 
-  const ButtonEdit({
-    super.key,
+  const ButtonEdit({super.key,
 
-    required this.isEditing,
-    required this.onEdit,
-    required this.onCancel,
-    required this.onSave,
+  
   });
 
   @override
@@ -25,8 +19,12 @@ class ButtonEdit extends StatelessWidget {
       mainAxisSpacing: 12,
       childAspectRatio: 3.5, // kontrol tinggi tombol
       children: [
-        _buildButton(text: 'Edit', onPressed: onEdit),
-
+        _buildButton(
+          text: 'Edit',
+          onPressed: () {
+            // TODO: edit action
+          },
+        ),
         _buildButton(
           text: 'Hapus',
           onPressed: () => _showDeleteDialog(context),
@@ -34,9 +32,16 @@ class ButtonEdit extends StatelessWidget {
         _buildButton(
           text: 'Batal',
           backgroundColor: Colors.blue,
-          onPressed: onCancel,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        _buildButton(text: 'Simpan', onPressed: onSave),
+        _buildButton(
+          text: 'Simpan',
+          onPressed: () {
+            // TODO: simpan action
+          },
+        ),
       ],
     );
   }
@@ -49,7 +54,9 @@ class ButtonEdit extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
       ),
       onPressed: onPressed,
       child: Text(
@@ -75,7 +82,10 @@ class ButtonEdit extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
+            child: const Text(
+              'Hapus',
+              style: TextStyle(color: Colors.red),
+            ),
           ),
         ],
       ),

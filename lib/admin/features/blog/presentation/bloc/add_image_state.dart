@@ -5,17 +5,9 @@ class AddImageState {
   final bool isLoading;
   final String? errorMessage;
 
-  const AddImageState({
-    this.image,
-    this.isLoading = false,
-    this.errorMessage,
-  });
+  const AddImageState({this.image, this.isLoading = false, this.errorMessage});
 
-  AddImageState copyWith({
-    File? image,
-    bool? isLoading,
-    String? errorMessage,
-  }) {
+  AddImageState copyWith({File? image, bool? isLoading, String? errorMessage}) {
     return AddImageState(
       image: image ?? this.image,
       isLoading: isLoading ?? this.isLoading,
@@ -24,13 +16,16 @@ class AddImageState {
   }
 }
 
-class AddImageInitial extends AddImageState{}
-class AddImageLoading extends AddImageState{}
+class AddImageInitial extends AddImageState {}
+
+class AddImageLoading extends AddImageState {}
+
 class AddImageSuccess extends AddImageState {
-   final File image; 
-   AddImageSuccess(this.image);
-    }
+  final File image;
+  AddImageSuccess(this.image);
+}
+
 class AddImageFailure extends AddImageState {
-   final String message;
-    AddImageFailure(this.message);
-     }
+  final String message;
+  AddImageFailure(this.message);
+}

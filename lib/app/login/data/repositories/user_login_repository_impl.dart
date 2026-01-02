@@ -4,7 +4,7 @@ class UserLoginRepositoryImpl {
   final FirebaseAuth _auth;
 
   UserLoginRepositoryImpl({FirebaseAuth? auth})
-      : _auth = auth ?? FirebaseAuth.instance;
+    : _auth = auth ?? FirebaseAuth.instance;
 
   /// return Firebase ID Token
   Future<String> login(String email, String password) async {
