@@ -27,20 +27,14 @@ class CardEditBlog extends StatelessWidget {
 
           const Text(
             'Dermatitis Atopic (Eksim)',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
 
           const SizedBox(height: 8),
 
           const Text(
             'Eksim adalah kondisi kulit kronis yang menyebabkan kulit menjadi kering, gatal, dan meradang...',
-            style: TextStyle(
-              color: Colors.black87,
-              height: 1.5,
-            ),
+            style: TextStyle(color: Colors.black87, height: 1.5),
           ),
         ],
       ),

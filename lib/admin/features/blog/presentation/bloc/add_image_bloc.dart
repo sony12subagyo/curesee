@@ -7,8 +7,7 @@ import 'add_image_state.dart';
 class AddImageBloc extends Bloc<AddImageEvent, AddImageState> {
   final AddImageUsecase pickImageUseCase;
 
-  AddImageBloc(this.pickImageUseCase)
-      : super(const AddImageState()) {
+  AddImageBloc(this.pickImageUseCase) : super(const AddImageState()) {
     on<PickImageRequested>(_onPickImage);
     on<ClearImageRequested>(_onClearImage);
   }
@@ -24,37 +23,21 @@ class AddImageBloc extends Bloc<AddImageEvent, AddImageState> {
       final File? image = await pickImageUseCase();
 
       if (image == null) {
-        emit(
-          state.copyWith(
-            isLoading: false,
-          ),
-        );
+        emit(state.copyWith(isLoading: false));
         return;
       }
 
       // ✅ success
-      emit(
-        state.copyWith(
-          image: image,
-          isLoading: false,
-          errorMessage: null,
-        ),
-      );
+      emit(state.copyWith(image: image, isLoading: false, errorMessage: null));
     } catch (e) {
       // ❌ error
       emit(
-        state.copyWith(
-          isLoading: false,
-          errorMessage: 'Failed to pick image',
-        ),
+        state.copyWith(isLoading: false, errorMessage: 'Failed to pick image'),
       );
     }
   }
 
-  void _onClearImage(
-    ClearImageRequested event,
-    Emitter<AddImageState> emit,
-  ) {
+  void _onClearImage(ClearImageRequested event, Emitter<AddImageState> emit) {
     emit(const AddImageState());
   }
 }

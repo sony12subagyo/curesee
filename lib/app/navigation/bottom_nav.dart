@@ -140,7 +140,6 @@
 //   }
 // }
 
-
 import 'package:curesee/app/navigation/camera_nav_botton.dart';
 import 'package:flutter/material.dart';
 import 'nav_item.dart';
@@ -149,11 +148,7 @@ class BottomNav extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  const BottomNav({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-  });
+  const BottomNav({super.key, required this.currentIndex, required this.onTap});
 
   static const _primaryColor = Color.fromARGB(255, 0, 128, 255);
 
@@ -228,5 +223,3 @@ class BottomNav extends StatelessWidget {
     );
   }
 }
-
-

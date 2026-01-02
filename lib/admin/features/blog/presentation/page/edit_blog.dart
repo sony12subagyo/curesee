@@ -1,12 +1,8 @@
-
 import 'package:curesee/admin/features/blog/presentation/widget/blog%20edit/button_edit.dart';
 import 'package:curesee/admin/features/blog/presentation/widget/blog%20edit/card_edit_blog.dart';
 import 'package:flutter/material.dart';
 
-
-
 class EditBlogPage extends StatelessWidget {
-
   final String imageUrl;
   final String title;
   final String description;
@@ -17,7 +13,6 @@ class EditBlogPage extends StatelessWidget {
     required this.title,
     required this.description,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +28,6 @@ class EditBlogPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: const [
-           
             SizedBox(height: 16),
             CardEditBlog(),
             SizedBox(height: 24),

@@ -9,8 +9,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetAllProfile getAllProfile;
   final UpdateProfile updateProfile;
 
-  ProfileBloc(ProfileRepositoryImpl profileRepositoryImpl, {required this.getAllProfile, required this.updateProfile})
-    : super(ProfileInitial()) {
+  ProfileBloc(
+    ProfileRepositoryImpl profileRepositoryImpl, {
+    required this.getAllProfile,
+    required this.updateProfile,
+  }) : super(ProfileInitial()) {
     on<LoadProfileEvent>((event, emit) async {
       emit(ProfileLoading());
       try {

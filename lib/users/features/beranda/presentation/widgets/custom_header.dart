@@ -1,4 +1,3 @@
-
 import 'package:curesee/users/features/profile/presentation/pages/profil_page.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,10 @@ class CustomHeader extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 1, 132, 255), Color.fromARGB(255, 0, 123, 245)],
+          colors: [
+            Color.fromARGB(255, 1, 132, 255),
+            Color.fromARGB(255, 0, 123, 245),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

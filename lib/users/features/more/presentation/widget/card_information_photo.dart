@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class CardInformationPhoto extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const CardInformationPhoto({
-    super.key,
-    this.onTap,
-  });
+  const CardInformationPhoto({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +11,7 @@ class CardInformationPhoto extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),

@@ -34,7 +34,11 @@ class CardPage extends StatelessWidget {
                   return Container(
                     color: Colors.grey.shade300,
                     child: const Center(
-                      child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
                     ),
                   );
                 },
@@ -90,8 +94,10 @@ class CardPage extends StatelessWidget {
 
                     const SizedBox(height: 4),
 
-                    const Text("more  →",
-                        style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    const Text(
+                      "more  →",
+                      style: TextStyle(color: Colors.white70, fontSize: 13),
+                    ),
                   ],
                 ),
               ),

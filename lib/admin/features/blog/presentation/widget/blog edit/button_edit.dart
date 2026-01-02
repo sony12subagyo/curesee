@@ -22,41 +22,37 @@ class ButtonEdit extends StatelessWidget {
             child: const Text('Edit'),
           ),
         ),
-       const SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
               ),
-              onPressed: () {
-                // TODO: save action
-              },
-              child: const Text('Hapus',
-              style: TextStyle (color: Colors.white),) ,
-               
             ),
+            onPressed: () {
+              // TODO: save action
+            },
+            child: const Text('Hapus', style: TextStyle(color: Colors.white)),
           ),
+        ),
 
         const SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
+        Expanded(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
               ),
-              onPressed: () {
-                // TODO: save action
-              },
-              child: const Text('Simpan',
-              style: TextStyle (color: Colors.white),) ,
-               
             ),
+            onPressed: () {
+              // TODO: save action
+            },
+            child: const Text('Simpan', style: TextStyle(color: Colors.white)),
           ),
+        ),
       ],
     );
   }
@@ -77,10 +73,7 @@ class ButtonEdit extends StatelessWidget {
               // TODO: trigger delete bloc
               Navigator.pop(context);
             },
-            child: const Text(
-              'Hapus',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

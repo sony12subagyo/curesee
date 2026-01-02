@@ -56,21 +56,18 @@ class LoginButton extends StatelessWidget {
                     final password = passwordController.text.trim();
 
                     if (email.isEmpty || password.isEmpty) {
-                      _showMessage(
-                        context,
-                        'Email dan password wajib diisi',
-                      );
+                      _showMessage(context, 'Email dan password wajib diisi');
                       return;
                     }
 
                     if (_isAdminEmail(email)) {
                       context.read<LoginBloc>().add(
-                            LoginAdminPressed(email, password),
-                          );
+                        LoginAdminPressed(email, password),
+                      );
                     } else {
                       context.read<LoginBloc>().add(
-                            LoginUserPressed(email, password),
-                          );
+                        LoginUserPressed(email, password),
+                      );
                     }
                   },
             style: ElevatedButton.styleFrom(
@@ -100,8 +97,8 @@ class LoginButton extends StatelessWidget {
   }
 
   void _showMessage(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 }

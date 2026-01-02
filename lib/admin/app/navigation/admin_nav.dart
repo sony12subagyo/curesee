@@ -3,7 +3,6 @@ import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
 import 'package:curesee/admin/features/users/presentation/widgets/admin_bottom_nav.dart';
 import 'package:flutter/material.dart';
 
-
 class AdminNav extends StatefulWidget {
   const AdminNav({super.key});
 
@@ -14,10 +13,7 @@ class AdminNav extends StatefulWidget {
 class _AdminNavState extends State<AdminNav> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    BlogPage(),
-    AdminPage(),
-  ];
+  final List<Widget> _pages = const [BlogPage(), AdminPage()];
 
   @override
   Widget build(BuildContext context) {

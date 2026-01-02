@@ -6,20 +6,14 @@ class AdminLoginRepositoryImpl implements LoginRepository {
   final http.Client client;
   final String baseUrl;
 
-  AdminLoginRepositoryImpl({
-    required this.client,
-    required this.baseUrl,
-  });
+  AdminLoginRepositoryImpl({required this.client, required this.baseUrl});
 
   @override
   Future<String> login(String email, String password) async {
     final response = await client.post(
       Uri.parse('$baseUrl/admin/login'),
       headers: {'Accept': 'application/json'},
-      body: {
-        'email': email,
-        'password': password,
-      },
+      body: {'email': email, 'password': password},
     );
 
     if (response.statusCode != 200) {

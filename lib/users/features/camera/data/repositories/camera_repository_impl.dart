@@ -3,7 +3,6 @@ import 'package:curesee/users/features/camera/domain/reporitories/camera_reposit
 
 import '../../domain/entities/captured_image.dart';
 
-
 class CameraRepositoryImpl implements CameraRepository {
   final CameraDataSource dataSource;
 

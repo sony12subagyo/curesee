@@ -38,9 +38,7 @@ class ImagePickerCard extends StatelessWidget {
   Widget _buildContent(BuildContext context, AddImageState state) {
     // ⏳ LOADING
     if (state.isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     // 🖼️ GAMBAR TERPILIH

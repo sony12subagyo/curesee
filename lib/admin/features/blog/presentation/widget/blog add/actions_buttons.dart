@@ -20,9 +20,7 @@ class ActionButtons extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Batal', 
-              style:  TextStyle( color: Colors.white),
-              ),
+              child: const Text('Batal', style: TextStyle(color: Colors.white)),
             ),
           ),
           const SizedBox(width: 12),
@@ -37,9 +35,10 @@ class ActionButtons extends StatelessWidget {
               onPressed: () {
                 // TODO: save action
               },
-              child: const Text('Simpan',
-              style: TextStyle (color: Colors.white),) ,
-               
+              child: const Text(
+                'Simpan',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ],

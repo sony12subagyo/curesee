@@ -23,10 +23,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<List<UserModel>> getUsers() async {
     final response = await client.get(
       Uri.parse('$baseUrl/users'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Accept': 'application/json',
-      },
+      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
     );
 
     debugPrint('STATUS: ${response.statusCode}');
@@ -51,16 +48,12 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
     throw Exception('Format response tidak dikenali');
   }
-  
 
   @override
   Future<void> deleteUser(int id) async {
     final response = await client.delete(
       Uri.parse('$baseUrl/users/$id'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Accept': 'application/json',
-      },
+      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
     );
 
     if (response.statusCode != 200) {

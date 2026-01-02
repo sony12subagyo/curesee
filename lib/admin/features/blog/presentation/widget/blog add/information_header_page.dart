@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class InformationHeaderAdd extends StatelessWidget {
   final VoidCallback? onBack;
 
-  const InformationHeaderAdd({
-    super.key,
-    this.onBack,
-  });
+  const InformationHeaderAdd({super.key, this.onBack});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +13,7 @@ class InformationHeaderAdd extends StatelessWidget {
         children: [
           // ===== BACK BUTTON =====
           IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: onBack ?? () => Navigator.pop(context),
           ),
 

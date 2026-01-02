@@ -1,4 +1,3 @@
-
 import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/card_page.dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/custom_header.dart';
@@ -50,7 +49,7 @@ class BerandaPage extends StatelessWidget {
             );
           }
 
-        //  tampilan dekstop
+          //  tampilan dekstop
           return Row(
             children: [
               Expanded(
@@ -101,11 +100,9 @@ class BerandaPage extends StatelessWidget {
         const SizedBox(height: 12),
 
         ...List.generate(10, (index) {
-          final imageUrl =
-              'https://picsum.photos/seed/picsum/200/300';
+          final imageUrl = 'https://picsum.photos/seed/picsum/200/300';
           final title = 'Blog Curesee ${index + 1}';
-          final subtitle =
-              'ini nanti isinya deskripsi tentang blog ya ';
+          final subtitle = 'ini nanti isinya deskripsi tentang blog ya ';
 
           return Column(
             children: [

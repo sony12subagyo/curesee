@@ -17,22 +17,15 @@ class AddBlogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AddImageBloc>(
-      create: (_) => AddImageBloc(
-        AddImageUsecase(
-          ImageRepositoryImpl(ImagePicker()),
-        ),
-      ),
+      create: (_) =>
+          AddImageBloc(AddImageUsecase(ImageRepositoryImpl(ImagePicker()))),
       child: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF1EA3FF),
-                Color(0xFF7BC9FF),
-                Color(0xFFEAF7FF),
-              ],
+              colors: [Color(0xFF1EA3FF), Color(0xFF7BC9FF), Color(0xFFEAF7FF)],
             ),
           ),
           child: SafeArea(
