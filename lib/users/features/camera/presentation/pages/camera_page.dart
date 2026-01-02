@@ -8,10 +8,10 @@ import 'package:curesee/users/features/skin_scane/presentation/skin_detection_ev
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'widgets/camera_view.dart';
-import 'widgets/flash_button.dart';
-import 'widgets/switch_camera.dart';
-import 'widgets/capture_button.dart';
+import '../widgets/camera_view.dart';
+import '../widgets/flash_button.dart';
+import '../widgets/switch_camera.dart';
+import '../widgets/capture_button.dart';
 import 'preview_page.dart';
 
 class CameraPage extends StatefulWidget {
