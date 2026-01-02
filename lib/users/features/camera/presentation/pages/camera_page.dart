@@ -72,7 +72,6 @@ class _CameraPageState extends State<CameraPage> {
     final image = await _controller!.takePicture();
     if (!mounted) return;
 
-
     // Navigator.push(
     //   context,
     //   MaterialPageRoute(
@@ -85,9 +84,7 @@ class _CameraPageState extends State<CameraPage> {
       MaterialPageRoute(
         builder: (_) => BlocProvider(
           create: (_) => SkinDetectionBloc(
-            DetectSkinDisease(
-              SkinDetectionRepositoryImpl(),
-            ),
+            DetectSkinDisease(SkinDetectionRepositoryImpl()),
           )..add(DetectSkinFromImage(File(image.path))),
           child: PreviewPage(imagePath: image.path),
         ),

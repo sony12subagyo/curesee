@@ -5,11 +5,7 @@ class UserCard extends StatelessWidget {
   final UserEntity user;
   final VoidCallback onDelete;
 
-  const UserCard({
-    super.key,
-    required this.user,
-    required this.onDelete,
-  });
+  const UserCard({super.key, required this.user, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +18,7 @@ class UserCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const CircleAvatar(
-            radius: 24,
-            backgroundColor: Colors.grey,
-          ),
+          const CircleAvatar(radius: 24, backgroundColor: Colors.grey),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -39,12 +32,7 @@ class UserCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  user.email,
-                  style: TextStyle(
-                    color: Colors.grey.shade600,
-                  ),
-                ),
+                Text(user.email, style: TextStyle(color: Colors.grey.shade600)),
               ],
             ),
           ),
@@ -62,9 +50,7 @@ class UserCard extends StatelessWidget {
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Konfirmasi Hapus'),
-        content: Text(
-          'Apakah anda yakin akan menghapus akun ${user.name}?',
-        ),
+        content: Text('Apakah anda yakin akan menghapus akun ${user.name}?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

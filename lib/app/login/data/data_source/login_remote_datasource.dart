@@ -4,7 +4,7 @@ class LoginRemoteDataSource {
   final FirebaseAuth _auth;
 
   LoginRemoteDataSource({FirebaseAuth? auth})
-      : _auth = auth ?? FirebaseAuth.instance;
+    : _auth = auth ?? FirebaseAuth.instance;
 
   /// Login USER via Firebase
   Future<String> loginUser(String email, String password) async {

@@ -17,14 +17,8 @@ class AdminBottomNav extends StatelessWidget {
       onTap: onTap,
       selectedItemColor: Colors.blue,
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.article),
-          label: 'Blog',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.people),
-          label: 'Account',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Blog'),
+        BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Account'),
       ],
     );
   }

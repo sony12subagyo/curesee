@@ -10,8 +10,7 @@ class ImageRepositoryImpl implements ImageRepository {
 
   @override
   Future<File?> pickImage() async {
-    final XFile? picked =
-        await picker.pickImage(source: ImageSource.gallery);
+    final XFile? picked = await picker.pickImage(source: ImageSource.gallery);
 
     if (picked == null) return null;
 

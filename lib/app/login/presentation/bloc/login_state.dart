@@ -8,10 +8,7 @@ class LoginSuccess extends LoginState {
   final String token;
   final bool isAdmin;
 
-  LoginSuccess({
-    required this.token,
-    required this.isAdmin,
-  });
+  LoginSuccess({required this.token, required this.isAdmin});
 }
 
 class LoginFailure extends LoginState {

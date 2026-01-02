@@ -2,7 +2,6 @@ import 'package:curesee/users/features/camera/domain/reporitories/camera_reposit
 
 import '../entities/captured_image.dart';
 
-
 class TakePicture {
   final CameraRepository repository;
 

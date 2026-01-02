@@ -2,10 +2,7 @@ class SkinDetectionModel {
   final String label;
   final double confidence;
 
-  SkinDetectionModel({
-    required this.label,
-    required this.confidence,
-  });
+  SkinDetectionModel({required this.label, required this.confidence});
 
   @override
   String toString() {

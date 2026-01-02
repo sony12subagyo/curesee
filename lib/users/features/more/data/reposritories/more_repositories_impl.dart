@@ -10,11 +10,12 @@ class MoreRepositoryImpl implements MoreRepository {
   @override
   Future<List<MoreMenu>> getMenus() async {
     final data = local.getMenus();
-    return data.map((e) => MoreMenu(
-      title: e['title'],
-      icon: e['icon'],
-      route: e['route'],
-    )).toList();
+    return data
+        .map(
+          (e) =>
+              MoreMenu(title: e['title'], icon: e['icon'], route: e['route']),
+        )
+        .toList();
   }
 
   @override
