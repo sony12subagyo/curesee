@@ -13,6 +13,15 @@ import '../widgets/flash_button.dart';
 import '../widgets/switch_camera.dart';
 import '../widgets/capture_button.dart';
 import 'preview_page.dart';
+import 'package:image/image.dart' as img;
+
+Future<File> fixFrontCameraMirror(File file) async {
+  final bytes = await file.readAsBytes();
+  final original = img.decodeImage(bytes)!;
+  final fixed = img.flipHorizontal(original);
+  file.writeAsBytesSync(img.encodeJpg(fixed));
+  return file;
+}
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -66,18 +75,39 @@ class _CameraPageState extends State<CameraPage> {
     setState(() => _flashMode = mode);
   }
 
+  // Future<void> _takePicture() async {
+  //   if (_controller == null || !_controller!.value.isInitialized) return;
+
+  //   final image = await _controller!.takePicture();
+  //   if (!mounted) return;
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (_) => BlocProvider(
+  //         create: (_) => SkinDetectionBloc(
+  //           DetectSkinDisease(SkinDetectionRepositoryImpl()),
+  //         )..add(DetectSkinFromImage(File(image.path))),
+  //         child: PreviewPage(imagePath: image.path),
+  //       ),
+  //     ),
+  //   );
+
+  //   await _initCamera(_selectedCameraIndex);
+  // }
+
   Future<void> _takePicture() async {
     if (_controller == null || !_controller!.value.isInitialized) return;
 
-    final image = await _controller!.takePicture();
+    final XFile image = await _controller!.takePicture();
     if (!mounted) return;
 
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => PreviewPage(imagePath: image.path),
-    //   ),
-    // );
+    File file = File(image.path);
+
+    // Kalau kamera depan → flip gambar
+    if (_cameras![_selectedCameraIndex].lensDirection ==
+        CameraLensDirection.front) {
+      file = await fixFrontCameraMirror(file);
+    }
 
     Navigator.push(
       context,
@@ -85,8 +115,8 @@ class _CameraPageState extends State<CameraPage> {
         builder: (_) => BlocProvider(
           create: (_) => SkinDetectionBloc(
             DetectSkinDisease(SkinDetectionRepositoryImpl()),
-          )..add(DetectSkinFromImage(File(image.path))),
-          child: PreviewPage(imagePath: image.path),
+          )..add(DetectSkinFromImage(file)),
+          child: PreviewPage(imagePath: file.path),
         ),
       ),
     );

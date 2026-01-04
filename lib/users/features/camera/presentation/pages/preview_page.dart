@@ -1,156 +1,6 @@
-// import 'dart:io';
-// import 'package:flutter/material.dart';
-
-// class PreviewPage extends StatelessWidget {
-//   final String imagePath;
-
-//   PreviewPage({required this.imagePath});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-
-//       body: SafeArea(
-//         child: Column(
-//           children: [
-
-//             // Tombol Back + Judul
-//             Padding(
-//               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: [
-//                   InkWell(
-//                     onTap: () => Navigator.pop(context),
-//                     child: Container(
-//                       padding: EdgeInsets.all(6),
-//                       decoration: BoxDecoration(
-//                         color: Colors.white,
-//                         shape: BoxShape.circle,
-//                         boxShadow: [
-//                           BoxShadow(
-//                             color: Colors.black12,
-//                             blurRadius: 6,
-//                           )
-//                         ],
-//                       ),
-//                       child: Icon(Icons.arrow_back, size: 22),
-//                     ),
-//                   ),
-//                   SizedBox(width: 12),
-//                   Text(
-//                     "Hasil Scan",
-//                     style: TextStyle(
-//                       fontSize: 20,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   )
-//                 ],
-//               ),
-//             ),
-
-//             SizedBox(height: 15),
-
-//             // FOTO DI TENGAH
-//             Center(
-//               child: ClipRRect(
-//                 borderRadius: BorderRadius.circular(8),
-//                 child: Image.file(
-//                   File(imagePath),
-//                   width: 200,
-//                   height: 200,
-//                   fit: BoxFit.cover,
-//                 ),
-//               ),
-//             ),
-
-//             SizedBox(height: 25),
-
-//             // BOX PENJELASAN (kosong dulu)
-//             Expanded(
-//               child: Container(
-//                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//                 padding: EdgeInsets.all(18),
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(14),
-//                   boxShadow: [
-//                     BoxShadow(
-//                       color: Colors.black12,
-//                       blurRadius: 12,
-//                       offset: Offset(0, 3),
-//                     )
-//                   ],
-//                 ),
-//                 child: SingleChildScrollView(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-
-//                       Text(
-//                         "Hasil:",
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 16,
-//                         ),
-//                       ),
-//                       SizedBox(height: 6),
-
-//                       Text(
-//                         "Teks penjelasan hasil scan akan muncul di sini...",
-//                         style: TextStyle(fontSize: 14),
-//                         textAlign: TextAlign.justify,
-//                       ),
-
-//                       SizedBox(height: 20),
-
-//                       Text(
-//                         "Diagnosis:",
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 16,
-//                         ),
-//                       ),
-//                       SizedBox(height: 6),
-
-//                       Text(
-//                         "Belum ada data",
-//                         style: TextStyle(fontSize: 14),
-//                       ),
-
-//                       SizedBox(height: 20),
-
-//                       Text(
-//                         "Tindakan Awal:",
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 16,
-//                         ),
-//                       ),
-//                       SizedBox(height: 6),
-
-//                       Text(
-//                         "Informasi tindakan awal akan ditampilkan setelah analisis.",
-//                         style: TextStyle(fontSize: 14),
-//                         textAlign: TextAlign.justify,
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../skin_scane/presentation/skin_detection_bloc.dart';
 import '../../../skin_scane/presentation/skin_detection_state.dart';
 
@@ -166,15 +16,32 @@ class PreviewPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // =======================
-            // FOTO
-            // =======================
             Expanded(
               flex: 3,
-              child: Image.file(
-                File(imagePath),
-                width: double.infinity,
-                fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.6),
+                      width: 1.5, // tipis & elegan
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.file(
+                    File(imagePath),
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
 
@@ -187,11 +54,25 @@ class PreviewPage extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 12,
+                      offset: Offset(0, -3),
+                    ),
+                  ],
                 ),
                 child: BlocBuilder<SkinDetectionBloc, SkinDetectionState>(
                   builder: (context, state) {
                     if (state is SkinDetectionLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 12),
+                          Text("Menganalisis kondisi kulit..."),
+                        ],
+                      );
                     }
 
                     if (state is SkinDetectionLoaded) {
@@ -199,9 +80,9 @@ class PreviewPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Kemungkinan Penyakit:",
+                            "Hasil Scan",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -210,21 +91,106 @@ class PreviewPage extends StatelessWidget {
                           ...state.result.top3.map(
                             (d) => Padding(
                               padding: const EdgeInsets.only(bottom: 12),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    d.label.toUpperCase(),
-                                    style: const TextStyle(fontSize: 16),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        d.label.toUpperCase(),
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                      Text(
+                                        "${(d.confidence * 100).toStringAsFixed(1)}%",
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    "${(d.confidence * 100).toStringAsFixed(1)}%",
-                                    style: const TextStyle(color: Colors.grey),
+                                  const SizedBox(height: 6),
+                                  LinearProgressIndicator(
+                                    value: d.confidence,
+                                    backgroundColor: Colors.grey[200],
+                                    color: Colors.blueAccent,
+                                    minHeight: 8,
+                                    borderRadius: BorderRadius.circular(6),
                                   ),
                                 ],
                               ),
                             ),
+                          ),
+
+                          const Spacer(),
+
+                          // SizedBox(
+                          //   width: double.infinity,
+                          //   child: ElevatedButton.icon(
+                          //     icon: const Icon(Icons.camera_alt),
+                          //     label: const Text("Scan Ulang"),
+                          //     onPressed: () => Navigator.pop(context),
+                          //     style: ElevatedButton.styleFrom(
+                          //       padding: const EdgeInsets.symmetric(
+                          //         vertical: 14,
+                          //       ),
+                          //       shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(12),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          Row(
+                            children: [
+                              // =================
+                              // Scan Ulang
+                              // =================
+                              Expanded(
+                                child: OutlinedButton.icon(
+                                  icon: const Icon(Icons.camera_alt),
+                                  label: const Text("Scan Ulang"),
+                                  onPressed: () => Navigator.pop(context),
+                                  style: OutlinedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(width: 12),
+
+                              // =================
+                              // Simpan
+                              // =================
+                              Expanded(
+                                child: ElevatedButton.icon(
+                                  icon: const Icon(Icons.save),
+                                  label: const Text("Simpan"),
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Fitur simpan akan segera tersedia",
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       );

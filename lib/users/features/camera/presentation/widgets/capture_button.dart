@@ -16,7 +16,7 @@ class CaptureButton extends StatelessWidget {
           color: const Color.fromARGB(255, 0, 128, 255),
           shape: BoxShape.circle,
           border: Border.all(
-            color: const Color.fromARGB(255, 0, 0, 0),
+            color: const Color.fromARGB(255, 23, 23, 23),
             width: 4,
           ),
           boxShadow: [
