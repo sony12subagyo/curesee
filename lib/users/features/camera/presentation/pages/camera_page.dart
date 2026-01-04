@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:curesee/app/navigation/background_wrapper.dart';
 import 'package:curesee/users/features/skin_scane/data/repositories/skin_detection_repository_impl.dart';
 import 'package:curesee/users/features/skin_scane/domain/use_case/detect_skin_disease.dart';

@@ -12,6 +12,8 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
+  final List<String> _titles = ['Home', 'History', 'More', 'Profile'];
+
   int _currentIndex = 0;
 
   void _onNavTap(int index) {
@@ -31,7 +33,32 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: Colors.transparent,
+
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: const Color.fromARGB(255, 0, 128, 255),
+        title: Text(
+          _titles[_currentIndex],
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          // IconButton(
+          //   icon: const Icon(Icons.shopping_cart_outlined),
+          //   onPressed: () {},
+          // ),
+          IconButton(
+            icon: const Icon(Icons.notifications_none),
+            color: Colors.white,
+            onPressed: () {},
+          ),
+        ],
+      ),
 
       body: BackgroundWrapper(
         child: IndexedStack(index: _currentIndex, children: AppPages.pages),

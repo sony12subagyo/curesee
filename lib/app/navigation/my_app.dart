@@ -2,14 +2,11 @@ import 'package:curesee/app/navigation/home_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-
 import '../login/presentation/bloc/login_bloc.dart';
 import '../login/domain/use_case/admin_login_usecase.dart';
 import '../login/domain/use_case/user_login_usecase.dart';
-
 import '../login/data/repositories/admin_login_repository_impl.dart';
 import '../login/data/repositories/user_login_repository_impl.dart';
-
 import '../login/presentation/pages/login_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -35,6 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
+        //home: LoginPage(),
         home: HomeLayout(),
       ),
     ); 

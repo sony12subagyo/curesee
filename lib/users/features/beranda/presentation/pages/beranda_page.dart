@@ -8,52 +8,26 @@ class BerandaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final width = constraints.maxWidth;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
 
-          // tampilan hp
-          if (width < 600) {
-            return Column(
-              children: [
-                _buildHeader(),
-                Expanded(child: _buildList(context)),
-              ],
-            );
-          }
+        // tampilan hp
+        if (width < 600) {
+          return Column(
+            children: [
+              _buildHeader(),
+              Expanded(child: _buildList(context)),
+            ],
+          );
+        }
 
-          // tampilan tablet
-          if (width < 1024) {
-            return Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      _buildHeader(),
-                      Expanded(child: _buildList(context)),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: const Center(
-                    child: Text(
-                      'Select an article',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }
-
-          //  tampilan dekstop
+        // tampilan tablet
+        if (width < 1024) {
           return Row(
             children: [
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Column(
                   children: [
                     _buildHeader(),
@@ -61,19 +35,43 @@ class BerandaPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                flex: 4,
-                child: const Center(
+              const Expanded(
+                flex: 3,
+                child: Center(
                   child: Text(
-                    'Detail Content Area',
+                    'Select an article',
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),
               ),
             ],
           );
-        },
-      ),
+        }
+
+        // desktop
+        return Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [
+                  _buildHeader(),
+                  Expanded(child: _buildList(context)),
+                ],
+              ),
+            ),
+            const Expanded(
+              flex: 4,
+              child: Center(
+                child: Text(
+                  'Detail Content Area',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

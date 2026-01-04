@@ -7,11 +7,11 @@ class MorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
-      appBar: AppBar(
-        title: const Text('More'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('More'),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      // ),
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
