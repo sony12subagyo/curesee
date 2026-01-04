@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:curesee/users/features/skin_scane/domain/use_case/detect_skin_disease.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'skin_detection_event.dart';
@@ -18,10 +19,10 @@ class SkinDetectionBloc extends Bloc<SkinDetectionEvent, SkinDetectionState> {
 
     try {
       final result = await detectSkinDisease.execute(event.image);
-
       emit(SkinDetectionLoaded(result));
-    } catch (e) {
-      emit(SkinDetectionError('Gagal mendeteksi penyakit kulit'));
+    } catch (e, stack) {
+      log("SKIN DETECTION ERROR: $e", stackTrace: stack);
+      emit(SkinDetectionError(e.toString()));
     }
   }
 }

@@ -1,13 +1,12 @@
-class SkinDetectionEntity {
-  final String mainDisease;
-  final double mainConfidence;
-  final String? acneSubtype;
-  final double? acneConfidence;
+class DiseasePrediction {
+  final String label;
+  final double confidence;
 
-  const SkinDetectionEntity({
-    required this.mainDisease,
-    required this.mainConfidence,
-    this.acneSubtype,
-    this.acneConfidence,
-  });
+  DiseasePrediction(this.label, this.confidence);
+}
+
+class SkinDetectionEntity {
+  final List<DiseasePrediction> top3;
+
+  SkinDetectionEntity(this.top3);
 }

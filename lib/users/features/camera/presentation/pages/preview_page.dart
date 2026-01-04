@@ -195,40 +195,37 @@ class PreviewPage extends StatelessWidget {
                     }
 
                     if (state is SkinDetectionLoaded) {
-                      final result = state.result;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            result.mainDisease.toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 22,
+                          const Text(
+                            "Kemungkinan Penyakit:",
+                            style: TextStyle(
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Confidence: ${(result.mainConfidence * 100).toStringAsFixed(1)}%',
-                            style: const TextStyle(color: Colors.grey),
-                          ),
                           const SizedBox(height: 12),
-                          if (result.acneSubtype != null) ...[
-                            const Divider(),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Acne Type:',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+
+                          ...state.result.top3.map(
+                            (d) => Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    d.label.toUpperCase(),
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    "${(d.confidence * 100).toStringAsFixed(1)}%",
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              result.acneSubtype!.toUpperCase(),
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            Text(
-                              'Subtype Confidence: ${(result.acneConfidence! * 100).toStringAsFixed(1)}%',
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
+                          ),
                         ],
                       );
                     }
