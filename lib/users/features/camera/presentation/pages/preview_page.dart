@@ -12,7 +12,7 @@ class PreviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.blue,
       body: SafeArea(
         child: Column(
           children: [
@@ -22,7 +22,7 @@ class PreviewPage extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: Colors.white.withOpacity(0.6),
                       width: 1.5, // tipis & elegan

@@ -9,7 +9,7 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const HistoryAppBar(),
+        // const HistoryAppBar(),
 
         Expanded(
           child: ListView.builder(

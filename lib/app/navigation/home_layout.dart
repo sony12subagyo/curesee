@@ -12,9 +12,22 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
+  int _currentIndex = 0;
+  late PageController _pageController; // ⬅ baru
+
   final List<String> _titles = ['Home', 'History', 'More', 'Profile'];
 
-  int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _onNavTap(int index) {
     if (index == -1) {
@@ -24,6 +37,12 @@ class _HomeLayoutState extends State<HomeLayout> {
       );
       return;
     }
+
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
 
     setState(() {
       _currentIndex = index;
@@ -61,7 +80,15 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
 
       body: BackgroundWrapper(
-        child: IndexedStack(index: _currentIndex, children: AppPages.pages),
+        child: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          children: AppPages.pages,
+        ),
       ),
 
       bottomNavigationBar: BottomNav(

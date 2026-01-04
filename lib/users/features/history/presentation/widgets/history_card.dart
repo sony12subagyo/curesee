@@ -13,7 +13,7 @@ class HistoryCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 20),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 30, 150, 230),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(

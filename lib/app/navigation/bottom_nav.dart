@@ -10,26 +10,6 @@ class BottomNav extends StatelessWidget {
 
   static const _primaryColor = Color.fromARGB(255, 0, 128, 255);
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return SafeArea(
-  //     top: false,
-  //     child: Container(
-  //       color: Colors.white, // ⬅ ini kuncinya
-  //       child: SizedBox(
-  //         height: 90,
-  //         child: Stack(
-  //           alignment: Alignment.bottomCenter,
-  //           children: [
-  //             _buildBar(),
-  //             CameraNavButton(color: _primaryColor, onTap: () => onTap(-1)),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -38,7 +18,7 @@ class BottomNav extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           _buildBar(),
-          CameraNavButton(color: _primaryColor, onTap: () => onTap(-1)),
+          CameraNavButton(color: const Color.fromARGB(255, 0, 128, 255), onTap: () => onTap(-1)),
         ],
       ),
     );
@@ -77,14 +57,14 @@ class BottomNav extends StatelessWidget {
           ),
           const SizedBox(width: 60),
           NavItem(
-            icon: Icons.more_horiz,
+            icon: Icons.more,
             label: 'More',
             isActive: currentIndex == 2,
             activeColor: _primaryColor,
             onTap: () => onTap(2),
           ),
           NavItem(
-            icon: Icons.person,
+            icon: Icons.person_sharp,
             label: 'Profil',
             isActive: currentIndex == 3,
             activeColor: _primaryColor,

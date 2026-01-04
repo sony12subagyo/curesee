@@ -16,7 +16,7 @@ class CaptureButton extends StatelessWidget {
           color: const Color.fromARGB(255, 0, 128, 255),
           shape: BoxShape.circle,
           border: Border.all(
-            color: const Color.fromARGB(255, 23, 23, 23),
+            color: const Color.fromARGB(255, 96, 178, 237),
             width: 4,
           ),
           boxShadow: [
@@ -29,8 +29,8 @@ class CaptureButton extends StatelessWidget {
         ),
         child: const Center(
           child: Icon(
-            Icons.camera_alt,
-            size: 30,
+            Icons.camera,
+            size: 40,
             color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),

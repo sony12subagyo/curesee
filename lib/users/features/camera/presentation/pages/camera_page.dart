@@ -74,26 +74,6 @@ class _CameraPageState extends State<CameraPage> {
     setState(() => _flashMode = mode);
   }
 
-  // Future<void> _takePicture() async {
-  //   if (_controller == null || !_controller!.value.isInitialized) return;
-
-  //   final image = await _controller!.takePicture();
-  //   if (!mounted) return;
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (_) => BlocProvider(
-  //         create: (_) => SkinDetectionBloc(
-  //           DetectSkinDisease(SkinDetectionRepositoryImpl()),
-  //         )..add(DetectSkinFromImage(File(image.path))),
-  //         child: PreviewPage(imagePath: image.path),
-  //       ),
-  //     ),
-  //   );
-
-  //   await _initCamera(_selectedCameraIndex);
-  // }
-
   Future<void> _takePicture() async {
     if (_controller == null || !_controller!.value.isInitialized) return;
 
