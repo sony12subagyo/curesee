@@ -78,6 +78,7 @@ flutter:
     - assets/images/apk.png
     - assets/images/icon_curesee.png
     - assets/images/bg1.jpg
+    - assets/images/bg_white.jpeg
     - assets/model/main_disease_finetuned.tflite
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

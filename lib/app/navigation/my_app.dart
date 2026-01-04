@@ -1,3 +1,4 @@
+import 'package:curesee/app/navigation/home_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
       ),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+        home: HomeLayout(),
       ),
-    );
+    ); 
   }
 }

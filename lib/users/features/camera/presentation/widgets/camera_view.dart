@@ -21,13 +21,13 @@ class CameraView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: controller == null
-          ? const Center(child: CircularProgressIndicator(color: Colors.white))
+          ? const Center(child: CircularProgressIndicator(color: Color.fromARGB(255, 0, 0, 0)))
           : FutureBuilder(
               future: initializeCamera,
               builder: (context, snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return const Center(
-                    child: CircularProgressIndicator(color: Colors.white),
+                    child: CircularProgressIndicator(color: Color.fromARGB(255, 0, 0, 0)),
                   );
                 }
 
@@ -47,12 +47,12 @@ class CameraView extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
                                 Icons.arrow_back,
-                                color: Colors.white,
+                                color: Color.fromARGB(255, 0, 0, 0),
                                 size: 22,
                               ),
                             ),
@@ -63,7 +63,7 @@ class CameraView extends StatelessWidget {
                           const Text(
                             "SCAN",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -74,7 +74,7 @@ class CameraView extends StatelessWidget {
 
                     const Text(
                       "Scan your skin here",
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(color: Color.fromARGB(179, 0, 0, 0)),
                     ),
 
                     const SizedBox(height: 48),
@@ -97,7 +97,7 @@ class CameraView extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24),
                                   border: Border.all(
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
                                     width: 2,
                                   ),
                                 ),

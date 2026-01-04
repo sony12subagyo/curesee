@@ -78,7 +78,7 @@ class ProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("halaman profil", style: TextStyle(color: Colors.white)),
+      child: Text("halaman profil", style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
     );
   }
 }
