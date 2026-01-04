@@ -1,5 +1,6 @@
 import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/card_page.dart';
+import 'package:curesee/users/features/beranda/presentation/widgets/carousel/beranda_carousel.dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/custom_header.dart';
 import 'package:flutter/material.dart';
 
@@ -91,6 +92,9 @@ class BerandaPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         const SizedBox(height: 8),
+              BerandaCarousel(),
+      const SizedBox(height: 24),
+
         const Text(
           'Information Skin Type',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
