@@ -2,6 +2,7 @@ import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_
 import 'package:curesee/users/features/beranda/presentation/widgets/card_page.dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/carousel/beranda_carousel.dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/custom_header.dart';
+import 'package:curesee/users/features/beranda/presentation/widgets/recomended_information/recommended_information.dart';
 import 'package:flutter/material.dart';
 
 class BerandaPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class BerandaPage extends StatelessWidget {
         if (width < 600) {
           return Column(
             children: [
-              _buildHeader(),
+              // _buildHeader(),
               Expanded(child: _buildList(context)),
             ],
           );
@@ -31,7 +32,7 @@ class BerandaPage extends StatelessWidget {
                 flex: 2,
                 child: Column(
                   children: [
-                    _buildHeader(),
+                    // _buildHeader(),
                     Expanded(child: _buildList(context)),
                   ],
                 ),
@@ -56,7 +57,7 @@ class BerandaPage extends StatelessWidget {
               flex: 3,
               child: Column(
                 children: [
-                  _buildHeader(),
+                  // _buildHeader(),
                   Expanded(child: _buildList(context)),
                 ],
               ),
@@ -77,23 +78,26 @@ class BerandaPage extends StatelessWidget {
   }
 
   // header
-  Widget _buildHeader() {
-    return CustomHeader(
-      title: 'Welcome to Curesee app',
-      subtitle: 'How are you today?',
-      // extraText: 'ALEXANDER',
-      avatar: const NetworkImage('https://i.pravatar.cc/150?img=3'),
-    );
-  }
+  // Widget _buildHeader() {
+  //   return CustomHeader(
+  //     title: 'Welcome to Curesee app',
+  //     subtitle: 'How are you today?',
+  //     // extraText: 'ALEXANDER',
+  //     avatar: const NetworkImage('https://i.pravatar.cc/150?img=3'),
+  //   );
+  // }
 
   // list
   Widget _buildList(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       children: [
         const SizedBox(height: 8),
               BerandaCarousel(),
       const SizedBox(height: 24),
+
+      RecommendedInformation(),
+  // const SizedBox(height: 0),
 
         const Text(
           'Information Skin Type',
