@@ -100,10 +100,10 @@ class BerandaPage extends StatelessWidget {
   // const SizedBox(height: 0),
 
         const Text(
-          'Information Skin Type',
+          'Informasi Tentang Kulit',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 12), 
 
         ...List.generate(10, (index) {
           final imageUrl = 'https://picsum.photos/seed/picsum/200/300';
