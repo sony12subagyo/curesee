@@ -1,11 +1,11 @@
 import 'package:curesee/users/features/profile/domain/entities/profil.dart';
 import 'package:curesee/users/features/profile/domain/repositories/profil_repository.dart';
 
-class GetAllProfile {
+class GetProfile {
   final ProfileRepository repository;
-  GetAllProfile(this.repository);
+  GetProfile(this.repository);
 
-  Future<List<Profile>> call() async {
-    return await repository.getAllProfile();
+  Future<Profile> execute() async {
+    return await repository.getProfile();
   }
 }

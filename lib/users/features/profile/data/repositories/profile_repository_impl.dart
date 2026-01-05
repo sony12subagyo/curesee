@@ -7,12 +7,12 @@ class ProfileRepositoryImpl extends ProfileRepository {
   ProfileRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<List<Profile>> getAllProfile() async {
-    return await remoteDataSource.getAllProfile();
+  Future<Profile> getProfile() async {
+    return await remoteDataSource.getProfile();
   }
 
   @override
-  Future<void> updateProfile(int userid, Profile profile) async {
-    await remoteDataSource.updateProfile(userid, profile);
+  Future<void> updateProfile(Profile profile) async {
+    await remoteDataSource.updateProfile(profile);
   }
 }

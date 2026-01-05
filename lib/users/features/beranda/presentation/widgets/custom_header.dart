@@ -26,15 +26,9 @@ class CustomHeader extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(30),
-        ),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 8,
-            offset: Offset(0, 3),
-          ),
+          BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(0, 3)),
         ],
       ),
       child: SafeArea(
@@ -49,18 +43,16 @@ class CustomHeader extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ProfilPage(),
+                      builder: (context) => const ProfilePage(),
                     ),
                   );
                 },
-                child: CircleAvatar(
-                  radius: 28,
-                  backgroundImage: avatar,
-                ),
+                child: CircleAvatar(radius: 28, backgroundImage: avatar),
               ),
               const SizedBox(width: 12),
 
-              Expanded( // ⭐ cegah overflow horizontal & vertical
+              Expanded(
+                // ⭐ cegah overflow horizontal & vertical
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min, // ⭐ kunci auto-height

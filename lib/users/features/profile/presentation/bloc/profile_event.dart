@@ -9,7 +9,6 @@ abstract class ProfileEvent extends Equatable {
 class LoadProfileEvent extends ProfileEvent {}
 
 class UpdateProfileEvent extends ProfileEvent {
-  final int userid;
   final Profile profile;
-  UpdateProfileEvent(this.userid, this.profile);
+  UpdateProfileEvent(this.profile);
 }

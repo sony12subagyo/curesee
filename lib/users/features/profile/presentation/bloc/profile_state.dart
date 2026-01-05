@@ -11,11 +11,11 @@ class ProfileInitial extends ProfileState {}
 class ProfileLoading extends ProfileState {}
 
 class ProfileLoaded extends ProfileState {
-  final List<Profile> profileList;
-  ProfileLoaded(this.profileList);
+  final Profile profile;
+  ProfileLoaded(this.profile);
 
   @override
-  List<Object?> get props => [profileList];
+  List<Object?> get props => [profile];
 }
 
 class ProfileError extends ProfileState {

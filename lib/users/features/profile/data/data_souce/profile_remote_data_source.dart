@@ -1,45 +1,58 @@
 import 'dart:convert';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:curesee/users/features/profile/domain/entities/profil.dart';
 import 'package:http/http.dart' as http;
 
-final String baseUrl = "https://a9faa2a6661c.ngrok-free.app/api/profile";
+final String baseUrl = "https://6338b68a9255.ngrok-free.app/api/profile";
 
 class ProfileRemoteDataSource {
-  Future<List<Profile>> getAllProfile() async {
-    final response = await http.get(Uri.parse(baseUrl));
-
+  Future<Profile> getProfile() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw Exception("user belum login");
+    }
+    final token = await user.getIdToken();
+    final response = await http.get(
+    Uri.parse(baseUrl), 
+    headers: {
+      "Authorization":"Bearer $token",
+      "Accept":"application/json",
+    },
+  );
     if (response.statusCode == 200) {
-      final List data = jsonDecode(response.body);
-
-      return data.map((item) {
-        return Profile(
-          userid: int.tryParse(item['userid']?.toString() ?? "0") ?? 0,
-          name: item['name'] ?? "",
-          gender: item['gender'] ?? "",
-          email: item['email'] ?? "",
-          age: int.tryParse(item['age']?.toString() ?? "0") ?? 0,
-        );
-      }).toList();
+      final data = jsonDecode(response.body);
+      
+      return Profile(
+        id: data['id'],
+        name: data['name'],
+        gender: data['gender'] ?? "",
+        email: data['email'],
+        age: data['age'] ?? 0,
+      );
     } else {
       throw Exception("gagal memuat profile");
     }
   }
 
-  Future<void> updateProfile(int userid, Profile fp) async {
-    final response = await http.put(
-      Uri.parse("$baseUrl/$userid"),
-      headers: {"content-Type": "application/json"},
-      body: jsonEncode({
-        "userid": fp.userid,
-        "name": fp.name,
-        "gender": fp.gender,
-        "email": fp.email,
-        "age": fp.age,
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw Exception("gagal update profile");
-    }
+Future<void> updateProfile(Profile fp) async {
+  final user = FirebaseAuth.instance.currentUser!;
+  final token = await user.getIdToken();
+
+  final response = await http.put(
+    Uri.parse("$baseUrl"),
+    headers: {
+      "Authorization": "Bearer $token",
+      "Content-Type": "application/json",
+    },
+    body: jsonEncode({
+      "name": fp.name,
+      "gender": fp.gender,
+      "age": fp.age,
+    }),
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception("gagal update profile");
   }
+}
 }

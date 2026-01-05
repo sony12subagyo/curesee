@@ -85,9 +85,8 @@ class ProfileUpdatePage extends StatelessWidget {
                     }
                     blocProfil.add(
                       UpdateProfileEvent(
-                        profile.userid,
                         Profile(
-                          userid: profile.userid,
+                          id: profile.id,
                           name: namaCtrl.text,
                           gender: genderCtrl.text,
                           age: int.parse(ageCtrl.text),

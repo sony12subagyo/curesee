@@ -43,9 +43,9 @@ final userLoginUsecase = UserLoginUsecase(userRepo);
       ),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-
         home: AuthGate(),
+
       ),
-    ); 
+    );
   }
 }
