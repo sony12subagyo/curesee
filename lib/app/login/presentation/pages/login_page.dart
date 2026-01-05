@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              const Text('by KelompokSigma', style: TextStyle(fontSize: 12)),
+              const Text('by KelompokSigmaa', style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
