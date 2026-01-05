@@ -73,7 +73,7 @@ class CameraView extends StatelessWidget {
                     ),
 
                     const Text(
-                      "Scan your skin here",
+                      "Scan kulitmu dengan menyesuaikan posisi pada frame",
                       style: TextStyle(color: Color.fromARGB(255, 8, 122, 222)),
                     ),
 
