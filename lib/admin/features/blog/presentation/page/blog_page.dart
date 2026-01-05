@@ -163,7 +163,7 @@ class BlogPage extends StatelessWidget {
               Navigator.pop(context);
               await _logout(context);
             },
-            child: const Text("Logout"),
+            child: const Text("Ya"),
           ),
         ],
       ),
