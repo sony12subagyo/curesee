@@ -12,7 +12,7 @@ class ProfileForm extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.2),
+        color: Colors.grey.withOpacity(0.2),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -21,7 +21,7 @@ class ProfileForm extends StatelessWidget {
           const Text(
             "Person",
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.grey,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -38,20 +38,20 @@ class ProfileForm extends StatelessWidget {
             child: Row(
               children: [
                 const SizedBox(width: 4),
-                const Icon(Icons.person, color: Colors.black, size: 18),
+                const Icon(Icons.person, color: Colors.grey, size: 18),
                 const SizedBox(width: 8),
 
                 const Text(
                   "Edit Profile",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: Colors.grey,
                   ), // 🔹 CHANGED
                 ),
 
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.black, size: 18),
+                  icon: const Icon(Icons.edit, color: Colors.grey, size: 18),
                   padding: EdgeInsets.zero, // 🔹 CHANGED
                   constraints: const BoxConstraints(), // 🔹 CHANGED
                   onPressed: () {
@@ -73,7 +73,7 @@ class ProfileForm extends StatelessWidget {
           const Text(
             "About us",
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.grey,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -92,7 +92,7 @@ class ProfileForm extends StatelessWidget {
                 IconButton(
                   icon: const Icon(
                     Icons.info_rounded,
-                    color: Colors.black,
+                    color: Colors.grey,
                     size: 18,
                   ),
                   padding: EdgeInsets.zero,
@@ -107,7 +107,7 @@ class ProfileForm extends StatelessWidget {
                 const SizedBox(width: 6),
                 const Text(
                   "About Us",
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
             ),
@@ -133,7 +133,7 @@ class ProfileForm extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.grey,
                 ),
               ),
             ),
