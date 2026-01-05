@@ -41,25 +41,22 @@ class _ProfilePageState extends State<ProfilePage> {
 
         if (state is ProfileLoaded) {
           final Profile user = state.profile;
+
           return SingleChildScrollView(
-            child: Column(
-              children: [
-                ProfileCard(profile: user),
-                //Di dalam ProfilePage (state is ProfileLoaded)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start, //Agar widget rata atas
-                  children: [
-                    const JumlahAnalisis(),
-                    const SizedBox(
-                      width: 8,
-                    ), //Gunakan Expanded agar ProfileForm menyesuaikan sisa ruang layar
-                  ],
-                ),
-                const SizedBox(height: 16),
-                ProfileForm(profile: user),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Column(
+                children: [
+                  ProfileCard(profile: user),
+                  const SizedBox(height: 16),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [const JumlahAnalisis()],
+                  ),
+                  const SizedBox(height: 16),
+                  ProfileForm(profile: user),
+                ],
+              ),
             ),
           );
         }
@@ -69,16 +66,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-
-// class ProfilPage extends StatelessWidget {
-//   const ProfilPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Center(
-//       child: Text("halaman profil", style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
-//     );
-//   }
-// }

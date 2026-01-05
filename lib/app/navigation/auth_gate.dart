@@ -1,7 +1,14 @@
 // import 'package:curesee/users/features/beranda/presentation/pages/beranda_page.dart';
 import 'package:curesee/app/navigation/home_layout.dart';
+import 'package:curesee/users/features/profile/data/data_souce/profile_remote_data_source.dart';
+import 'package:curesee/users/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:curesee/users/features/profile/domain/use_case/get_profile.dart';
+import 'package:curesee/users/features/profile/domain/use_case/update_profile.dart';
+import 'package:curesee/users/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:curesee/users/features/profile/presentation/bloc/profile_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../login/presentation/pages/login_page.dart';
 
@@ -39,7 +46,23 @@ class AuthGate extends StatelessWidget {
         }
 
         if (snapshot.data == true) {
-          return const HomeLayout(); // ganti sesuai
+          // 🔥 INI SATU-SATUNYA YANG KITA TAMBAH
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) {
+                  final remote = ProfileRemoteDataSource();
+                  final repo = ProfileRepositoryImpl(remote);
+
+                  return ProfileBloc(
+                    getProfile: GetProfile(repo),
+                    updateProfile: UpdateProfile(repo),
+                  )..add(LoadProfileEvent());
+                },
+              ),
+            ],
+            child: const HomeLayout(),
+          );
         }
 
         return const LoginPage();

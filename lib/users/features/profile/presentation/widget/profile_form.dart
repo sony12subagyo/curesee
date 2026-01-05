@@ -18,37 +18,42 @@ class ProfileForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Judul
           const Text(
             "Person",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
+          // PERSON CARD
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               children: [
-                Icon(Icons.person, color: Colors.black),
-                SizedBox(width: 10),
+                const SizedBox(width: 4),
+                const Icon(Icons.person, color: Colors.black, size: 18),
+                const SizedBox(width: 8),
 
-                Text(
+                const Text(
                   "Edit Profile",
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ), // 🔹 CHANGED
                 ),
 
-                Spacer(), // mendorong icon ke ujung kanan
-                // Ganti bagian Icon(Icons.edit, ...) dengan ini:
+                const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.grey, size: 20),
+                  icon: const Icon(Icons.edit, color: Colors.black, size: 18),
+                  padding: EdgeInsets.zero, // 🔹 CHANGED
+                  constraints: const BoxConstraints(), // 🔹 CHANGED
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -63,31 +68,35 @@ class ProfileForm extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 20),
+          const SizedBox(height: 6), // 🔹 CHANGED
+
           const Text(
-            "Person",
+            "About us",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
+          // ABOUT US CARD
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               children: [
                 IconButton(
                   icon: const Icon(
                     Icons.info_rounded,
-                    color: Colors.grey,
-                    size: 20,
+                    color: Colors.black,
+                    size: 18,
                   ),
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -95,34 +104,34 @@ class ProfileForm extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(width: 10),
-                Text(
+                const SizedBox(width: 6),
+                const Text(
                   "About Us",
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               ],
             ),
           ),
 
-          const SizedBox(height: 40),
-
+          const SizedBox(height: 32),
           SizedBox(
+            height: 42,
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // logika logout nanti di sini
                 print("Logout ditekan");
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(16), // 🔹 CHANGED
                 ),
+                padding: const EdgeInsets.symmetric(vertical: 8), // 🔹 CHANGED
               ),
               child: const Text(
                 "Logout",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
