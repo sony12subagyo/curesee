@@ -1,4 +1,6 @@
-import 'package:curesee/app/navigation/home_layout.dart';
+
+import 'package:curesee/app/login/data/data_source/login_remote_datasource.dart';
+import 'package:curesee/app/navigation/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -9,19 +11,28 @@ import '../login/data/repositories/admin_login_repository_impl.dart';
 import '../login/data/repositories/user_login_repository_impl.dart';
 import '../login/presentation/pages/login_page.dart';
 
+
+
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     /// ===== USER LOGIN =====
-    final userRepository = UserLoginRepositoryImpl();
-    final userLoginUsecase = UserLoginUsecase(userRepository);
+    final loginRemote = LoginRemoteDataSource(
+  baseUrl: 'https://6338b68a9255.ngrok-free.app/api',
+);
+
+final userRepo = UserLoginRepositoryImpl(loginRemote);
+final userLoginUsecase = UserLoginUsecase(userRepo);
+
 
     /// ===== ADMIN LOGIN =====
     final adminRepository = AdminLoginRepositoryImpl(
       client: http.Client(),
-      baseUrl: 'https://a6be1cef336e.ngrok-free.app/api',
+
+      baseUrl: 'https://6338b68a9255.ngrok-free.app/api',
     );
     final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 
@@ -32,8 +43,8 @@ class MyApp extends StatelessWidget {
       ),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        //home: LoginPage(),
-        home: HomeLayout(),
+
+        home: AuthGate(),
       ),
     ); 
   }

@@ -1,32 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import '../data_source/login_remote_datasource.dart';
 
 class UserLoginRepositoryImpl {
-  final FirebaseAuth _auth;
+  final LoginRemoteDataSource remote;
 
-  UserLoginRepositoryImpl({FirebaseAuth? auth})
-    : _auth = auth ?? FirebaseAuth.instance;
 
-  /// return Firebase ID Token
-  Future<String> login(String email, String password) async {
-    final credential = await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+  UserLoginRepositoryImpl(this.remote);
 
-    final user = credential.user;
-    if (user == null) {
-      throw Exception('User tidak ditemukan');
-    }
-
-    final token = await user.getIdToken();
-    if (token == null) {
-      throw Exception('Gagal mengambil Firebase token');
-    }
-
-    return token;
+  Future<String> login(String email, String password) {
+    return remote.loginUser(email, password);
   }
 
-  Future<void> logout() async {
-    await _auth.signOut();
-  }
+  Future<void> logout() => remote.logout();
 }

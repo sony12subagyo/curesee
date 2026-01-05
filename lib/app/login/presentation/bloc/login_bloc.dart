@@ -14,19 +14,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // ================= USER LOGIN =================
     on<LoginUserPressed>((event, emit) async {
       emit(LoginLoading());
+
       try {
         final token = await userLoginUsecase.execute(
           event.email,
           event.password,
         );
 
-        // 🔥 SIMPAN TOKEN USER
+        // 🔥 TOKEN PASTI VALID & USER SUDAH VERIFIED
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_token', token);
 
         emit(LoginSuccess(token: token, isAdmin: false));
       } catch (e) {
-        emit(LoginFailure(e.toString()));
+        // 🔥 PASTIKAN TIDAK ADA SUCCESS SETELAH ERROR
+        emit(LoginFailure(e.toString().replaceAll('Exception:', '').trim()));
       }
     });
 

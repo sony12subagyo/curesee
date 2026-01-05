@@ -51,10 +51,13 @@ class LoginHeader extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const RegistrasiPage()),
+
+                  MaterialPageRoute(
+                    builder: (_) => RegistrasiPage(),
+                  ),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Sign up now!',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,

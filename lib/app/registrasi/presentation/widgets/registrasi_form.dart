@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class RegistrasiForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
   final TextEditingController nameC;
   final TextEditingController emailC;
   final TextEditingController ageC;
@@ -10,7 +9,6 @@ class RegistrasiForm extends StatefulWidget {
 
   const RegistrasiForm({
     super.key,
-    required this.formKey,
     required this.nameC,
     required this.emailC,
     required this.ageC,
@@ -27,90 +25,58 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: widget.formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// NAME
-          _field(
-            label: 'Name',
-            controller: widget.nameC,
-            validator: (v) {
-              if (v == null || v.trim().length < 3) {
-                return 'Nama minimal 3 huruf';
-              }
-              return null;
-            },
-          ),
+    return Column( // ✅ TIDAK ADA FORM
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _field(
+          label: 'Name',
+          controller: widget.nameC,
+          validator: (v) =>
+              v == null || v.length < 3 ? 'Nama minimal 3 huruf' : null,
+        ),
 
-          /// EMAIL
-          _field(
-            label: 'Email',
-            controller: widget.emailC,
-            keyboardType: TextInputType.emailAddress,
-            validator: (v) {
-              if (v == null || v.length < 8) {
-                return 'Email minimal 8 karakter';
-              }
-              if (!v.contains('@')) {
-                return 'Format email tidak valid';
-              }
-              return null;
-            },
-          ),
+        _field(
+          label: 'Email',
+          controller: widget.emailC,
+          validator: (v) {
+            if (v == null || !v.contains('@')) {
+              return 'Email tidak valid';
+            }
+            return null;
+          },
+        ),
 
-          /// GENDER (RADIO)
-          const Text('Gender', style: TextStyle(color: Colors.white)),
-          ValueListenableBuilder<String?>(
-            valueListenable: widget.gender,
-            builder: (_, value, __) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RadioListTile(
-                    title: const Text('Laki-laki'),
-                    value: 'male',
-                    groupValue: value,
-                    onChanged: (v) => widget.gender.value = v,
-                  ),
-                  RadioListTile(
-                    title: const Text('Perempuan'),
-                    value: 'female',
-                    groupValue: value,
-                    onChanged: (v) => widget.gender.value = v,
-                  ),
-                  if (value == null)
-                    const Padding(
-                      padding: EdgeInsets.only(left: 12),
-                      child: Text(
-                        'Gender wajib dipilih',
-                        style: TextStyle(color: Colors.red, fontSize: 12),
-                      ),
-                    ),
-                ],
-              );
-            },
+        const Text('Gender', style: TextStyle(color: Colors.white)),
+        ValueListenableBuilder<String?>(
+          valueListenable: widget.gender,
+          builder: (_, value, __) => Column(
+            children: [
+              RadioListTile(
+                title: const Text('Laki-laki'),
+                value: 'male',
+                groupValue: value,
+                onChanged: (v) => widget.gender.value = v,
+              ),
+              RadioListTile(
+                title: const Text('Perempuan'),
+                value: 'female',
+                groupValue: value,
+                onChanged: (v) => widget.gender.value = v,
+              ),
+            ],
           ),
+        ),
 
-          /// AGE
-          _field(
-            label: 'Age',
-            controller: widget.ageC,
-            keyboardType: TextInputType.number,
-            validator: (v) {
-              final age = int.tryParse(v ?? '');
-              if (age == null || age < 10) {
-                return 'Umur minimal 10 tahun';
-              }
-              return null;
-            },
-          ),
+        _field(
+          label: 'Age',
+          controller: widget.ageC,
+          keyboardType: TextInputType.number,
+          validator: (v) =>
+              int.tryParse(v ?? '') == null ? 'Umur tidak valid' : null,
+        ),
 
-          /// PASSWORD
-          _passwordField(),
-        ],
-      ),
+        _passwordField(),
+      ],
     );
   }
 
@@ -137,26 +103,16 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
   }
 
   Widget _passwordField() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: TextFormField(
-        controller: widget.passC,
-        obscureText: _obscure,
-        validator: (v) {
-          if (v == null || v.length < 6) {
-            return 'Password minimal 6 karakter';
-          }
-          return null;
-        },
-        decoration: InputDecoration(
-          labelText: 'Password',
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          suffixIcon: IconButton(
-            icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
-            onPressed: () => setState(() => _obscure = !_obscure),
-          ),
+    return TextFormField(
+      controller: widget.passC,
+      obscureText: _obscure,
+      validator: (v) =>
+          v == null || v.length < 6 ? 'Password minimal 6 karakter' : null,
+      decoration: InputDecoration(
+        labelText: 'Password',
+        suffixIcon: IconButton(
+          icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
+          onPressed: () => setState(() => _obscure = !_obscure),
         ),
       ),
     );
