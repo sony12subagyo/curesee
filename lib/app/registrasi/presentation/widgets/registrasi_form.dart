@@ -25,7 +25,8 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column( // ✅ TIDAK ADA FORM
+    return Column(
+      // ✅ TIDAK ADA FORM
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _field(
@@ -46,22 +47,34 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
           },
         ),
 
+        const SizedBox(height: 8),
         const Text('Gender', style: TextStyle(color: Colors.white)),
+
         ValueListenableBuilder<String?>(
           valueListenable: widget.gender,
-          builder: (_, value, __) => Column(
+          builder: (_, value, __) => Row(
             children: [
-              RadioListTile(
-                title: const Text('Laki-laki'),
-                value: 'male',
-                groupValue: value,
-                onChanged: (v) => widget.gender.value = v,
+              Expanded(
+                child: RadioListTile(
+                  title: const Text(
+                    'Laki-laki',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  value: 'male',
+                  groupValue: value,
+                  onChanged: (v) => widget.gender.value = v,
+                ),
               ),
-              RadioListTile(
-                title: const Text('Perempuan'),
-                value: 'female',
-                groupValue: value,
-                onChanged: (v) => widget.gender.value = v,
+              Expanded(
+                child: RadioListTile(
+                  title: const Text(
+                    'Perempuan',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  value: 'female',
+                  groupValue: value,
+                  onChanged: (v) => widget.gender.value = v,
+                ),
               ),
             ],
           ),
@@ -110,6 +123,9 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
           v == null || v.length < 6 ? 'Password minimal 6 karakter' : null,
       decoration: InputDecoration(
         labelText: 'Password',
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         suffixIcon: IconButton(
           icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
           onPressed: () => setState(() => _obscure = !_obscure),
