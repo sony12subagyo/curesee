@@ -48,33 +48,40 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
         ),
 
         const SizedBox(height: 8),
-        const Text('Gender', style: TextStyle(color: Colors.white)),
+        const Text(
+          'Gender',
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+        ),
 
         ValueListenableBuilder<String?>(
           valueListenable: widget.gender,
-          builder: (_, value, __) => Row(
+          builder: (_, value, __) => Column(
             children: [
-              Expanded(
-                child: RadioListTile(
-                  title: const Text(
-                    'Laki-laki',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  value: 'male',
-                  groupValue: value,
-                  onChanged: (v) => widget.gender.value = v,
+              RadioListTile(
+                title: const Text(
+                  'Laki-laki',
+                  style: TextStyle(color: Colors.white),
                 ),
+                value: 'male',
+                groupValue: value,
+                activeColor: Colors.black,
+                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                  return Colors.white;
+                }),
+                onChanged: (v) => widget.gender.value = v,
               ),
-              Expanded(
-                child: RadioListTile(
-                  title: const Text(
-                    'Perempuan',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  value: 'female',
-                  groupValue: value,
-                  onChanged: (v) => widget.gender.value = v,
+              RadioListTile(
+                title: const Text(
+                  'Perempuan',
+                  style: TextStyle(color: Colors.white),
                 ),
+                value: 'female',
+                groupValue: value,
+                activeColor: Colors.black,
+                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                  return Colors.white;
+                }),
+                onChanged: (v) => widget.gender.value = v,
               ),
             ],
           ),

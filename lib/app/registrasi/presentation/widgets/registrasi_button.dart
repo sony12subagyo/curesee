@@ -25,67 +25,82 @@ class RegistrasiButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RegistrasiBloc, RegistrasiState>(
-      builder: (context, state) {
-        final isLoading = state is RegistrasiLoading;
+    return BlocListener<RegistrasiBloc, RegistrasiState>(
+      listener: (context, state) {
+        // 🔁 BALIK KE LOGIN (LOGIC TIDAK DIUBAH)
+        if (state is RegistrasiSuccess) {
+          Navigator.pop(context);
+        }
+      },
+      child: BlocBuilder<RegistrasiBloc, RegistrasiState>(
+        builder: (context, state) {
+          final isLoading = state is RegistrasiLoading;
 
-        return SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: isLoading
-                ? null
-                : () {
-                    // 🔥 VALIDASI FORM
-                    if (!formKey.currentState!.validate()) return;
+          return TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 1.0, end: 1.0),
+            duration: const Duration(milliseconds: 120),
+            builder: (context, scale, child) {
+              return Transform.scale(scale: scale, child: child);
+            },
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: isLoading
+                    ? null
+                    : () {
+                        // 🔒 VALIDASI FORM (TIDAK DIUBAH)
+                        if (!formKey.currentState!.validate()) return;
 
-                    // 🔥 VALIDASI GENDER
-                    if (gender.value == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Pilih gender terlebih dahulu'),
+                        // 🔒 VALIDASI GENDER (TIDAK DIUBAH)
+                        if (gender.value == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Pilih gender terlebih dahulu'),
+                            ),
+                          );
+                          return;
+                        }
+
+                        context.read<RegistrasiBloc>().add(
+                          RegistrasiSubmitted(
+                            RegistrasiEntity(
+                              name: nameC.text.trim(),
+                              email: emailC.text.trim(),
+                              gender: gender.value!,
+                              age: int.parse(ageC.text),
+                              password: passC.text.trim(),
+                            ),
+                          ),
+                        );
+                      },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0A74FF),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: isLoading
+                    ? const SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
                         ),
-                      );
-                      return;
-                    }
-
-                    context.read<RegistrasiBloc>().add(
-                      RegistrasiSubmitted(
-                        RegistrasiEntity(
-                          name: nameC.text.trim(),
-                          email: emailC.text.trim(),
-                          gender: gender.value!,
-                          age: int.parse(ageC.text),
-                          password: passC.text.trim(),
+                      )
+                    : const Text(
+                        'Create your account',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                    );
-                  },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF0A74FF),
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: isLoading
-                ? const SizedBox(
-                    width: 22,
-                    height: 22,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white,
-                    ),
-                  )
-                : const Text(
-                    'Create your account',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
