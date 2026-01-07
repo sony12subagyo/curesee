@@ -87,14 +87,14 @@ class CameraView extends StatelessWidget {
 
                     Center(
                       child: const Text(
-                        "Scan kulitmu sesuai posisi pada frame",
+                        "Scan kulitmu disini",
                         style: TextStyle(
                           color: Color.fromARGB(255, 0, 128, 255),
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 48),
+                    const SizedBox(height: 25),
 
                     // 📷 SCAN FRAME (PERSEGI 1:1, CAMERA NORMAL)
                     Expanded(
