@@ -24,25 +24,38 @@ class PreviewPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white.withOpacity(0.05),
                     border: Border.all(
-                      color: Colors.white.withOpacity(0.6),
-                      width: 1.5, // tipis & elegan
+                      color: Colors.white.withOpacity(0.5),
+                      width: 1.5,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 12,
-                        offset: const Offset(0, 6),
+                        color: Colors.black.withOpacity(0.25),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
                   clipBehavior: Clip.antiAlias,
-                  child: Image.file(
-                    File(imagePath),
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  child: Padding(
+                    padding: const EdgeInsets.all(
+                      4,
+                    ), // 🔥 ini bikin foto terasa "masuk frame"
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.file(
+                        File(imagePath),
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -196,60 +209,60 @@ class PreviewPage extends StatelessWidget {
 
                               const SizedBox(width: 12),
 
-                              // Expanded(
-                              //   child: ElevatedButton.icon(
-                              //     icon: const Icon(
-                              //       Icons.save_alt_rounded,
-                              //       color: Colors.blue,
-                              //     ),
-                              //     label: const Text(
-                              //       "Simpan",
-                              //       style: TextStyle(color: Colors.blue),
-                              //     ),
-                              //     onPressed: () {
-                              //       final state = context
-                              //           .read<SkinDetectionBloc>()
-                              //           .state;
-                              //       if (state is SkinDetectionLoaded) {
-                              //         final top = state.result.top3.first;
+                              Expanded(
+                                child: ElevatedButton.icon(
+                                  icon: const Icon(
+                                    Icons.save_alt_rounded,
+                                    color: Colors.blue,
+                                  ),
+                                  label: const Text(
+                                    "Simpan",
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                  onPressed: () {
+                                    final state = context
+                                        .read<SkinDetectionBloc>()
+                                        .state;
+                                    if (state is SkinDetectionLoaded) {
+                                      final top = state.result.top3.first;
 
-                              //         final scan = HistoryScan(
-                              //           id: DateTime.now()
-                              //               .millisecondsSinceEpoch
-                              //               .toString(),
-                              //           imagePath: imagePath,
-                              //           label: top.label,
-                              //           confidence: top.confidence,
-                              //           createdAt: DateTime.now(),
-                              //         );
+                                      // final scan = HistoryScan(
+                                      //   id: DateTime.now()
+                                      //       .millisecondsSinceEpoch
+                                      //       .toString(),
+                                      //   imagePath: imagePath,
+                                      //   label: top.label,
+                                      //   confidence: top.confidence,
+                                      //   createdAt: DateTime.now(),
+                                      // );
 
-                              //         context.read<HistoryBloc>().add(
-                              //           SaveScanEvent(scan),
-                              //         );
+                                      // context.read<HistoryBloc>().add(
+                                      //   SaveScanEvent(scan),
+                                      // );
 
-                              //         ScaffoldMessenger.of(
-                              //           context,
-                              //         ).showSnackBar(
-                              //           const SnackBar(
-                              //             content: Text("Hasil scan disimpan"),
-                              //           ),
-                              //         );
-                              //       }
-                              //     },
-                              //     style: ElevatedButton.styleFrom(
-                              //       padding: const EdgeInsets.symmetric(
-                              //         vertical: 14,
-                              //       ),
-                              //       shape: RoundedRectangleBorder(
-                              //         borderRadius: BorderRadius.circular(12),
-                              //       ),
-                              //       side: BorderSide(
-                              //         color: Colors.blue,
-                              //         width: 1.5,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Hasil scan disimpan"),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    side: BorderSide(
+                                      color: Colors.blue,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ],
