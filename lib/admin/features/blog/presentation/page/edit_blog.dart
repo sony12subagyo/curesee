@@ -1,45 +1,63 @@
-
-import 'package:curesee/admin/features/blog/presentation/widget/blog%20edit/button_edit.dart';
-import 'package:curesee/admin/features/blog/presentation/widget/blog%20edit/card_edit_blog.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog edit/button_edit.dart';
+import 'package:curesee/admin/features/blog/presentation/widget/blog edit/card_edit_blog.dart';
 import 'package:flutter/material.dart';
 
-
-
-class EditBlogPage extends StatelessWidget {
-
-  final String imageUrl;
+class EditBlogPage extends StatefulWidget {
+  final int id;
   final String title;
   final String description;
+  final String imageUrl;
 
   const EditBlogPage({
     super.key,
-    required this.imageUrl,
+    required this.id,
     required this.title,
     required this.description,
+    required this.imageUrl,
   });
 
+  @override
+  State<EditBlogPage> createState() => _EditBlogPageState();
+}
+
+class _EditBlogPageState extends State<EditBlogPage> {
+  late TextEditingController titleController;
+  late TextEditingController descController;
+
+  String? newImagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController(text: widget.title);
+    descController = TextEditingController(text: widget.description);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEAF1FF),
-      appBar: AppBar(
-        title: const Text('Edit Information'),
-        backgroundColor: const Color(0xFF1EA3FF),
-        foregroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
+      appBar: AppBar(title: const Text("Edit Blog")),
+      body: ListView(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: const [
-           
-            SizedBox(height: 16),
-            CardEditBlog(),
-            SizedBox(height: 24),
-            ButtonEdit(),
-          ],
-        ),
+        children: [
+          CardEditBlog(
+            titleController: titleController,
+            descController: descController,
+            imageUrl: widget.imageUrl,
+            onImagePicked: (path) {
+              newImagePath = path;
+            },
+          ),
+
+          const SizedBox(height: 20),
+
+          ButtonEdit(
+            id: widget.id,
+            titleController: titleController,
+            descController: descController,
+            imagePath: newImagePath,
+          )
+        ],
       ),
     );
   }

@@ -1,15 +1,24 @@
+import 'package:curesee/admin/features/blog/core/network/admin_dio.dart';
+import 'package:curesee/admin/features/blog/data/datasource/blog_remote_datasource.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ButtonEdit extends StatelessWidget {
-  
- 
+  final int id;
+  final TextEditingController titleController;
+  final TextEditingController descController;
+  final String? imagePath;
 
-  const ButtonEdit({super.key,
-
-  
+  const ButtonEdit({
+    super.key,
+    required this.id,
+    required this.titleController,
+    required this.descController,
+    required this.imagePath,
   });
 
   @override
+
   Widget build(BuildContext context) {
     return GridView.count(
       crossAxisCount: 2,
@@ -17,78 +26,55 @@ class ButtonEdit extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 12,
       mainAxisSpacing: 12,
-      childAspectRatio: 3.5, // kontrol tinggi tombol
+      childAspectRatio: 3.5,
       children: [
-        _buildButton(
-          text: 'Edit',
-          onPressed: () {
-            // TODO: edit action
-          },
-        ),
-        _buildButton(
-          text: 'Hapus',
-          onPressed: () => _showDeleteDialog(context),
-        ),
-        _buildButton(
-          text: 'Batal',
-          backgroundColor: Colors.blue,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        _buildButton(
-          text: 'Simpan',
-          onPressed: () {
-            // TODO: simpan action
-          },
-        ),
+        _button("Hapus", Colors.red, () => _delete(context)),
+        _button("Batal", Colors.grey, () => Navigator.pop(context)),
+        _button("Simpan", Colors.green, () => _save(context)),
       ],
     );
   }
-
-  Widget _buildButton({
-    required String text,
-    required VoidCallback onPressed,
-    Color backgroundColor = Colors.blue,
-  }) {
+  Widget _button(String text, Color color, VoidCallback onTap) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        backgroundColor: color,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.white),
-        textAlign: TextAlign.center,
-      ),
+      onPressed: onTap,
+      child: Text(text),
     );
   }
+  // ================= DELETE ==================
+  Future<void> _delete(BuildContext context) async {
+    final dio = await AdminDio.getInstance();
+    final ds = BlogRemoteDatasource(dio);
 
-  void _showDeleteDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Hapus Data'),
-        content: const Text('Apakah kamu yakin ingin menghapus data ini?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text(
-              'Hapus',
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
-      ),
-    );
+    await ds.deleteBlog(id);
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Berhasil dihapus")));
+
+    Navigator.pop(context);
+  }
+
+  Future<void> _save(BuildContext context) async {
+    final dio = await AdminDio.getInstance();
+    final ds = BlogRemoteDatasource(dio);
+
+    final data = FormData.fromMap({
+      '_method': 'PATCH',
+      'title': titleController.text,
+      'content': descController.text,
+      if (imagePath != null)
+        'image': await MultipartFile.fromFile(imagePath!),
+    });
+
+    await ds.updateBlog(id, data);
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Perubahan disimpan")));
+
+    Navigator.pop(context);
   }
 }
