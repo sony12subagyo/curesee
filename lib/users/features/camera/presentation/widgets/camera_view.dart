@@ -21,13 +21,19 @@ class CameraView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: controller == null
-          ? const Center(child: CircularProgressIndicator(color: Color.fromARGB(255, 0, 0, 0)))
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            )
           : FutureBuilder(
               future: initializeCamera,
               builder: (context, snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return const Center(
-                    child: CircularProgressIndicator(color: Color.fromARGB(255, 0, 0, 0)),
+                    child: CircularProgressIndicator(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
                   );
                 }
 
@@ -47,67 +53,84 @@ class CameraView extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 8, 122, 222).withOpacity(0.2),
+                                color: const Color.fromARGB(
+                                  255,
+                                  0,
+                                  128,
+                                  255,
+                                ).withOpacity(0.6),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
                                 Icons.arrow_back,
                                 color: Color.fromARGB(255, 255, 255, 255),
-                                size: 22,
+                                size: 24,
                               ),
                             ),
                           ),
 
                           const SizedBox(width: 12),
 
-                          const Text(
-                            "SCAN",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 8, 122, 222),
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          Center(
+                            child: const Text(
+                              "SCAN",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 0, 128, 255),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
 
-                    const Text(
-                      "Scan your skin here",
-                      style: TextStyle(color: Color.fromARGB(255, 8, 122, 222)),
+                    Center(
+                      child: const Text(
+                        "Scan kulitmu disini",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 128, 255),
+                        ),
+                      ),
                     ),
 
-                    const SizedBox(height: 48),
+                    const SizedBox(height: 25),
 
                     // 📷 SCAN FRAME (PERSEGI 1:1, CAMERA NORMAL)
                     Expanded(
-                      flex: 8,
+                      flex: 14,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                        ), // 🔥 lebih lebar
                         child: Stack(
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius: BorderRadius.circular(
+                                28,
+                              ), // sedikit lebih bulat
                               child: CameraPreview(controller!),
                             ),
 
-                            // 🔲 OVERLAY FRAME (SCAN FEEL)
+                            // 🔲 OVERLAY FRAME
                             Positioned.fill(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
+                                  borderRadius: BorderRadius.circular(28),
                                   border: Border.all(
-                                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
+                                    color: const Color.fromARGB(
+                                      255,
+                                      0,
+                                      128,
+                                      255,
+                                    ).withOpacity(0.7),
                                     width: 2,
                                   ),
                                 ),
                               ),
                             ),
 
-                            // 🔦 FLASH
                             Positioned(top: 16, left: 16, child: flashButton),
-
-                            // 🔄 SWITCH CAMERA
                             Positioned(
                               top: 16,
                               right: 16,

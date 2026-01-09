@@ -66,17 +66,6 @@ class _HomeLayoutState extends State<HomeLayout> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: [
-          // IconButton(
-          //   icon: const Icon(Icons.shopping_cart_outlined),
-          //   onPressed: () {},
-          // ),
-          IconButton(
-            icon: const Icon(Icons.notifications_none),
-            color: Colors.white,
-            onPressed: () {},
-          ),
-        ],
       ),
 
       body: BackgroundWrapper(
