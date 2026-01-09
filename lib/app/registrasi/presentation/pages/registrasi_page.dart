@@ -1,3 +1,4 @@
+import 'package:curesee/app/registrasi/presentation/bloc/registrasi_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/responsive_desain/responsive_layout.dart';
@@ -89,11 +90,30 @@ class RegistrasiPage extends StatelessWidget {
           RegistrasiRepositoryImpl(RegistrasiRemoteDataSource()),
         ),
       ),
-      child: Scaffold(
-        body: ResponsiveLayout(
-          mobile: content(double.infinity),
-          tablet: content(520),
-          desktop: content(460),
+      child: BlocListener<RegistrasiBloc, RegistrasiState>(
+        listener: (context, state) {
+          if (state is RegistrasiSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Registrasi berhasil, cek email verifikasi'),
+              ),
+            );
+
+            Navigator.pushReplacementNamed(context, '/login');
+          }
+
+          if (state is RegistrasiFailure) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.message)));
+          }
+        },
+        child: Scaffold(
+          body: ResponsiveLayout(
+            mobile: content(double.infinity),
+            tablet: content(520),
+            desktop: content(460),
+          ),
         ),
       ),
     );

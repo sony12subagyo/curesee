@@ -1,10 +1,9 @@
 import 'package:curesee/app/registrasi/domain/entities/registrasi_entitity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrasiRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  final String baseUrl = 'https://6338b68a9255.ngrok-free.app/api/register';
 
   Future<void> register(RegistrasiEntity entity) async {
     try {
@@ -26,13 +25,17 @@ class RegistrasiRemoteDataSource {
       // 3️⃣ Kirim email verifikasi
       if (!user.emailVerified) {
         await user.sendEmailVerification();
-        await FirebaseAuth.instance.signOut();
       }
+      await FirebaseAuth.instance.signOut();
 
-      // ❌ STOP DI SINI
-      // JANGAN hit backend di tahap registrasi
+      // 4️⃣ SIMPAN DATA SEMENTARA 🔥
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('reg_name', entity.name);
+      await prefs.setString('reg_gender', entity.gender);
+      await prefs.setInt('reg_age', entity.age);
 
-      return;
+      // 5️⃣ LOGOUT → wajib verifikasi dulu
+      await _auth.signOut();
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message ?? 'Registrasi Firebase error');
     }

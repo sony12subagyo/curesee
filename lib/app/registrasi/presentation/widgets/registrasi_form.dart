@@ -62,7 +62,7 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
                   'Laki-laki',
                   style: TextStyle(color: Colors.white),
                 ),
-                value: 'male',
+                value: 'L',
                 groupValue: value,
                 activeColor: Colors.black,
                 fillColor: MaterialStateProperty.resolveWith<Color>((states) {
@@ -75,7 +75,7 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
                   'Perempuan',
                   style: TextStyle(color: Colors.white),
                 ),
-                value: 'female',
+                value: 'P',
                 groupValue: value,
                 activeColor: Colors.black,
                 fillColor: MaterialStateProperty.resolveWith<Color>((states) {

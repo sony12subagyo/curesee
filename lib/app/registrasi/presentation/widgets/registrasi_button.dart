@@ -27,76 +27,62 @@ class RegistrasiButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<RegistrasiBloc, RegistrasiState>(
       listener: (context, state) {
-        // 🔁 BALIK KE LOGIN (LOGIC TIDAK DIUBAH)
         if (state is RegistrasiSuccess) {
-          Navigator.pop(context);
+          Navigator.pop(context); // balik ke login
+        }
+
+        if (state is RegistrasiFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       child: BlocBuilder<RegistrasiBloc, RegistrasiState>(
         builder: (context, state) {
           final isLoading = state is RegistrasiLoading;
 
-          return TweenAnimationBuilder<double>(
-            tween: Tween<double>(begin: 1.0, end: 1.0),
-            duration: const Duration(milliseconds: 120),
-            builder: (context, scale, child) {
-              return Transform.scale(scale: scale, child: child);
-            },
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: isLoading
-                    ? null
-                    : () {
-                        // 🔒 VALIDASI FORM (TIDAK DIUBAH)
-                        if (!formKey.currentState!.validate()) return;
+          return SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      if (!formKey.currentState!.validate()) return;
 
-                        // 🔒 VALIDASI GENDER (TIDAK DIUBAH)
-                        if (gender.value == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Pilih gender terlebih dahulu'),
-                            ),
-                          );
-                          return;
-                        }
-
-                        context.read<RegistrasiBloc>().add(
-                          RegistrasiSubmitted(
-                            RegistrasiEntity(
-                              name: nameC.text.trim(),
-                              email: emailC.text.trim(),
-                              gender: gender.value!,
-                              age: int.parse(ageC.text),
-                              password: passC.text.trim(),
-                            ),
+                      if (gender.value == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Pilih gender terlebih dahulu'),
                           ),
                         );
-                      },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0A74FF),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: isLoading
-                    ? const SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
+                        return;
+                      }
+
+                      final age = int.tryParse(ageC.text);
+                      if (age == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Umur harus berupa angka'),
+                          ),
+                        );
+                        return;
+                      }
+
+                      context.read<RegistrasiBloc>().add(
+                        RegistrasiSubmitted(
+                          RegistrasiEntity(
+                            name: nameC.text.trim(),
+                            email: emailC.text.trim(),
+                            gender: gender.value!,
+                            age: age,
+                            password: passC.text.trim(),
+                          ),
                         ),
-                      )
-                    : const Text(
-                        'Create your account',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-              ),
+                      );
+                    },
+              child: isLoading
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text('Create your account'),
             ),
           );
         },
