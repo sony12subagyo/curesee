@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class RegistrasiRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final String baseUrl = 'https://9d1c81950154.ngrok-free.app/api/register';
+  final String baseUrl = 'https://dbd21fec81a1.ngrok-free.app/api/register';
 
   Future<void> register(RegistrasiEntity entity) async {
     try {
