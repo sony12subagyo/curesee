@@ -17,10 +17,7 @@ class HistoryScanModel extends HistoryScan {
       id: map['id'],
       imagePath: map['imagePath'],
       predictions: predictionList.map((e) {
-        return PredictionResult(
-          label: e['label'],
-          confidence: e['confidence'],
-        );
+        return PredictionResult(label: e['label'], confidence: e['confidence']);
       }).toList(),
       createdAt: DateTime.parse(map['createdAt']),
     );
@@ -32,10 +29,9 @@ class HistoryScanModel extends HistoryScan {
       'id': id,
       'imagePath': imagePath,
       'predictions': jsonEncode(
-        predictions.map((e) => {
-          'label': e.label,
-          'confidence': e.confidence,
-        }).toList(),
+        predictions
+            .map((e) => {'label': e.label, 'confidence': e.confidence})
+            .toList(),
       ),
       'createdAt': createdAt.toIso8601String(),
     };

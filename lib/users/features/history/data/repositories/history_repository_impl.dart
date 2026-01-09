@@ -31,10 +31,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
   Future<List<HistoryScan>> getAllScans() async {
     final db = await localDb.database;
 
-    final result = await db.query(
-      'scans',
-      orderBy: "createdAt DESC",
-    );
+    final result = await db.query('scans', orderBy: "createdAt DESC");
 
     return result.map((e) => HistoryScanModel.fromMap(e)).toList();
   }
@@ -43,22 +40,14 @@ class HistoryRepositoryImpl implements HistoryRepository {
   Future<void> deleteScan(String id) async {
     final db = await localDb.database;
 
-    await db.delete(
-      'scans',
-      where: "id = ?",
-      whereArgs: [id],
-    );
+    await db.delete('scans', where: "id = ?", whereArgs: [id]);
   }
 
   @override
   Future<HistoryScan?> getScan(String id) async {
     final db = await localDb.database;
 
-    final result = await db.query(
-      'scans',
-      where: "id = ?",
-      whereArgs: [id],
-    );
+    final result = await db.query('scans', where: "id = ?", whereArgs: [id]);
 
     if (result.isEmpty) return null;
 

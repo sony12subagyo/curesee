@@ -62,10 +62,6 @@ class HistoryLocalDb {
   /// Delete Scan
   Future<int> deleteScan(String id) async {
     final db = await database;
-    return db.delete(
-      'scans',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    return db.delete('scans', where: 'id = ?', whereArgs: [id]);
   }
 }

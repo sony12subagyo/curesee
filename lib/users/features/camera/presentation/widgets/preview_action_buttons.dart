@@ -8,10 +8,7 @@ import 'package:curesee/users/features/history/presentation/bloc/history_bloc.da
 class PreviewActionButtons extends StatelessWidget {
   final String imagePath;
 
-  const PreviewActionButtons({
-    super.key,
-    required this.imagePath,
-  });
+  const PreviewActionButtons({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -46,30 +43,35 @@ class PreviewActionButtons extends StatelessWidget {
         Expanded(
           child: ElevatedButton.icon(
             icon: const Icon(Icons.save_alt_rounded, color: Colors.blue),
-            label: const Text(
-              "Simpan",
-              style: TextStyle(color: Colors.blue),
-            ),
+            label: const Text("Simpan", style: TextStyle(color: Colors.blue)),
             onPressed: () {
               final state = context.read<SkinDetectionBloc>().state;
+
               if (state is SkinDetectionLoaded) {
-                final top = state.result.top3.first;
+                final predictions = state.result.top3
+                    .map(
+                      (d) => PredictionResult(
+                        label: d.label,
+                        confidence: d.confidence,
+                      ),
+                    )
+                    .toList();
 
-                // final scan = HistoryScan(
-                //   id: DateTime.now().millisecondsSinceEpoch.toString(),
-                //   imagePath: imagePath,
-                //   label: top.label,
-                //   confidence: top.confidence,
-                //   createdAt: DateTime.now(),
-                // );
+                final scan = HistoryScan(
+                  id: DateTime.now().millisecondsSinceEpoch.toString(),
+                  imagePath: imagePath,
+                  predictions: predictions,
+                  createdAt: DateTime.now(),
+                );
 
-                //context.read<HistoryBloc>().add(SaveScanEvent(scan));
+                context.read<HistoryBloc>().add(AddHistoryScanEvent(scan));
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Hasil scan disimpan")),
                 );
               }
             },
+
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),
               shape: RoundedRectangleBorder(

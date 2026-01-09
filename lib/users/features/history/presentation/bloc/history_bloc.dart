@@ -25,14 +25,18 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 
   Future<void> _loadHistory(
-      LoadHistoryEvent event, Emitter<HistoryState> emit) async {
+    LoadHistoryEvent event,
+    Emitter<HistoryState> emit,
+  ) async {
     emit(HistoryLoadingState());
     final scans = await getAllScansUseCase.execute();
     emit(HistoryLoadedState(scans));
   }
 
   Future<void> _deleteScan(
-      DeleteScanEvent event, Emitter<HistoryState> emit) async {
+    DeleteScanEvent event,
+    Emitter<HistoryState> emit,
+  ) async {
     await deleteScanUseCase.call(event.id);
     emit(HistoryDeletedState());
 
@@ -41,7 +45,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 
   Future<void> _loadDetail(
-      LoadDetailScanEvent event, Emitter<HistoryState> emit) async {
+    LoadDetailScanEvent event,
+    Emitter<HistoryState> emit,
+  ) async {
     emit(HistoryLoadingState());
 
     final detail = await getScanDetailUseCase.call(event.id);
