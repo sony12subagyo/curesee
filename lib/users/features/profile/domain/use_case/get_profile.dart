@@ -1,4 +1,4 @@
-import 'package:curesee/users/features/profile/domain/entities/profil.dart';
+import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:curesee/users/features/profile/domain/repositories/profil_repository.dart';
 
 class GetProfile {

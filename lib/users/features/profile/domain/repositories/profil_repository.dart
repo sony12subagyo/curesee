@@ -1,6 +1,9 @@
-import 'package:curesee/users/features/profile/domain/entities/profil.dart';
+import 'dart:io';
+
+import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 
 abstract class ProfileRepository {
   Future<Profile> getProfile();
   Future<void> updateProfile(Profile profile);
+  Future<String> uploadAvatar(File file);
 }

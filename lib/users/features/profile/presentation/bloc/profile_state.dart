@@ -1,4 +1,4 @@
-import 'package:curesee/users/features/profile/domain/entities/profil.dart';
+import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ProfileState extends Equatable {
@@ -25,3 +25,5 @@ class ProfileError extends ProfileState {
   @override
   List<Object?> get props => [message];
 }
+
+class ProfileLoggedOut extends ProfileState {}
