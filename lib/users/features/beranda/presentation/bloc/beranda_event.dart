@@ -1,3 +1,3 @@
 abstract class BerandaEvent {}
 
-class GetBerandaListEvent extends BerandaEvent {}
+class GetBerandaRequested extends BerandaEvent {}

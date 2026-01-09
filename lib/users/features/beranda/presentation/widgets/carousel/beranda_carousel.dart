@@ -1,17 +1,21 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import '../../../domain/entities/beranda.dart';
 
 class BerandaCarousel extends StatelessWidget {
-  BerandaCarousel({super.key});
+  final List<Beranda> blogs;
 
-  final List<String> imageList = [
-    'https://picsum.photos/id/1015/800/400',
-    'https://picsum.photos/id/1021/800/400',
-    'https://picsum.photos/id/1035/800/400',
-  ];
+  const BerandaCarousel({
+    super.key,
+    required this.blogs,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (blogs.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return CarouselSlider(
       options: CarouselOptions(
         height: 160,
@@ -20,15 +24,17 @@ class BerandaCarousel extends StatelessWidget {
         enlargeCenterPage: true,
         viewportFraction: 0.9,
       ),
-      items: imageList.map((imageUrl) {
+      items: blogs.map((blog) {
         return ClipRRect(
-          borderRadius: BorderRadius.circular(16), // ✅ PINDAH KE SINI
+          borderRadius: BorderRadius.circular(16),
           child: Stack(
             fit: StackFit.expand,
             children: [
               Image.network(
-                imageUrl,
+                blog.imageUrl,
                 fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) =>
+                    const Center(child: Icon(Icons.broken_image)),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -42,16 +48,18 @@ class BerandaCarousel extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 left: 16,
                 bottom: 16,
                 child: Text(
-                  'Highlight Curesee',
-                  style: TextStyle(
+                  blog.title,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],

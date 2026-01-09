@@ -1,34 +1,24 @@
-import 'package:curesee/users/features/beranda/presentation/pages/detail_information_page.dart';
-import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
 import 'package:flutter/material.dart';
+import '../../../domain/entities/beranda.dart';
+import '../card_detail_page..dart';
 
 class RecommendedInformation extends StatelessWidget {
-  const RecommendedInformation({super.key});
+  final List<Beranda> blogs;
+  final int limit;
+
+  const RecommendedInformation({
+    super.key,
+    required this.blogs,
+    this.limit = 4, // default 4 item terbaru
+  });
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> items = [
-      {
-        'title': 'Informasi Terbaru',
-        'subtitle': 'Ini nanti isi nya informasi terbaru yang udah di tambahin ya',
-        'imageUrl': 'https://picsum.photos/id/1005/400/300',
-      },
-      {
-        'title': 'Informasi Terbaru',
-        'subtitle': 'Ini nanti isi nya informasi terbaru yang udah di tambahin ya',
-        'imageUrl': 'https://picsum.photos/id/1011/400/300',
-      },
-      {
-        'title': 'Informasi Terbaru',
-        'subtitle': 'Ini nanti isi nya informasi terbaru yang udah di tambahin ya',
-        'imageUrl': 'https://picsum.photos/id/1018/400/300',
-      },
-      {
-        'title': 'Informasi Terbaru',
-        'subtitle': 'Ini nanti isi nya informasi terbaru yang udah di tambahin ya',
-        'imageUrl': 'https://picsum.photos/id/1025/400/300',
-      },
-    ];
+    if (blogs.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final items = blogs.take(limit).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +44,7 @@ class RecommendedInformation extends StatelessWidget {
             childAspectRatio: 1.6,
           ),
           itemBuilder: (context, index) {
-            final item = items[index];
+            final blog = items[index];
 
             return InkWell(
               borderRadius: BorderRadius.circular(16),
@@ -63,9 +53,9 @@ class RecommendedInformation extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) => CardDetail(
-                      title: item['title']!,
-                      description: item['subtitle']!,
-                      imageUrl: item['imageUrl']!,
+                      title: blog.title,
+                      description: blog.description,
+                      imageUrl: blog.imageUrl,
                     ),
                   ),
                 );
@@ -73,8 +63,10 @@ class RecommendedInformation extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.network(
-                  item['imageUrl']!,
+                  blog.imageUrl,
                   fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) =>
+                      const Center(child: Icon(Icons.broken_image)),
                 ),
               ),
             );

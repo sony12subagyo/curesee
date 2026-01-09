@@ -1,4 +1,4 @@
-import 'package:curesee/users/features/beranda/domain/entities/beranda.dart';
+import '../../domain/entities/beranda.dart';
 
 abstract class BerandaState {}
 
@@ -7,11 +7,11 @@ class BerandaInitial extends BerandaState {}
 class BerandaLoading extends BerandaState {}
 
 class BerandaLoaded extends BerandaState {
-  final List<Beranda> data;
-  BerandaLoaded(this.data);
+  final List<Beranda> beranda;
+  BerandaLoaded(this.beranda);
 }
 
-class BerandaError extends BerandaState {
+class BerandaFailure extends BerandaState {
   final String message;
-  BerandaError(this.message);
+  BerandaFailure(this.message);
 }

@@ -1,12 +1,49 @@
-import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
-import 'package:curesee/users/features/beranda/presentation/widgets/card_page.dart';
-import 'package:curesee/users/features/beranda/presentation/widgets/carousel/beranda_carousel.dart';
-import 'package:curesee/users/features/beranda/presentation/widgets/custom_header.dart';
-import 'package:curesee/users/features/beranda/presentation/widgets/recomended_information/recommended_information.dart';
+import 'package:curesee/users/features/beranda/data/data_source.dart/Beranda_remote_data_source.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 
+// DATA
+import 'package:curesee/users/features/beranda/data/repository/beranda_repository_impl.dart';
+
+// BLOC
+import 'package:curesee/users/features/beranda/presentation/bloc/beranda_bloc.dart';
+import 'package:curesee/users/features/beranda/presentation/bloc/beranda_event.dart';
+import 'package:curesee/users/features/beranda/presentation/bloc/beranda_state.dart';
+
+// UI
+import 'package:curesee/users/features/beranda/presentation/widgets/card_page.dart';
+import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
+import 'package:curesee/users/features/beranda/presentation/widgets/carousel/beranda_carousel.dart';
+import 'package:curesee/users/features/beranda/presentation/widgets/recomended_information/recommended_information.dart';
+
+/// =======================================================
+/// ENTRY POINT – PROVIDER (WAJIB ADA)
+/// =======================================================
 class BerandaPage extends StatelessWidget {
   const BerandaPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) {
+        final dio = Dio(
+          BaseOptions(baseUrl: 'https://dbd21fec81a1.ngrok-free.app/api'),
+        );
+
+        return BerandaBloc(BerandaRepositoryImpl(BerandaRemoteDatasource(dio)))
+          ..add(GetBerandaRequested());
+      },
+      child: const _BerandaView(),
+    );
+  }
+}
+
+/// =======================================================
+/// VIEW – UI ONLY (AMAN)
+/// =======================================================
+class _BerandaView extends StatelessWidget {
+  const _BerandaView();
 
   @override
   Widget build(BuildContext context) {
@@ -14,28 +51,16 @@ class BerandaPage extends StatelessWidget {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
 
-        // tampilan hp
         if (width < 600) {
-          return Column(
-            children: [
-              // _buildHeader(),
-              Expanded(child: _buildList(context)),
-            ],
-          );
+          return Column(children: [Expanded(child: _buildList(context))]);
         }
 
-        // tampilan tablet
         if (width < 1024) {
           return Row(
             children: [
               Expanded(
                 flex: 2,
-                child: Column(
-                  children: [
-                    // _buildHeader(),
-                    Expanded(child: _buildList(context)),
-                  ],
-                ),
+                child: Column(children: [Expanded(child: _buildList(context))]),
               ),
               const Expanded(
                 flex: 3,
@@ -50,17 +75,11 @@ class BerandaPage extends StatelessWidget {
           );
         }
 
-        // desktop
         return Row(
           children: [
             Expanded(
               flex: 3,
-              child: Column(
-                children: [
-                  // _buildHeader(),
-                  Expanded(child: _buildList(context)),
-                ],
-              ),
+              child: Column(children: [Expanded(child: _buildList(context))]),
             ),
             const Expanded(
               flex: 4,
@@ -77,63 +96,83 @@ class BerandaPage extends StatelessWidget {
     );
   }
 
-  // header
-  // Widget _buildHeader() {
-  //   return CustomHeader(
-  //     title: 'Welcome to Curesee app',
-  //     subtitle: 'How are you today?',
-  //     // extraText: 'ALEXANDER',
-  //     avatar: const NetworkImage('https://i.pravatar.cc/150?img=3'),
-  //   );
-  // }
-
-  // list
+  /// =======================================================
+  /// LIST CONTENT (BLOC CONNECTED)
+  /// =======================================================
   Widget _buildList(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: [
-        const SizedBox(height: 8),
-              BerandaCarousel(),
-      const SizedBox(height: 24),
+    return BlocBuilder<BerandaBloc, BerandaState>(
+      builder: (context, state) {
+        return ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            const SizedBox(height: 8),
 
-      RecommendedInformation(),
-  // const SizedBox(height: 0),
+            // carousel yang pake API
+            if (state is BerandaLoaded) ...[
+              BerandaCarousel(blogs: state.beranda),
+              const SizedBox(height: 24),
+            ] else ...[
+              const SizedBox(height: 160),
+              const SizedBox(height: 24),
+            ],
 
-        const Text(
-          'Informasi Tentang Kulit',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        const SizedBox(height: 12), 
-
-        ...List.generate(10, (index) {
-          final imageUrl = 'https://picsum.photos/seed/picsum/200/300';
-          final title = 'Blog Curesee ${index + 1}';
-          final subtitle = 'ini nanti isinya deskripsi tentang blog ya ';
-
-          return Column(
-            children: [
-              CardPage(
-                image: NetworkImage(imageUrl),
-                title: title,
-                subtitle: subtitle,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => CardDetail(
-                        title: title,
-                        description: subtitle,
-                        imageUrl: imageUrl,
-                      ),
-                    ),
-                  );
-                },
-              ),
+            const SizedBox(height: 24),
+            //ini buat yang informasi terbaru
+            if (state is BerandaLoaded) ...[
+              RecommendedInformation(blogs: state.beranda, limit: 4),
               const SizedBox(height: 16),
             ],
-          );
-        }),
-      ],
+
+            const SizedBox(height: 16),
+
+            const Text(
+              'Informasi Tentang Kulit',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            const SizedBox(height: 12),
+
+            // LOADING
+            if (state is BerandaLoading)
+              const Center(child: CircularProgressIndicator()),
+
+            // DATA FROM API
+            if (state is BerandaLoaded)
+              ...state.beranda.map((blog) {
+                return Column(
+                  children: [
+                    CardPage(
+                      image: NetworkImage(blog.imageUrl),
+                      title: blog.title,
+                      subtitle: blog.description,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CardDetail(
+                              title: blog.title,
+                              description: blog.description,
+                              imageUrl: blog.imageUrl,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                );
+              }).toList(),
+
+            // ERROR
+            if (state is BerandaFailure)
+              Center(
+                child: Text(
+                  state.message,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
