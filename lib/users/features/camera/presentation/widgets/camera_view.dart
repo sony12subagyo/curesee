@@ -47,34 +47,38 @@ class CameraView extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 8, 122, 222).withOpacity(0.2),
+                                color: const Color.fromARGB(255, 35, 152, 255).withOpacity(0.6),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
                                 Icons.arrow_back,
                                 color: Color.fromARGB(255, 255, 255, 255),
-                                size: 22,
+                                size: 24,
                               ),
                             ),
                           ),
 
                           const SizedBox(width: 12),
 
-                          const Text(
-                            "SCAN",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 8, 122, 222),
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Center(
+                              child: const Text(
+                                "SCAN",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 8, 122, 222),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                           ),
                         ],
                       ),
                     ),
 
-                    const Text(
-                      "Scan kulitmu dengan menyesuaikan posisi pada frame",
-                      style: TextStyle(color: Color.fromARGB(255, 8, 122, 222)),
+                    Center(
+                      child: const Text(
+                        "Scan kulitmu sesuai posisi pada frame",
+                        style: TextStyle(color: Color.fromARGB(255, 8, 122, 222)),
+                      ),
                     ),
 
                     const SizedBox(height: 48),

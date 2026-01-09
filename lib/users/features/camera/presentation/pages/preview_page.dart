@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:curesee/users/features/history/domain/entities/history_scan.dart';
+import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
+import 'package:curesee/users/features/skin_scane/presentation/skin_descriptions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../skin_scane/presentation/skin_detection_bloc.dart';
@@ -22,7 +25,7 @@ class PreviewPage extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(15),
                     border: Border.all(
                       color: Colors.white.withOpacity(0.6),
                       width: 1.5, // tipis & elegan
@@ -77,79 +80,104 @@ class PreviewPage extends StatelessWidget {
 
                     if (state is SkinDetectionLoaded) {
                       return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Hasil Scan",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-
-                          ...state.result.top3.map(
-                            (d) => Padding(
-                              padding: const EdgeInsets.only(bottom: 12),
+                          // ============================
+                          // AREA SCROLL (HASIL + DESKRIPSI)
+                          // ============================
+                          Expanded(
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        d.label.toUpperCase(),
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                      Text(
-                                        "${(d.confidence * 100).toStringAsFixed(1)}%",
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
+                                  const Text(
+                                    "Hasil Scan",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  const SizedBox(height: 6),
-                                  LinearProgressIndicator(
-                                    value: d.confidence,
-                                    backgroundColor: Colors.grey[200],
-                                    color: Colors.blueAccent,
-                                    minHeight: 8,
-                                    borderRadius: BorderRadius.circular(6),
+                                  const SizedBox(height: 12),
+
+                                  ...state.result.top3.map(
+                                    (d) => Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 16,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // Nama + Persentase
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                d.label.toUpperCase(),
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              Text(
+                                                "${(d.confidence * 100).toStringAsFixed(1)}%",
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+
+                                          const SizedBox(height: 6),
+
+                                          // Progress bar
+                                          LinearProgressIndicator(
+                                            value: d.confidence,
+                                            backgroundColor: Colors.grey[200],
+                                            color: Colors.blueAccent,
+                                            minHeight: 8,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
+                                            ),
+                                          ),
+
+                                          const SizedBox(height: 6),
+
+                                          // Deskripsi
+                                          Text(
+                                            skinDescriptions[d.label] ??
+                                                "Tidak ada deskripsi.",
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black54,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
 
-                          const Spacer(),
+                          const SizedBox(height: 12),
 
-                          // SizedBox(
-                          //   width: double.infinity,
-                          //   child: ElevatedButton.icon(
-                          //     icon: const Icon(Icons.camera_alt),
-                          //     label: const Text("Scan Ulang"),
-                          //     onPressed: () => Navigator.pop(context),
-                          //     style: ElevatedButton.styleFrom(
-                          //       padding: const EdgeInsets.symmetric(
-                          //         vertical: 14,
-                          //       ),
-                          //       shape: RoundedRectangleBorder(
-                          //         borderRadius: BorderRadius.circular(12),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          // ============================
+                          // TOMBOL (TETAP DI BAWAH)
+                          // ============================
                           Row(
                             children: [
-                              // =================
-                              // Scan Ulang
-                              // =================
                               Expanded(
                                 child: OutlinedButton.icon(
-                                  icon: const Icon(Icons.camera_alt),
-                                  label: const Text("Scan Ulang"),
+                                  icon: const Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.blue, // icon biru
+                                  ),
+                                  label: const Text(
+                                    "Scan Ulang",
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
                                   onPressed: () => Navigator.pop(context),
                                   style: OutlinedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
@@ -158,38 +186,70 @@ class PreviewPage extends StatelessWidget {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
                                     ),
+                                    side: BorderSide(
+                                      color: Colors.blue,
+                                      width: 1.5,
+                                    ),
                                   ),
                                 ),
                               ),
 
                               const SizedBox(width: 12),
 
-                              // =================
-                              // Simpan
-                              // =================
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  icon: const Icon(Icons.save),
-                                  label: const Text("Simpan"),
-                                  onPressed: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Fitur simpan akan segera tersedia",
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Expanded(
+                              //   child: ElevatedButton.icon(
+                              //     icon: const Icon(
+                              //       Icons.save_alt_rounded,
+                              //       color: Colors.blue,
+                              //     ),
+                              //     label: const Text(
+                              //       "Simpan",
+                              //       style: TextStyle(color: Colors.blue),
+                              //     ),
+                              //     onPressed: () {
+                              //       final state = context
+                              //           .read<SkinDetectionBloc>()
+                              //           .state;
+                              //       if (state is SkinDetectionLoaded) {
+                              //         final top = state.result.top3.first;
+
+                              //         final scan = HistoryScan(
+                              //           id: DateTime.now()
+                              //               .millisecondsSinceEpoch
+                              //               .toString(),
+                              //           imagePath: imagePath,
+                              //           label: top.label,
+                              //           confidence: top.confidence,
+                              //           createdAt: DateTime.now(),
+                              //         );
+
+                              //         context.read<HistoryBloc>().add(
+                              //           SaveScanEvent(scan),
+                              //         );
+
+                              //         ScaffoldMessenger.of(
+                              //           context,
+                              //         ).showSnackBar(
+                              //           const SnackBar(
+                              //             content: Text("Hasil scan disimpan"),
+                              //           ),
+                              //         );
+                              //       }
+                              //     },
+                              //     style: ElevatedButton.styleFrom(
+                              //       padding: const EdgeInsets.symmetric(
+                              //         vertical: 14,
+                              //       ),
+                              //       shape: RoundedRectangleBorder(
+                              //         borderRadius: BorderRadius.circular(12),
+                              //       ),
+                              //       side: BorderSide(
+                              //         color: Colors.blue,
+                              //         width: 1.5,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ],
@@ -204,7 +264,6 @@ class PreviewPage extends StatelessWidget {
                         ),
                       );
                     }
-
                     return const SizedBox();
                   },
                 ),
