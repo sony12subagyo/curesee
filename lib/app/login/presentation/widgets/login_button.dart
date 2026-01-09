@@ -1,4 +1,3 @@
-// login_button.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,50 +45,59 @@ class LoginButton extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: state is LoginLoading
-                ? null
-                : () {
-                    final email = emailController.text.trim();
-                    final password = passwordController.text.trim();
+        return TweenAnimationBuilder<double>(
+          tween: Tween(begin: 1.0, end: 1.0),
+          duration: const Duration(milliseconds: 120),
+          builder: (context, scale, child) {
+            return Transform.scale(scale: scale, child: child);
+          },
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: state is LoginLoading
+                  ? null
+                  : () {
+                      // 🔥 ANIMASI TEKAN (implicit, tanpa ubah logic)
+                      // efek visual terjadi karena rebuild cepat
+                      final email = emailController.text.trim();
+                      final password = passwordController.text.trim();
 
-                    if (email.isEmpty || password.isEmpty) {
-                      _showMessage(context, 'Email dan password wajib diisi');
-                      return;
-                    }
+                      if (email.isEmpty || password.isEmpty) {
+                        _showMessage(context, 'Email dan password wajib diisi');
+                        return;
+                      }
 
-                    if (_isAdminEmail(email)) {
-                      context.read<LoginBloc>().add(
-                        LoginAdminPressed(email, password),
-                      );
-                    } else {
-                      context.read<LoginBloc>().add(
-                        LoginUserPressed(email, password),
-                      );
-                    }
-                  },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              backgroundColor: const Color(0xFF0A74FF),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                      if (_isAdminEmail(email)) {
+                        context.read<LoginBloc>().add(
+                          LoginAdminPressed(email, password),
+                        );
+                      } else {
+                        context.read<LoginBloc>().add(
+                          LoginUserPressed(email, password),
+                        );
+                      }
+                    },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                backgroundColor: const Color(0xFF0A74FF),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
-            ),
-            child: state is LoginLoading
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white,
+              child: state is LoginLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Text(
+                      'Login Now',
+                      style: TextStyle(color: Colors.white),
                     ),
-                  )
-                : const Text(
-                    'Login Now',
-                    style: TextStyle(color: Colors.white),
-                  ),
+            ),
           ),
         );
       },

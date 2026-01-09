@@ -25,7 +25,8 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column( // ✅ TIDAK ADA FORM
+    return Column(
+      // ✅ TIDAK ADA FORM
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _field(
@@ -46,21 +47,40 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
           },
         ),
 
-        const Text('Gender', style: TextStyle(color: Colors.white)),
+        const SizedBox(height: 8),
+        const Text(
+          'Gender',
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+        ),
+
         ValueListenableBuilder<String?>(
           valueListenable: widget.gender,
           builder: (_, value, __) => Column(
             children: [
               RadioListTile(
-                title: const Text('Laki-laki'),
-                value: 'male',
+                title: const Text(
+                  'Laki-laki',
+                  style: TextStyle(color: Colors.white),
+                ),
+                value: 'L',
                 groupValue: value,
+                activeColor: Colors.black,
+                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                  return Colors.white;
+                }),
                 onChanged: (v) => widget.gender.value = v,
               ),
               RadioListTile(
-                title: const Text('Perempuan'),
-                value: 'female',
+                title: const Text(
+                  'Perempuan',
+                  style: TextStyle(color: Colors.white),
+                ),
+                value: 'P',
                 groupValue: value,
+                activeColor: Colors.black,
+                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                  return Colors.white;
+                }),
                 onChanged: (v) => widget.gender.value = v,
               ),
             ],
@@ -110,6 +130,9 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
           v == null || v.length < 6 ? 'Password minimal 6 karakter' : null,
       decoration: InputDecoration(
         labelText: 'Password',
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         suffixIcon: IconButton(
           icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
           onPressed: () => setState(() => _obscure = !_obscure),

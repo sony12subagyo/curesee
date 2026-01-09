@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginRemoteDataSource {
   final FirebaseAuth _auth;
-
 
   /// 🔥 BASE URL BACKEND (di-inject dari luar kalau mau)
   final String baseUrl;
@@ -39,9 +39,25 @@ class LoginRemoteDataSource {
       throw Exception('Firebase ID Token kosong');
     }
 
-    // 🔥 SYNC KE BACKEND (opsional tapi dianjurkan)
-    if (baseUrl.isNotEmpty) {
-      await _syncUserToBackend(token);
+    // 🔥 AMBIL DATA DARI LOCAL (HASIL REGISTRASI)
+    final prefs = await SharedPreferences.getInstance();
+    final name = prefs.getString('reg_name');
+    final gender = prefs.getString('reg_gender');
+    final age = prefs.getInt('reg_age');
+
+    // 🔥 HANYA SYNC JIKA DATA ADA
+    if (name != null && gender != null && age != null) {
+      await _syncUserToBackend(
+        token: token,
+        name: name,
+        gender: gender,
+        age: age,
+      );
+
+      // 🔥 HAPUS SETELAH BERHASIL
+      await prefs.remove('reg_name');
+      await prefs.remove('reg_gender');
+      await prefs.remove('reg_age');
     }
 
     return token;
@@ -50,21 +66,31 @@ class LoginRemoteDataSource {
   /// ===============================
   /// Sync user Firebase → Laravel
   /// ===============================
-  Future<void> _syncUserToBackend(String token) async {
+  Future<void> _syncUserToBackend({
+    required String token,
+    required String name,
+    required String gender,
+    required int age,
+  }) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register'),
-      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({'name': name, 'gender': gender, 'age': age}),
     );
 
     if (response.statusCode != 200 && response.statusCode != 201) {
-      final body = jsonDecode(response.body);
-      throw Exception(body['message'] ?? 'Gagal sinkronisasi user ke backend');
+      throw Exception('Gagal menyimpan user ke database');
     }
   }
 
+  /// ===============================
+  /// LOGOUT (INI YANG KURANG ❗)
+  /// ===============================
   Future<void> logout() async {
     await _auth.signOut();
   }
-
-  User? get currentUser => _auth.currentUser;
 }

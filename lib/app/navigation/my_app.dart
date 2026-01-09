@@ -1,4 +1,3 @@
-
 import 'package:curesee/app/login/data/data_source/login_remote_datasource.dart';
 import 'package:curesee/app/navigation/auth_gate.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,6 @@ import '../login/data/repositories/admin_login_repository_impl.dart';
 import '../login/data/repositories/user_login_repository_impl.dart';
 import '../login/presentation/pages/login_page.dart';
 
-
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -21,18 +17,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     /// ===== USER LOGIN =====
     final loginRemote = LoginRemoteDataSource(
-  baseUrl: 'https://6338b68a9255.ngrok-free.app/api',
-);
+      baseUrl: 'https://47ee97b1e5be.ngrok-free.app/api',
+    );
 
-final userRepo = UserLoginRepositoryImpl(loginRemote);
-final userLoginUsecase = UserLoginUsecase(userRepo);
-
+    final userRepo = UserLoginRepositoryImpl(loginRemote);
+    final userLoginUsecase = UserLoginUsecase(userRepo);
 
     /// ===== ADMIN LOGIN =====
     final adminRepository = AdminLoginRepositoryImpl(
       client: http.Client(),
 
-      baseUrl: 'https://6338b68a9255.ngrok-free.app/api',
+      baseUrl: 'https://47ee97b1e5be.ngrok-free.app/api',
     );
     final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 
@@ -44,7 +39,6 @@ final userLoginUsecase = UserLoginUsecase(userRepo);
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: AuthGate(),
-
       ),
     );
   }
