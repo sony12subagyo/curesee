@@ -1,97 +1,76 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// // import 'package:flutter/material.dart';
+// // import '../widgets/history_app_bar.dart';
+// // import '../widgets/history_card.dart';
 
-import '../bloc/history_bloc.dart';
-import '../widgets/history_card.dart';
+// // class HistoryPage extends StatelessWidget {
+// //   const HistoryPage({super.key});
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return Column(
+// //       children: [
+// //         // const HistoryAppBar(),
 
-  @override
-  State<HistoryPage> createState() => _HistoryPageState();
-}
+// //         Expanded(
+// //           child: ListView.builder(
+// //             padding: const EdgeInsets.symmetric(horizontal: 16),
+// //             itemCount: 6,
+// //             itemBuilder: (context, index) {
+// //               return HistoryCard(
+// //                 onTap: () {
+// //                   // nanti arahkan ke detail via router / cubit
+// //                 },
+// //               );
+// //             },
+// //           ),
+// //         ),
+// //       ],
+// //     );
+// //   }
+// // }
 
-class _HistoryPageState extends State<HistoryPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<HistoryBloc>().add(LoadHistoryEvent());
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Riwayat Scan",
-            style: TextStyle(color: Colors.blue),
-          ),
-        ),
-      ),
+// import 'dart:io';
+// import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
-      body: BlocConsumer<HistoryBloc, HistoryState>(
-        listener: (context, state) {
-          if (state is HistoryDeletedState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Berhasil dihapus")),
-            );
-          }
+// class HistoryPage extends StatelessWidget {
+//   const HistoryPage({super.key});
 
-          if (state is HistoryErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          }
-        },
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Center(child: const Text("Riwayat Scan",style: TextStyle(color: Colors.blue),))),
+//       body: BlocBuilder<HistoryBloc, HistoryState>(
+//         builder: (context, state) {
+//           if (state is HistoryLoading) {
+//             return const Center(child: CircularProgressIndicator());
+//           }
 
-        builder: (context, state) {
-          if (state is HistoryLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
+//           if (state is HistoryLoaded) {
+//             if (state.scans.isEmpty) {
+//               return const Center(child: Text("Belum ada hasil scan"));
+//             }
 
-          if (state is HistoryLoadedState) {
-            if (state.scans.isEmpty) {
-              return const Center(child: Text("Belum ada riwayat scan"));
-            }
+//             return ListView.builder(
+//               itemCount: state.scans.length,
+//               itemBuilder: (context, i) {
+//                 final scan = state.scans[i];
+//                 return ListTile(
+//                   leading: Image.file(File(scan.imagePath), width: 56),
+//                   title: Text(scan.label.toUpperCase()),
+//                   subtitle: Text(
+//                     "${(scan.confidence * 100).toStringAsFixed(1)}% • ${scan.createdAt}",
+//                   ),
+//                 );
+//               },
+//             );
+//           }
 
-            return ListView.builder(
-              itemCount: state.scans.length,
-              itemBuilder: (context, i) {
-                final scan = state.scans[i];
-
-                return HistoryCard(
-                  imagePath: scan.imagePath,
-                  label: scan.predictions.first.label,
-                  confidence: scan.predictions.first.confidence,
-                  createdAt: scan.createdAt,
-                  onTap: () {
-                    context.read<HistoryBloc>().add(
-                      LoadDetailScanEvent(scan.id),
-                    );
-                  },
-                  onDelete: () {
-                    context.read<HistoryBloc>().add(
-                      DeleteScanEvent(scan.id),
-                    );
-                  },
-                );
-              },
-            );
-          }
-
-          if (state is HistoryDetailLoadedState) {
-            return Center(
-              child: Text(
-                "Detail: ${state.detail.predictions.first.label}",
-                style: const TextStyle(fontSize: 18),
-              ),
-            );
-          }
-
-          return const SizedBox();
-        },
-      ),
-    );
-  }
-}
+//           return const SizedBox();
+//         },
+//       ),
+//     );
+//   }
+// }

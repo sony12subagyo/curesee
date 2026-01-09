@@ -1,16 +1,25 @@
-import 'package:curesee/users/features/beranda/domain/usecase/get_beranda_list.dart';
-import 'package:curesee/users/features/beranda/presentation/bloc/beranda_event.dart';
-import 'package:curesee/users/features/beranda/presentation/bloc/beranda_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../domain/repository/beranda_repository.dart';
+import 'beranda_event.dart';
+import 'beranda_state.dart';
 
 class BerandaBloc extends Bloc<BerandaEvent, BerandaState> {
-  final GetBerandaList getBerandaList;
+  final BerandaRepository repository;
 
-  BerandaBloc(this.getBerandaList) : super(BerandaInitial()) {
-    on<GetBerandaListEvent>((event, emit) async {
-      emit(BerandaLoading());
-      final result = await getBerandaList();
-      emit(BerandaLoaded(result));
-    });
+  BerandaBloc(this.repository) : super(BerandaInitial()) {
+    on<GetBerandaRequested>(_onGet);
+  }
+
+  Future<void> _onGet(
+    GetBerandaRequested event,
+    Emitter<BerandaState> emit,
+  ) async {
+    emit(BerandaLoading());
+    try {
+      final data = await repository.getBeranda();
+      emit(BerandaLoaded(data));
+    } catch (_) {
+      emit(BerandaFailure('Gagal mengambil blog'));
+    }
   }
 }

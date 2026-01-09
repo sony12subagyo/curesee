@@ -1,8 +1,9 @@
-import 'package:curesee/admin/features/blog/presentation/bloc/add_bloc_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/add_image_bloc.dart';
-import '../../bloc/add_image_state.dart';
+
+import 'package:curesee/admin/features/blog/image/add_bloc_event.dart';
+import 'package:curesee/admin/features/blog/image/add_image_bloc.dart';
+import 'package:curesee/admin/features/blog/image/add_image_state.dart';
 
 class ImagePickerCard extends StatelessWidget {
   const ImagePickerCard({super.key});
@@ -21,12 +22,14 @@ class ImagePickerCard extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(15),
               onTap: () {
-                context.read<AddImageBloc>().add(PickImageRequested());
+                context
+                    .read<AddImageBloc>()
+                    .add(PickImageRequested());
               },
               child: SizedBox(
                 height: 150,
                 width: 460,
-                child: _buildContent(context, state),
+                child: _buildContent(state),
               ),
             ),
           );
@@ -35,26 +38,21 @@ class ImagePickerCard extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, AddImageState state) {
-    // ⏳ LOADING
+  Widget _buildContent(AddImageState state) {
     if (state.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    // 🖼️ GAMBAR TERPILIH
     if (state.image != null) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: Image.file(
           state.image!,
           fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
         ),
       );
     }
 
-    // 📌 DEFAULT (punyamu, tidak diubah)
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
