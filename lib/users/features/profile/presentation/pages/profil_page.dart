@@ -3,9 +3,9 @@ import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_event.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_state.dart';
-import 'package:curesee/users/features/profile/presentation/widget/widgetprofilepage/profileform/profile_form_coba.dart';
-import 'package:curesee/users/features/profile/presentation/widget/widgetprofilepage/total_scan_card.dart';
-import 'package:curesee/users/features/profile/presentation/widget/widgetprofilepage/profile_card.dart';
+import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_form/profile_form.dart';
+import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/total_scan_card.dart';
+import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

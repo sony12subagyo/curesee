@@ -2,8 +2,8 @@ import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:curesee/users/features/profile/presentation/pages/about_us_page.dart';
 import 'package:curesee/users/features/profile/presentation/pages/profile_update_page.dart';
-import 'package:curesee/users/features/profile/presentation/widget/widgetprofilepage/profileform/profile_item.dart';
-import 'package:curesee/users/features/profile/presentation/widget/widgetprofilepage/profileform/logout_button.dart';
+import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_form/profile_item.dart';
+import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_form/logout_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
