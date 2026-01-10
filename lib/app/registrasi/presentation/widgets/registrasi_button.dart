@@ -25,68 +25,55 @@ class RegistrasiButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegistrasiBloc, RegistrasiState>(
-      listener: (context, state) {
-        if (state is RegistrasiSuccess) {
-          Navigator.pop(context); // balik ke login
-        }
+    return BlocBuilder<RegistrasiBloc, RegistrasiState>(
+      builder: (context, state) {
+        final isLoading = state is RegistrasiLoading;
 
-        if (state is RegistrasiFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
-        }
-      },
-      child: BlocBuilder<RegistrasiBloc, RegistrasiState>(
-        builder: (context, state) {
-          final isLoading = state is RegistrasiLoading;
+        return SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: isLoading
+                ? null
+                : () {
+                    if (!formKey.currentState!.validate()) return;
 
-          return SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: isLoading
-                  ? null
-                  : () {
-                      if (!formKey.currentState!.validate()) return;
-
-                      if (gender.value == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Pilih gender terlebih dahulu'),
-                          ),
-                        );
-                        return;
-                      }
-
-                      final age = int.tryParse(ageC.text);
-                      if (age == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Umur harus berupa angka'),
-                          ),
-                        );
-                        return;
-                      }
-
-                      context.read<RegistrasiBloc>().add(
-                        RegistrasiSubmitted(
-                          RegistrasiEntity(
-                            name: nameC.text.trim(),
-                            email: emailC.text.trim(),
-                            gender: gender.value!,
-                            age: age,
-                            password: passC.text.trim(),
-                          ),
+                    if (gender.value == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Pilih gender terlebih dahulu'),
                         ),
                       );
-                    },
-              child: isLoading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text('Create your account'),
-            ),
-          );
-        },
-      ),
+                      return;
+                    }
+
+                    final age = int.tryParse(ageC.text);
+                    if (age == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Umur harus berupa angka'),
+                        ),
+                      );
+                      return;
+                    }
+
+                    context.read<RegistrasiBloc>().add(
+                      RegistrasiSubmitted(
+                        RegistrasiEntity(
+                          name: nameC.text.trim(),
+                          email: emailC.text.trim(),
+                          gender: gender.value!,
+                          age: age,
+                          password: passC.text.trim(),
+                        ),
+                      ),
+                    );
+                  },
+            child: isLoading
+                ? const CircularProgressIndicator(color: Colors.white)
+                : const Text('Create your account'),
+          ),
+        );
+      },
     );
   }
 }

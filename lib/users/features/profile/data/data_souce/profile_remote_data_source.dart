@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:http/http.dart' as http;
 
-final String baseUrl = "https://e9e47724ef7c.ngrok-free.app/api/profile";
+final String baseUrl = "https://dbd21fec81a1.ngrok-free.app/api/profile";
 
 class ProfileRemoteDataSource {
   Future<Profile> getProfile() async {

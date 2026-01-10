@@ -1,4 +1,3 @@
-import 'package:curesee/app/registrasi/presentation/bloc/registrasi_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/responsive_desain/responsive_layout.dart';
@@ -6,6 +5,7 @@ import '../../data/data_source/registrasi_remote_data_source.dart';
 import '../../data/repositories/registrasi_repository_impl.dart';
 import '../../domain/use_case/registrasi_use_case.dart';
 import '../bloc/registrasi_bloc.dart';
+import '../bloc/registrasi_state.dart';
 import '../widgets/registrasi_form.dart';
 import '../widgets/registrasi_button.dart';
 import '../widgets/registrasi_header.dart';
@@ -34,7 +34,7 @@ class RegistrasiPage extends StatelessWidget {
               const RegistrasiHeader(),
               const SizedBox(height: 24),
 
-              /// 🔥 CARD REGISTRASI + FADE & SLIDE (IMPLICIT)
+              /// CARD REGISTRASI
               TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0.0, end: 1.0),
                 duration: const Duration(milliseconds: 400),
@@ -54,7 +54,7 @@ class RegistrasiPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Form(
-                    key: formKey, // ❗ TETAP SATU FORM
+                    key: formKey,
                     child: Column(
                       children: [
                         RegistrasiForm(
@@ -95,11 +95,12 @@ class RegistrasiPage extends StatelessWidget {
           if (state is RegistrasiSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Registrasi berhasil, cek email verifikasi'),
+                content: Text('Registrasi berhasil. Cek email verifikasi.'),
               ),
             );
 
-            Navigator.pushReplacementNamed(context, '/login');
+            // 🔥 KEMBALI KE LOGIN (AMAN)
+            Navigator.pop(context);
           }
 
           if (state is RegistrasiFailure) {
