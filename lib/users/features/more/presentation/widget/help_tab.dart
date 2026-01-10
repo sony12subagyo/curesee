@@ -4,8 +4,8 @@ import '../bloc/more_bloc.dart';
 import '../bloc/more_event.dart';
 import '../bloc/more_state.dart';
 
-class HelpTab extends StatelessWidget {
-  const HelpTab({super.key});
+class PilihanTab extends StatelessWidget {
+  const PilihanTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class HelpTab extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 4),
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
-            color: isActive ? Colors.blue : Colors.white,
+            color: isActive ? Color.fromARGB(255, 0, 128, 255) : Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.blue),
           ),
@@ -54,7 +54,9 @@ class HelpTab extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                color: isActive ? Colors.white : Colors.blue,
+                color: isActive
+                    ? Colors.white
+                    : Color.fromARGB(255, 0, 128, 255),
                 fontWeight: FontWeight.w500,
               ),
             ),

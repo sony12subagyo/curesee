@@ -5,11 +5,13 @@ class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
 
   Future<void> _openEmail() async {
-    final Uri emailUri = Uri(
-      scheme: 'mailto',
-      path: 'refidaseptianaputri0@gmail.com',
+    final Uri gmailUri = Uri.parse(
+      "https://mail.google.com/mail/?view=cm&fs=1&to=23sa11a045@gmail.com",
     );
-    await launchUrl(emailUri);
+
+    if (!await launchUrl(gmailUri, mode: LaunchMode.externalApplication)) {
+      throw 'Tidak bisa membuka Gmail';
+    }
   }
 
   Future<void> _openWhatsapp() async {
@@ -41,7 +43,7 @@ class ContactSection extends StatelessWidget {
               children: const [
                 Icon(Icons.email, color: Colors.blue),
                 SizedBox(width: 10),
-                Text("refidaseptianaputri0@gmail.com"),
+                Text("23sa11a045@gmail.com"),
               ],
             ),
           ),
