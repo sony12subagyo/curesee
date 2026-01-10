@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_event.dart';
