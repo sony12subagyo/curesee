@@ -5,7 +5,6 @@ import 'package:curesee/users/features/profile/presentation/bloc/profile_event.d
 import 'package:curesee/users/features/profile/presentation/bloc/profile_state.dart';
 import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_form/profile_form.dart';
 import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_card.dart';
-import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_completion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
