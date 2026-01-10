@@ -27,16 +27,16 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
-        // 🔐 Jika logout berhasil → kembali ke login
+        // Jika logout berhasil → arahkan ke Login
         if (state is ProfileLoggedOut) {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (_) => const LoginPage()),
-            (_) => false,
+            (route) => false,
           );
         }
 
-        // Error sebagai snackbar
+        // Jika ada error → tampilkan Snackbar
         if (state is ProfileError) {
           ScaffoldMessenger.of(
             context,
@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
             );
           }
 
-          // State lain (misal setelah logout) → kosong
+          // Untuk state lain (misal setelah logout) tampilkan kosong
           return const SizedBox.shrink();
         },
       ),

@@ -18,3 +18,5 @@ class UploadAvatarEvent extends ProfileEvent {
   final File file;
   UploadAvatarEvent(this.file);
 }
+
+class LogoutEvent extends ProfileEvent {}

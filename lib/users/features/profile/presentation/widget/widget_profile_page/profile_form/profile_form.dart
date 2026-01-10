@@ -1,5 +1,6 @@
 import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:curesee/users/features/profile/presentation/bloc/profile_event.dart';
 import 'package:curesee/users/features/profile/presentation/pages/about_us_page.dart';
 import 'package:curesee/users/features/profile/presentation/pages/profile_update_page.dart';
 import 'package:curesee/users/features/profile/presentation/widget/widget_profile_page/profile_form/profile_item.dart';
@@ -85,7 +86,7 @@ class ProfileForm extends StatelessWidget {
 
             LogoutButton(
               onPressed: () {
-                // context.read<ProfileBloc>().add(LogoutEvent());
+                context.read<ProfileBloc>().add(LogoutEvent());
               },
             ),
           ],
