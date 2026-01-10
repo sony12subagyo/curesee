@@ -1,4 +1,5 @@
 // import 'package:curesee/users/features/beranda/presentation/pages/beranda_page.dart';
+import 'package:curesee/app/login/data/data_source/auth_firebase_service.dart';
 import 'package:curesee/app/navigation/home_layout.dart';
 import 'package:curesee/users/features/profile/data/data_souce/profile_remote_data_source.dart';
 import 'package:curesee/users/features/profile/data/repositories/profile_repository_impl.dart';
@@ -59,6 +60,7 @@ class AuthGate extends StatelessWidget {
                     getProfile: GetProfile(repo),
                     updateProfile: UpdateProfile(repo),
                     uploadAvatar: UploadAvatar(repo),
+                    authService: AuthFirebaseService(),
                   )..add(LoadProfileEvent());
                 },
               ),
