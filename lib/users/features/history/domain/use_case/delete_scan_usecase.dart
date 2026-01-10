@@ -1,11 +1,11 @@
-import 'package:curesee/users/features/history/domain/repositories/history_repository.dart';
+// import 'package:curesee/users/features/history/domain/repositories/history_repository.dart';
 
-class DeleteScanUseCase {
-  final HistoryRepository repository;
+// class DeleteScanUseCase {
+//   final HistoryRepository repository;
 
-  DeleteScanUseCase(this.repository);
+//   DeleteScanUseCase(this.repository);
 
-  Future<void> call(String id) {
-    return repository.deleteScan(id);
-  }
-}
+//   Future<void> call(String id) {
+//     return repository.deleteScan(id);
+//   }
+// }

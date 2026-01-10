@@ -1,20 +1,37 @@
-class PredictionResult {
-  final String label;
-  final double confidence;
+// class PredictionResult {
+//   final String label;
+//   final double confidence;
 
-  PredictionResult({required this.label, required this.confidence});
-}
+//   PredictionResult({required this.label, required this.confidence});
+// }
+
+// class HistoryScan {
+//   final String id;
+//   final String imagePath;
+//   final List<PredictionResult> predictions;
+//   final DateTime createdAt;
+
+//   HistoryScan({
+//     required this.id,
+//     required this.imagePath,
+//     required this.predictions,
+//     required this.createdAt,
+//   });
+// }
+
 
 class HistoryScan {
   final String id;
   final String imagePath;
-  final List<PredictionResult> predictions;
+  final String label;
+  final double confidence;
   final DateTime createdAt;
 
   HistoryScan({
     required this.id,
     required this.imagePath,
-    required this.predictions,
+    required this.label,
+    required this.confidence,
     required this.createdAt,
   });
 }

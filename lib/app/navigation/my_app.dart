@@ -1,6 +1,11 @@
 
 import 'package:curesee/app/login/data/data_source/login_remote_datasource.dart';
 import 'package:curesee/app/navigation/auth_gate.dart';
+import 'package:curesee/users/features/history/data/data_source/history_local_db.dart';
+import 'package:curesee/users/features/history/data/repositories/history_repository_impl.dart';
+import 'package:curesee/users/features/history/domain/use_case/get_all_scans_usecase.dart';
+import 'package:curesee/users/features/history/domain/use_case/save_scan_usecase.dart';
+import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -36,16 +41,32 @@ final userLoginUsecase = UserLoginUsecase(userRepo);
     );
     final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 
-    return BlocProvider(
+    return MultiBlocProvider(
+  providers: [
+    /// ===== LOGIN =====
+    BlocProvider(
       create: (_) => LoginBloc(
         userLoginUsecase: userLoginUsecase,
         adminLoginUsecase: adminLoginUsecase,
       ),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: AuthGate(),
+    ),
 
-      ),
-    );
+    /// ===== HISTORY =====
+    BlocProvider(
+      create: (_) {
+        final repo = HistoryRepositoryImpl(HistoryLocalDb());
+        return HistoryBloc(
+          SaveScanUseCase(repo),
+          GetAllScansUseCase(repo),
+        )..add(LoadHistoryEvent());
+      },
+    ),
+  ],
+  child: const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: AuthGate(),
+  ),
+);
+
   }
 }

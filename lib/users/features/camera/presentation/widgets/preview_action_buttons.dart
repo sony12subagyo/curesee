@@ -45,32 +45,26 @@ class PreviewActionButtons extends StatelessWidget {
             icon: const Icon(Icons.save_alt_rounded, color: Colors.blue),
             label: const Text("Simpan", style: TextStyle(color: Colors.blue)),
             onPressed: () {
-              final state = context.read<SkinDetectionBloc>().state;
+  final state = context.read<SkinDetectionBloc>().state;
+  if (state is SkinDetectionLoaded) {
+    final top = state.result.top3.first;
 
-              if (state is SkinDetectionLoaded) {
-                final predictions = state.result.top3
-                    .map(
-                      (d) => PredictionResult(
-                        label: d.label,
-                        confidence: d.confidence,
-                      ),
-                    )
-                    .toList();
+    final scan = HistoryScan(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      imagePath: imagePath,
+      label: top.label,
+      confidence: top.confidence,
+      createdAt: DateTime.now(),
+    );
 
-                final scan = HistoryScan(
-                  id: DateTime.now().millisecondsSinceEpoch.toString(),
-                  imagePath: imagePath,
-                  predictions: predictions,
-                  createdAt: DateTime.now(),
-                );
+    context.read<HistoryBloc>().add(SaveScanEvent(scan));
 
-                context.read<HistoryBloc>().add(AddHistoryScanEvent(scan));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Hasil scan disimpan")),
+    );
+  }
+},
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Hasil scan disimpan")),
-                );
-              }
-            },
 
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),
