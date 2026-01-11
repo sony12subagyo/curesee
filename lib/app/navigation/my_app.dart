@@ -1,11 +1,15 @@
 import 'package:curesee/app/login/data/data_source/login_remote_datasource.dart';
 import 'package:curesee/app/navigation/auth_gate.dart';
+<<<<<<< HEAD
 import 'package:curesee/users/features/history/data/data_source/history_local_db.dart';
 import 'package:curesee/users/features/history/data/repositories/history_repository_impl.dart';
 import 'package:curesee/users/features/history/domain/use_case/get_all_scans_usecase.dart';
 import 'package:curesee/users/features/history/domain/use_case/save_scan_usecase.dart';
 import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
 import 'package:curesee/users/features/history/presentation/bloc/history_event.dart';
+=======
+import 'package:curesee/app/splash_screen/splash_screen.dart';
+>>>>>>> 552bd27 (menambahkan splash screen,on boarding,dan animasi)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +19,7 @@ import '../login/domain/use_case/user_login_usecase.dart';
 import '../login/data/repositories/admin_login_repository_impl.dart';
 import '../login/data/repositories/user_login_repository_impl.dart';
 import '../login/presentation/pages/login_page.dart';
+<<<<<<< HEAD
 import 'package:curesee/users/features/history/data/data_source/history_remote_api.dart';
 import 'package:curesee/users/features/history/domain/use_case/get_scan_usecase.dart';
 import 'package:curesee/users/features/history/domain/use_case/delete_scan_usecase.dart';
@@ -22,6 +27,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:curesee/users/features/history/data/data_source/history_remote_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+=======
+>>>>>>> 552bd27 (menambahkan splash screen,on boarding,dan animasi)
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -44,6 +51,7 @@ class MyApp extends StatelessWidget {
     );
     final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 
+<<<<<<< HEAD
     return MultiProvider(
       providers: [
         Provider<HistoryRemoteApi>(
@@ -85,6 +93,16 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: AuthGate(),
         ),
+=======
+    return BlocProvider(
+      create: (_) => LoginBloc(
+        userLoginUsecase: userLoginUsecase,
+        adminLoginUsecase: adminLoginUsecase,
+      ),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+>>>>>>> 552bd27 (menambahkan splash screen,on boarding,dan animasi)
       ),
     );
   }
