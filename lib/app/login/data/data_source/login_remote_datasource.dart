@@ -11,9 +11,7 @@ class LoginRemoteDataSource {
   LoginRemoteDataSource({FirebaseAuth? auth, this.baseUrl = ''})
     : _auth = auth ?? FirebaseAuth.instance;
 
-  /// ===============================
-  /// Login USER via Firebase
-  /// ===============================
+  // login pengguna ke firebase
   Future<String> loginUser(String email, String password) async {
     final credential = await _auth.signInWithEmailAndPassword(
       email: email,
@@ -25,10 +23,8 @@ class LoginRemoteDataSource {
       throw Exception('User Firebase tidak ditemukan');
     }
 
-    // 🔥 WAJIB reload biar emailVerified update
     await user.reload();
 
-    // 🔥 BLOCK LOGIN kalau belum verifikasi email
     if (!user.emailVerified) {
       await FirebaseAuth.instance.signOut();
       throw Exception('Email belum diverifikasi. Silakan cek email.');
@@ -39,13 +35,13 @@ class LoginRemoteDataSource {
       throw Exception('Firebase ID Token kosong');
     }
 
-    // 🔥 AMBIL DATA DARI LOCAL (HASIL REGISTRASI)
+    // ambil data local hasil registrasi
     final prefs = await SharedPreferences.getInstance();
     final name = prefs.getString('reg_name');
     final gender = prefs.getString('reg_gender');
     final age = prefs.getInt('reg_age');
 
-    // 🔥 HANYA SYNC JIKA DATA ADA
+    // cuman menyingkronkan kalau ada data
     if (name != null && gender != null && age != null) {
       await _syncUserToBackend(
         token: token,
@@ -54,7 +50,7 @@ class LoginRemoteDataSource {
         age: age,
       );
 
-      // 🔥 HAPUS SETELAH BERHASIL
+      // hapus setelah berhasil
       await prefs.remove('reg_name');
       await prefs.remove('reg_gender');
       await prefs.remove('reg_age');
@@ -63,9 +59,7 @@ class LoginRemoteDataSource {
     return token;
   }
 
-  /// ===============================
-  /// Sync user Firebase → Laravel
-  /// ===============================
+  /// singkron firebase ke laravel
   Future<void> _syncUserToBackend({
     required String token,
     required String name,
@@ -87,9 +81,6 @@ class LoginRemoteDataSource {
     }
   }
 
-  /// ===============================
-  /// LOGOUT (INI YANG KURANG ❗)
-  /// ===============================
   Future<void> logout() async {
     await _auth.signOut();
   }

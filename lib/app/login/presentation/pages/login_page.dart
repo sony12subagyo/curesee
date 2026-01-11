@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
               const LoginHeader(),
               const SizedBox(height: 24),
 
-              /// 🔥 FADE + SLIDE TANPA STATE
+              // animasi fade dan slide
               TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: 1),
                 duration: const Duration(milliseconds: 400),
