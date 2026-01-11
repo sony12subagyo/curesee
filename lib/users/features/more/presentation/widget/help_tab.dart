@@ -47,7 +47,6 @@ class PilihanTab extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: isActive ? Color.fromARGB(255, 0, 128, 255) : Colors.white,
-            borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.blue),
           ),
           child: Center(
