@@ -1,6 +1,5 @@
 class Profile {
   final int id;
-  final String avatarUrl;
   final String name;
   final String email;
   final String gender;
@@ -8,7 +7,6 @@ class Profile {
 
   Profile({
     required this.id,
-    required this.avatarUrl,
     required this.name,
     required this.email,
     required this.gender,
@@ -16,7 +14,6 @@ class Profile {
   });
   Profile copyWith({
     int? id,
-    String? avatarUrl,
     String? name,
     String? email,
     String? gender,
@@ -28,7 +25,6 @@ class Profile {
       email: email ?? this.email,
       gender: gender ?? this.gender,
       age: age ?? this.age,
-      avatarUrl: avatarUrl ?? this.avatarUrl,
     );
   }
 }

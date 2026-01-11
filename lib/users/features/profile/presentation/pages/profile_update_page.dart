@@ -7,6 +7,7 @@ import 'package:curesee/users/features/profile/presentation/widget/widget_update
 import 'package:curesee/users/features/profile/presentation/widget/widget_update_page/card_update.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 class ProfileUpdatePage extends StatefulWidget {
   final Profile profile;
@@ -42,12 +43,42 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
     super.dispose();
   }
 
+  // POPUP SUKSES
+  Future<void> showSuccessPopup(BuildContext context, String message) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => Center(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          width: 180,
+          height: 180,
+          child: Center(
+            child: Lottie.network(
+              "https://lottie.host/20ee79ea-4909-49fd-8bc4-195f497a8a42/XGskeXCCty.json",
+              width: 140,
+              height: 140,
+              repeat: false,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await Future.delayed(const Duration(seconds: 2));
+    Navigator.pop(context); // tutup popup
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state is ProfileLoaded) {
-          Navigator.pop(context); // hanya tutup jika sukses dari API
+          showSuccessPopup(context, "menyimpan..");
+
+          Future.delayed(const Duration(seconds: 4), () {
+            Navigator.pop(context); // kembali ke ProfilePage
+          });
         }
 
         if (state is ProfileError) {
@@ -106,7 +137,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                     ),
                     const SizedBox(height: 16),
 
-                    // ===== UMUR =====
+                    // UMUR
                     const Text(
                       "Umur",
                       style: TextStyle(
@@ -133,7 +164,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                     ),
                     const SizedBox(height: 16),
 
-                    // ===== GENDER =====
+                    //PILIHAN GENDER PAKAI RADIO BUTTON]
                     ListTileTheme(
                       dense: true,
                       horizontalTitleGap: 1,
@@ -183,7 +214,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
 
                     const SizedBox(height: 16),
 
-                    // ===== BUTTON SIMPAN =====
+                    //BUTTON SIMPAN
                     SizedBox(
                       width: double.infinity,
                       height: 42,
@@ -195,7 +226,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                           ),
                         ),
                         onPressed: () {
-                          // 🔥 VALIDASI FORM DI SINI
+                          //VALIDASI FORM DI SINI
                           if (!_formKey.currentState!.validate()) return;
 
                           context.read<ProfileBloc>().add(
@@ -206,7 +237,6 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                 gender: selectedGender ?? "L",
                                 age: int.parse(ageCtrl.text),
                                 email: widget.profile.email,
-                                avatarUrl: widget.profile.avatarUrl,
                               ),
                             ),
                           );

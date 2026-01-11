@@ -1,10 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:curesee/users/features/profile/domain/entities/profile.dart';
 import 'package:http/http.dart' as http;
 
+<<<<<<< HEAD
 final String baseUrl = "https://7f45403ab963.ngrok-free.app/api/profile";
+=======
+final String baseUrl = "https://9ded6d580cdd.ngrok-free.app/api/profile";
+>>>>>>> 1a23043 (finishing profile)
 
 class ProfileRemoteDataSource {
   Future<Profile> getProfile() async {
@@ -26,7 +29,6 @@ class ProfileRemoteDataSource {
         gender: data['gender'] ?? "",
         email: data['email'] ?? "",
         age: data['age'] ?? 0,
-        avatarUrl: data['avatar_url'] ?? "",
       );
     } else {
       throw Exception("gagal memuat profile");
@@ -48,28 +50,6 @@ class ProfileRemoteDataSource {
 
     if (response.statusCode != 200) {
       throw Exception("gagal update profile");
-    }
-  }
-
-  Future<String> uploadAvatar(File file) async {
-    final user = FirebaseAuth.instance.currentUser!;
-    final token = await user.getIdToken();
-
-    final uri = Uri.parse("$baseUrl/avatar");
-
-    final request = http.MultipartRequest("POST", uri);
-    request.headers["Authorization"] = "Bearer $token";
-
-    request.files.add(await http.MultipartFile.fromPath("avatar", file.path));
-
-    final streamed = await request.send();
-    final response = await http.Response.fromStream(streamed);
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return data['avatar_url']; // Laravel kirim URL avatar
-    } else {
-      throw Exception("Upload avatar gagal");
     }
   }
 }

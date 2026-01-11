@@ -18,12 +18,9 @@ class ProfileCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 40,
-              backgroundImage: profile.avatarUrl.isNotEmpty
-                  ? NetworkImage(profile.avatarUrl)
-                  : null,
-              child: profile.avatarUrl.isEmpty
-                  ? const Icon(Icons.person, size: 40)
-                  : null,
+              backgroundColor:
+                  Colors.blue.shade100, // sesuaikan dengan theme CureSee
+              child: const Icon(Icons.person, size: 40, color: Colors.blue),
             ),
 
             const SizedBox(width: 20),
