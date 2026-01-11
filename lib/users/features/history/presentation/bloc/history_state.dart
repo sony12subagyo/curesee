@@ -1,39 +1,22 @@
-// part of 'history_bloc.dart';
+import '../../domain/entities/history_scan.dart';
 
-// abstract class HistoryState extends Equatable {
-//   @override
-//   List<Object?> get props => [];
-// }
+abstract class HistoryState {}
 
-// class HistoryLoadingState extends HistoryState {}
+class HistoryInitial extends HistoryState {}
 
-// class HistoryLoadedState extends HistoryState {
-//   final List<HistoryScan> scans;
-//   HistoryLoadedState(this.scans);
+class HistoryLoading extends HistoryState {}
 
-//   @override
-//   List<Object?> get props => [scans];
-// }
+class HistoryLoaded extends HistoryState {
+  final List<HistoryScan> scans;
+  HistoryLoaded(this.scans);
+}
 
-// class HistoryDeletedState extends HistoryState {}
+class HistoryDetailLoaded extends HistoryState {
+  final HistoryScan scan;
+  HistoryDetailLoaded(this.scan);
+}
 
-// class HistoryDetailLoadedState extends HistoryState {
-//   final HistoryScan detail;
-//   HistoryDetailLoadedState(this.detail);
-// }
-
-// class HistoryDetailLoaded extends HistoryState {
-//   final HistoryScan detail;
-//   HistoryDetailLoaded(this.detail);
-
-//   @override
-//   List<Object?> get props => [detail];
-// }
-
-// class HistoryErrorState extends HistoryState {
-//   final String message;
-//   HistoryErrorState(this.message);
-
-//   @override
-//   List<Object?> get props => [message];
-// }
+class HistoryError extends HistoryState {
+  final String message;
+  HistoryError(this.message);
+}

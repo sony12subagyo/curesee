@@ -1,4 +1,3 @@
-
 import 'package:curesee/app/login/data/data_source/login_remote_datasource.dart';
 import 'package:curesee/app/navigation/auth_gate.dart';
 import 'package:curesee/users/features/history/data/data_source/history_local_db.dart';
@@ -6,6 +5,7 @@ import 'package:curesee/users/features/history/data/repositories/history_reposit
 import 'package:curesee/users/features/history/domain/use_case/get_all_scans_usecase.dart';
 import 'package:curesee/users/features/history/domain/use_case/save_scan_usecase.dart';
 import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
+import 'package:curesee/users/features/history/presentation/bloc/history_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -15,9 +15,13 @@ import '../login/domain/use_case/user_login_usecase.dart';
 import '../login/data/repositories/admin_login_repository_impl.dart';
 import '../login/data/repositories/user_login_repository_impl.dart';
 import '../login/presentation/pages/login_page.dart';
-
-
-
+import 'package:curesee/users/features/history/data/data_source/history_remote_api.dart';
+import 'package:curesee/users/features/history/domain/use_case/get_scan_usecase.dart';
+import 'package:curesee/users/features/history/domain/use_case/delete_scan_usecase.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:curesee/users/features/history/data/data_source/history_remote_api.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,12 +30,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     /// ===== USER LOGIN =====
     final loginRemote = LoginRemoteDataSource(
-  baseUrl: 'https://dbd21fec81a1.ngrok-free.app/api',
-);
+      baseUrl: 'https://dbd21fec81a1.ngrok-free.app/api',
+    );
 
-final userRepo = UserLoginRepositoryImpl(loginRemote);
-final userLoginUsecase = UserLoginUsecase(userRepo);
-
+    final userRepo = UserLoginRepositoryImpl(loginRemote);
+    final userLoginUsecase = UserLoginUsecase(userRepo);
 
     /// ===== ADMIN LOGIN =====
     final adminRepository = AdminLoginRepositoryImpl(
@@ -41,32 +44,48 @@ final userLoginUsecase = UserLoginUsecase(userRepo);
     );
     final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 
-    return MultiBlocProvider(
-  providers: [
-    /// ===== LOGIN =====
-    BlocProvider(
-      create: (_) => LoginBloc(
-        userLoginUsecase: userLoginUsecase,
-        adminLoginUsecase: adminLoginUsecase,
+    return MultiProvider(
+      providers: [
+        Provider<HistoryRemoteApi>(
+          create: (_) => HistoryRemoteApi(
+            getToken: () async {
+              final user = FirebaseAuth.instance.currentUser;
+              if (user == null) throw Exception("Not logged in");
+
+              final token = await user.getIdToken();
+              return token!; // 🔥 paksa non-null karena Firebase pasti kasih
+            },
+          ),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => LoginBloc(
+              userLoginUsecase: userLoginUsecase,
+              adminLoginUsecase: adminLoginUsecase,
+            ),
+          ),
+
+          BlocProvider(
+            create: (context) {
+              final localDb = HistoryLocalDb();
+              final remoteApi = context.read<HistoryRemoteApi>();
+              final repo = HistoryRepositoryImpl(localDb, remoteApi);
+
+              return HistoryBloc(
+                getAllScans: GetAllScansUseCase(repo),
+                getScan: GetScanUseCase(repo),
+                deleteScan: DeleteScanUseCase(repo),
+              )..add(LoadHistoryEvent());
+            },
+          ),
+        ],
+        child: const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: AuthGate(),
+        ),
       ),
-    ),
-
-    /// ===== HISTORY =====
-    BlocProvider(
-      create: (_) {
-        final repo = HistoryRepositoryImpl(HistoryLocalDb());
-        return HistoryBloc(
-          SaveScanUseCase(repo),
-          GetAllScansUseCase(repo),
-        )..add(LoadHistoryEvent());
-      },
-    ),
-  ],
-  child: const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: AuthGate(),
-  ),
-);
-
+    );
   }
 }
