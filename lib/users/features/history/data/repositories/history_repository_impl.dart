@@ -55,7 +55,6 @@
 //   }
 // }
 
-
 import 'package:curesee/users/features/history/data/data_source/history_local_db.dart';
 import '../../domain/entities/history_scan.dart';
 import '../../domain/repositories/history_repository.dart';

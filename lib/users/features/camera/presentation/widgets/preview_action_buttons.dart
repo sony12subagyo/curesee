@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/users/features/skin_scane/presentation/skin_detection_bloc.dart';
@@ -8,7 +10,10 @@ import 'package:curesee/users/features/history/presentation/bloc/history_bloc.da
 class PreviewActionButtons extends StatelessWidget {
   final String imagePath;
 
-  const PreviewActionButtons({super.key, required this.imagePath});
+  PreviewActionButtons({
+    super.key,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,26 +50,25 @@ class PreviewActionButtons extends StatelessWidget {
             icon: const Icon(Icons.save_alt_rounded, color: Colors.blue),
             label: const Text("Simpan", style: TextStyle(color: Colors.blue)),
             onPressed: () {
-  final state = context.read<SkinDetectionBloc>().state;
-  if (state is SkinDetectionLoaded) {
-    final top = state.result.top3.first;
+              final state = context.read<SkinDetectionBloc>().state;
+              if (state is SkinDetectionLoaded) {
+                final top = state.result.top3.first;
 
-    final scan = HistoryScan(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      imagePath: imagePath,
-      label: top.label,
-      confidence: top.confidence,
-      createdAt: DateTime.now(),
-    );
+                final scan = HistoryScan(
+                  id: DateTime.now().millisecondsSinceEpoch.toString(),
+                  imagePath: imagePath,
+                  label: top.label,
+                  confidence: top.confidence,
+                  createdAt: DateTime.now(),
+                );
 
-    context.read<HistoryBloc>().add(SaveScanEvent(scan));
+                context.read<HistoryBloc>().add(SaveScanEvent(scan));
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Hasil scan disimpan")),
-    );
-  }
-},
-
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Hasil scan disimpan")),
+                );
+              }
+            },
 
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),

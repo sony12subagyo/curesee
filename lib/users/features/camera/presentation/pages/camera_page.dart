@@ -4,6 +4,7 @@ import 'package:curesee/users/features/skin_scane/data/repositories/skin_detecti
 import 'package:curesee/users/features/skin_scane/domain/use_case/detect_skin_disease.dart';
 import 'package:curesee/users/features/skin_scane/presentation/skin_detection_bloc.dart';
 import 'package:curesee/users/features/skin_scane/presentation/skin_detection_event.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

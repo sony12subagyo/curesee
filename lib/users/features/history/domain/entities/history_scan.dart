@@ -19,7 +19,6 @@
 //   });
 // }
 
-
 class HistoryScan {
   final String id;
   final String imagePath;

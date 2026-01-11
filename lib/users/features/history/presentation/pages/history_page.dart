@@ -1,4 +1,3 @@
-
 // import 'dart:io';
 // import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
 // import 'package:flutter/material.dart';
@@ -75,7 +74,6 @@
 //   }
 // }
 
-
 import 'dart:io';
 import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +94,9 @@ class HistoryPage extends StatelessWidget {
 
           if (state is HistoryLoaded) {
             if (state.scans.isEmpty) {
-              return const Center(child: Text("Belum ada hasil scan"));
+              return Column(
+                children: [const Center(child: Text("Belum ada hasil scan"))],
+              );
             }
 
             return ListView.builder(
