@@ -7,7 +7,6 @@ class ProfileModel extends Profile {
     required super.gender,
     required super.email,
     required super.age,
-    required super.avatarUrl,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -17,7 +16,6 @@ class ProfileModel extends Profile {
       gender: json['gender'],
       email: json['email'],
       age: json['age'],
-      avatarUrl: json['avatar_url'] ?? '',
     );
   }
 
@@ -28,7 +26,6 @@ class ProfileModel extends Profile {
       'gender': gender,
       'email': email,
       'age': age,
-      'avatar_url': avatarUrl,
     };
   }
 }

@@ -5,9 +5,7 @@ import 'package:curesee/users/features/profile/data/data_souce/profile_remote_da
 import 'package:curesee/users/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:curesee/users/features/profile/domain/use_case/get_profile.dart';
 import 'package:curesee/users/features/profile/domain/use_case/update_profile.dart';
-import 'package:curesee/users/features/profile/domain/use_case/upload_avatar.dart';
 import 'package:curesee/users/features/profile/presentation/bloc/profile_bloc.dart';
-
 import 'package:curesee/users/features/profile/presentation/bloc/profile_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +57,6 @@ class AuthGate extends StatelessWidget {
                   return ProfileBloc(
                     getProfile: GetProfile(repo),
                     updateProfile: UpdateProfile(repo),
-                    uploadAvatar: UploadAvatar(repo),
                     authService: AuthFirebaseService(),
                   )..add(LoadProfileEvent());
                 },
