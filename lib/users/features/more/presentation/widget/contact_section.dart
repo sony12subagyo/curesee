@@ -5,12 +5,12 @@ class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
 
   Future<void> _openEmail() async {
-    final Uri gmailUri = Uri.parse(
-      "https://mail.google.com/mail/?view=cm&fs=1&to=23sa11a045@gmail.com",
-    );
+    final Uri gmailUri = Uri.parse("googlegmail://co?to=cureseeapp@gmail.com");
 
-    if (!await launchUrl(gmailUri, mode: LaunchMode.externalApplication)) {
-      throw 'Tidak bisa membuka Gmail';
+    if (!await launchUrl(gmailUri)) {
+      // fallback kalau Gmail tidak ada
+      final Uri fallback = Uri(scheme: 'mailto', path: '23sa11a045@gmail.com');
+      await launchUrl(fallback);
     }
   }
 
