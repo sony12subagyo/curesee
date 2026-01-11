@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../domain/entities/user_entity.dart';
 
 class UserRemoteDatasource {
   late final Dio dio;
-
   UserRemoteDatasource() {
     dio = Dio(
       BaseOptions(
@@ -25,7 +23,6 @@ class UserRemoteDatasource {
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
           }
-
           return handler.next(options);
         },
       ),
@@ -34,7 +31,6 @@ class UserRemoteDatasource {
 
   Future<List<User>> getUsers() async {
     final response = await dio.get('/users'); // ✅ String BOLEH
-
     final body = response.data;
     List listData;
 

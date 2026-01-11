@@ -31,24 +31,23 @@ class _HistoryPageState extends State<HistoryPage> {
           }
 
           if (state is HistoryLoaded) {
-  if (state.scans.isEmpty) {
-    return const Center(child: Text("Belum ada riwayat"));
-  }
+            if (state.scans.isEmpty) {
+              return const Center(child: Text("Belum ada riwayat"));
+            }
 
-  return ListView.builder(
-    itemCount: state.scans.length,
-    itemBuilder: (context, i) {
-      final scan = state.scans[i];
-      return HistoryCard(
-        scan: scan,
-        onDelete: () {
-          context.read<HistoryBloc>().add(DeleteScanEvent(scan.id));
-        },
-      );
-    },
-  );
-}
-
+            return ListView.builder(
+              itemCount: state.scans.length,
+              itemBuilder: (context, i) {
+                final scan = state.scans[i];
+                return HistoryCard(
+                  scan: scan,
+                  onDelete: () {
+                    context.read<HistoryBloc>().add(DeleteScanEvent(scan.id));
+                  },
+                );
+              },
+            );
+          }
 
           if (state is HistoryError) {
             return Center(child: Text(state.message));
