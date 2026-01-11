@@ -1,4 +1,4 @@
-import 'package:curesee/users/features/history/domain/repositories/history_repository.dart';
+import '../repositories/history_repository.dart';
 
 class DeleteScanUseCase {
   final HistoryRepository repository;

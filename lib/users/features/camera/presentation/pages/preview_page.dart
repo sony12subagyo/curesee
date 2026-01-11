@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:curesee/users/features/camera/presentation/widgets/detection_result_list.dart';
 import 'package:curesee/users/features/camera/presentation/widgets/photo_preview_card.dart';
 import 'package:curesee/users/features/camera/presentation/widgets/preview_action_buttons.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../skin_scane/presentation/skin_detection_bloc.dart';
@@ -61,7 +62,9 @@ class PreviewPage extends StatelessWidget {
 
                           const SizedBox(height: 12),
 
-                          PreviewActionButtons(imagePath: imagePath),
+                          PreviewActionButtons(
+                            imagePath: imagePath,
+                          ), // Tambahkan id_user di sini
                         ],
                       );
                     }

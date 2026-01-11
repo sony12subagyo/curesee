@@ -1,63 +1,66 @@
-import 'dart:convert';
-import 'package:curesee/admin/features/users/data/model/user_model.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class UserRemoteDataSource {
-  Future<List<UserModel>> getUsers();
-  Future<void> deleteUser(int id);
-}
+import '../../domain/entities/user_entity.dart';
 
-class UserRemoteDataSourceImpl implements UserRemoteDataSource {
-  final http.Client client;
-  final String baseUrl;
-  final String token;
+class UserRemoteDatasource {
+  late final Dio dio;
 
-  UserRemoteDataSourceImpl({
-    required this.client,
-    required this.baseUrl,
-    required this.token,
-  });
-
-  @override
-  Future<List<UserModel>> getUsers() async {
-    final response = await client.get(
-      Uri.parse('$baseUrl/users'),
-      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
+  UserRemoteDatasource() {
+    dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://dbd21fec81a1.ngrok-free.app/api',
+        headers: {
+          'Accept': 'application/json',
+        },
+      ),
     );
 
-    debugPrint('STATUS: ${response.statusCode}');
-    debugPrint('BODY: ${response.body}');
-    debugPrint('TOKEN DIPAKAI: $token');
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final prefs = await SharedPreferences.getInstance();
+          final token = prefs.getString('admin_token');
 
-    if (response.statusCode != 200) {
-      throw Exception('HTTP ${response.statusCode}');
-    }
+          if (token != null) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
 
-    final decoded = jsonDecode(response.body);
-
-    if (decoded is List) {
-      return decoded.map((e) => UserModel.fromJson(e)).toList();
-    }
-
-    if (decoded is Map && decoded['data'] is List) {
-      return (decoded['data'] as List)
-          .map((e) => UserModel.fromJson(e))
-          .toList();
-    }
-
-    throw Exception('Format response tidak dikenali');
+          return handler.next(options);
+        },
+      ),
+    );
   }
 
-  @override
-  Future<void> deleteUser(int id) async {
-    final response = await client.delete(
-      Uri.parse('$baseUrl/users/$id'),
-      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
-    );
+  Future<List<User>> getUsers() async {
+    final response = await dio.get('/users'); // ✅ String BOLEH
 
-    if (response.statusCode != 200) {
-      throw Exception('Gagal menghapus user');
+    final body = response.data;
+    List listData;
+
+    if (body is List) {
+      listData = body;
+    } else if (body['data'] is List) {
+      listData = body['data'];
+    } else if (body['users'] is List) {
+      listData = body['users'];
+    } else if (body['data']?['users'] is List) {
+      listData = body['data']['users'];
+    } else {
+      throw Exception('Format response tidak dikenali');
     }
+
+    return listData.map((e) {
+      return User(
+        id: e['id'],
+        name: e['name'] ?? '',
+        email: e['email'] ?? '',
+        imageUrl: e['image'],
+      );
+    }).toList();
+  }
+
+  Future<void> deleteUser(int id) async {
+    await dio.delete('/users/$id');
   }
 }

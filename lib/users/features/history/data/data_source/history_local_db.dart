@@ -4,46 +4,24 @@ import 'package:path/path.dart';
 class HistoryLocalDb {
   static Database? _db;
 
-  Future<Database> get database async {
-    if (_db != null) return _db!;
-    _db = await _initDb();
-    return _db!;
-  }
-
-  Future<Database> _initDb() async {
-    final path = join(await getDatabasesPath(), "history.db");
-
-    return openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute('''
-          CREATE TABLE scans (
-  id TEXT PRIMARY KEY,
-  imagePath TEXT,
-  predictions TEXT, 
-  createdAt TEXT
-)
-
-        ''');
-      },
-    );
-  }
-
   // =============================================
   // ================ CRUD METHOD ================
   // =============================================
 
   /// Insert Scan
-  Future<int> insertScan(Map<String, dynamic> data) async {
+  Future<void> insertScan(Map<String, dynamic> data) async {
     final db = await database;
-    return db.insert('scans', data);
+    await db.insert(
+      'scans',
+      data,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   /// Get All Scans
   Future<List<Map<String, dynamic>>> getAllScans() async {
     final db = await database;
-    return db.query('scans', orderBy: "createdAt DESC");
+    return db.query('scans', orderBy: 'createdAt DESC');
   }
 
   /// Get Scan by ID
@@ -60,8 +38,49 @@ class HistoryLocalDb {
   }
 
   /// Delete Scan
-  Future<int> deleteScan(String id) async {
+  Future<void> deleteScan(String id) async {
     final db = await database;
-    return db.delete('scans', where: 'id = ?', whereArgs: [id]);
+    await db.delete('scans', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<Database> get database async {
+    if (_db != null) return _db!;
+    _db = await _initDb();
+    return _db!;
+  }
+
+  Future<Database> _initDb() async {
+    final path = join(await getDatabasesPath(), "history.db");
+
+    return openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) async {
+        await db.execute('''
+          CREATE TABLE scans (
+            id TEXT PRIMARY KEY,
+            userId TEXT,
+            imagePath TEXT,
+            predictions TEXT,
+            createdAt TEXT
+          )
+        ''');
+      },
+    );
+  }
+
+  Future<Map<String, dynamic>?> getScan(String id) async {
+    final db = await database;
+    final result = await db.query(
+      'scans',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+
+    if (result.isNotEmpty) {
+      return result.first;
+    }
+    return null;
   }
 }

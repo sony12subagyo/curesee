@@ -1,8 +1,8 @@
 abstract class UserEvent {}
 
-class LoadUsers extends UserEvent {}
+class GetUsersRequested extends UserEvent {}
 
-class DeleteUser extends UserEvent {
+class DeleteUserRequested extends UserEvent {
   final int id;
-  DeleteUser(this.id);
+  DeleteUserRequested(this.id);
 }

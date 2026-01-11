@@ -1,33 +1,28 @@
-part of 'history_bloc.dart';
-
-abstract class HistoryEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+abstract class HistoryEvent {}
 
 class LoadHistoryEvent extends HistoryEvent {}
-
-class DeleteScanEvent extends HistoryEvent {
-  final String id;
-  DeleteScanEvent(this.id);
-
-  @override
-  List<Object?> get props => [id];
-}
 
 class LoadDetailScanEvent extends HistoryEvent {
   final String id;
   LoadDetailScanEvent(this.id);
-
-  @override
-  List<Object?> get props => [id];
 }
 
-class AddHistoryScanEvent extends HistoryEvent {
-  final HistoryScan scan;
+class DeleteScanEvent extends HistoryEvent {
+  final String id;
+  DeleteScanEvent(this.id);
+}
 
-  AddHistoryScanEvent(this.scan);
+// ==========================
+// SAVE SCAN (INI YANG KURANG)
+// ==========================
+class SaveScanEvent extends HistoryEvent {
+  final String imagePath;
+  final String label;
+  final double confidence;
 
-  @override
-  List<Object?> get props => [scan];
+  SaveScanEvent({
+    required this.imagePath,
+    required this.label,
+    required this.confidence,
+  });
 }

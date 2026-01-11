@@ -9,7 +9,7 @@ class RegistrasiRemoteDataSource {
 
   Future<void> register(RegistrasiEntity entity) async {
     try {
-      // 1️⃣ Register Firebase
+      // 1Register Firebase
       final credential = await _auth.createUserWithEmailAndPassword(
         email: entity.email,
         password: entity.password,
@@ -20,23 +20,23 @@ class RegistrasiRemoteDataSource {
         throw Exception('Registrasi Firebase gagal');
       }
 
-      // 2️⃣ Update display name
+      // 2Update display name
       await user.updateDisplayName(entity.name);
       await user.reload();
 
-      // 3️⃣ Kirim email verifikasi
+      // Kirim email verifikasi
       if (!user.emailVerified) {
         await user.sendEmailVerification();
       }
       await FirebaseAuth.instance.signOut();
 
-      // 4️⃣ SIMPAN DATA SEMENTARA 🔥
+      // simpan data sementara
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('reg_name', entity.name);
       await prefs.setString('reg_gender', entity.gender);
       await prefs.setInt('reg_age', entity.age);
 
-      // 5️⃣ LOGOUT → wajib verifikasi dulu
+      // logout wajib verifikasi dulu
       await _auth.signOut();
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message ?? 'Registrasi Firebase error');

@@ -1,56 +1,63 @@
 import 'package:curesee/users/features/history/data/data_source/history_local_db.dart';
+import 'package:curesee/users/features/history/data/data_source/history_remote_api.dart';
+import 'package:curesee/users/features/history/data/models/history_scan_model.dart';
 import 'package:curesee/users/features/history/domain/entities/history_scan.dart';
 import 'package:curesee/users/features/history/domain/repositories/history_repository.dart';
-import 'package:sqflite/sqflite.dart';
-import '../models/history_scan_model.dart';
 
-class HistoryRepositoryImpl implements HistoryRepository {
+  class HistoryRepositoryImpl implements HistoryRepository {
   final HistoryLocalDb localDb;
+  final HistoryRemoteApi remoteApi;
 
-  HistoryRepositoryImpl(this.localDb);
+  HistoryRepositoryImpl(this.localDb, this.remoteApi);
 
   @override
-  Future<void> saveScan(HistoryScan scan) async {
-    final db = await localDb.database;
+Future<void> saveScan(HistoryScan scan) async {
+  final model = HistoryScanModel.fromEntity(scan);
 
-    final model = HistoryScanModel(
-      id: scan.id,
-      imagePath: scan.imagePath,
-      predictions: scan.predictions,
-      createdAt: scan.createdAt,
-    );
+  final remote = await remoteApi.saveScan(
+    imagePath: model.imagePath,
+    label: model.predictions.first.label,
+    confidence: model.predictions.first.confidence,
+    firebaseUid: model.userId,
+  );
 
-    await db.insert(
-      'scans',
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
+  await localDb.insertScan(remote.toMap());
+}
+
 
   @override
   Future<List<HistoryScan>> getAllScans() async {
-    final db = await localDb.database;
+    try {
+      final remoteData = await remoteApi.getAllScans();
 
-    final result = await db.query('scans', orderBy: "createdAt DESC");
+      for (final scan in remoteData) {
+        await localDb.insertScan(scan.toMap());
+      }
 
-    return result.map((e) => HistoryScanModel.fromMap(e)).toList();
-  }
-
-  @override
-  Future<void> deleteScan(String id) async {
-    final db = await localDb.database;
-
-    await db.delete('scans', where: "id = ?", whereArgs: [id]);
+      return remoteData;
+    } catch (_) {
+      final local = await localDb.getAllScans();
+      return local.map((e) => HistoryScanModel.fromMap(e)).toList();
+    }
   }
 
   @override
   Future<HistoryScan?> getScan(String id) async {
-    final db = await localDb.database;
+    try {
+      final remote = await remoteApi.getScan(id);
+      await localDb.insertScan(remote.toMap());
+      return remote;
+    } catch (_) {
+      final local = await localDb.getScan(id);
+      if (local == null) return null;
+      return HistoryScanModel.fromMap(local);
+    }
+  }
 
-    final result = await db.query('scans', where: "id = ?", whereArgs: [id]);
-
-    if (result.isEmpty) return null;
-
-    return HistoryScanModel.fromMap(result.first);
+  @override
+  Future<void> deleteScan(String id) async {
+    await remoteApi.deleteScan(id);
+    await localDb.deleteScan(id);
   }
 }
+
