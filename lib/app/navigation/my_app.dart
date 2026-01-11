@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// ===== USER LOGIN =====
+    //login untuk pengguna
     final loginRemote = LoginRemoteDataSource(
       baseUrl: 'https://dbd21fec81a1.ngrok-free.app/api',
     );
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
     final userRepo = UserLoginRepositoryImpl(loginRemote);
     final userLoginUsecase = UserLoginUsecase(userRepo);
 
-    /// ===== ADMIN LOGIN =====
+    //login untuk admin
     final adminRepository = AdminLoginRepositoryImpl(
       client: http.Client(),
 

@@ -11,7 +11,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({required this.userLoginUsecase, required this.adminLoginUsecase})
     : super(LoginInitial()) {
-    // ================= USER LOGIN =================
+    // user login
     on<LoginUserPressed>((event, emit) async {
       emit(LoginLoading());
 
@@ -21,18 +21,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           event.password,
         );
 
-        // 🔥 TOKEN PASTI VALID & USER SUDAH VERIFIED
+        // toen pasti valid dan pengguna sudah verifed
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_token', token);
 
         emit(LoginSuccess(token: token, isAdmin: false));
       } catch (e) {
-        // 🔥 PASTIKAN TIDAK ADA SUCCESS SETELAH ERROR
+        // pastikan sukses tidak ada eror
         emit(LoginFailure(e.toString().replaceAll('Exception:', '').trim()));
       }
     });
 
-    // ================= ADMIN LOGIN =================
+    // admin login
     on<LoginAdminPressed>((event, emit) async {
       emit(LoginLoading());
       try {
@@ -41,7 +41,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           event.password,
         );
 
-        // 🔥🔥🔥 INI YANG KEMARIN HILANG 🔥🔥🔥
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('admin_token', token);
 

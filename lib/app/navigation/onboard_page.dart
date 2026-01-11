@@ -136,7 +136,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                   const SizedBox(height: 32),
 
-                  /// BUTTON
+                  // BUTTON
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

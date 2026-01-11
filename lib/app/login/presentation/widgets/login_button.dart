@@ -19,7 +19,7 @@ class LoginButton extends StatelessWidget {
   });
 
   bool _isAdminEmail(String email) {
-    return email.endsWith('@curesee.com'); // ✅ penentu admin
+    return email.endsWith('@curesee.com');
   }
 
   @override
@@ -57,8 +57,8 @@ class LoginButton extends StatelessWidget {
               onPressed: state is LoginLoading
                   ? null
                   : () {
-                      // 🔥 ANIMASI TEKAN (implicit, tanpa ubah logic)
-                      // efek visual terjadi karena rebuild cepat
+                      // animasi tekan animasi implincit
+                      // efek visual
                       final email = emailController.text.trim();
                       final password = passwordController.text.trim();
 

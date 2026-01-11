@@ -23,7 +23,7 @@ class AuthFirebaseService {
       throw Exception('Firebase token kosong');
     }
 
-    return token; // ✅ sekarang 100% String
+    return token;
   }
 
   Future<void> logout() async {

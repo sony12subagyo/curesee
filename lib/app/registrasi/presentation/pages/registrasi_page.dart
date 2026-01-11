@@ -34,7 +34,7 @@ class RegistrasiPage extends StatelessWidget {
               const RegistrasiHeader(),
               const SizedBox(height: 24),
 
-              /// CARD REGISTRASI
+              // CARD REGISTRASI
               TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0.0, end: 1.0),
                 duration: const Duration(milliseconds: 400),
@@ -99,7 +99,7 @@ class RegistrasiPage extends StatelessWidget {
               ),
             );
 
-            // 🔥 KEMBALI KE LOGIN (AMAN)
+            // KEMBALI KE LOGIN
             Navigator.pop(context);
           }
 
