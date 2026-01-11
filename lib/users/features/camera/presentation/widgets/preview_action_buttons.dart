@@ -1,3 +1,8 @@
+import 'package:curesee/users/features/history/data/data_source/history_remote_api.dart';
+import 'package:curesee/users/features/history/data/models/history_scan_model.dart';
+import 'package:curesee/users/features/history/presentation/bloc/history_event.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/users/features/skin_scane/presentation/skin_detection_bloc.dart';
@@ -8,7 +13,7 @@ import 'package:curesee/users/features/history/presentation/bloc/history_bloc.da
 class PreviewActionButtons extends StatelessWidget {
   final String imagePath;
 
-  const PreviewActionButtons({super.key, required this.imagePath});
+  PreviewActionButtons({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -44,30 +49,26 @@ class PreviewActionButtons extends StatelessWidget {
           child: ElevatedButton.icon(
             icon: const Icon(Icons.save_alt_rounded, color: Colors.blue),
             label: const Text("Simpan", style: TextStyle(color: Colors.blue)),
-            onPressed: () {
-              final state = context.read<SkinDetectionBloc>().state;
+            onPressed: () async {
+              final detectionState = context.read<SkinDetectionBloc>().state;
 
-              if (state is SkinDetectionLoaded) {
-                final predictions = state.result.top3
-                    .map(
-                      (d) => PredictionResult(
-                        label: d.label,
-                        confidence: d.confidence,
-                      ),
-                    )
-                    .toList();
+              if (detectionState is SkinDetectionLoaded) {
+                final topResult = detectionState.result.top3.first;
 
-                final scan = HistoryScan(
-                  id: DateTime.now().millisecondsSinceEpoch.toString(),
+                final user = FirebaseAuth.instance.currentUser;
+                if (user == null) return;
+
+                final api = context.read<HistoryRemoteApi>();
+
+                await api.saveScan(
                   imagePath: imagePath,
-                  predictions: predictions,
-                  createdAt: DateTime.now(),
+                  label: topResult.label,
+                  confidence: topResult.confidence,
+                  firebaseUid: user.uid, // ✅ penting
                 );
 
-                context.read<HistoryBloc>().add(AddHistoryScanEvent(scan));
-
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Hasil scan disimpan")),
+                  const SnackBar(content: Text("Scan berhasil disimpan")),
                 );
               }
             },

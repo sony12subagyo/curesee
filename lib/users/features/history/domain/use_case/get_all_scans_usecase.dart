@@ -1,12 +1,12 @@
-import 'package:curesee/users/features/history/domain/entities/history_scan.dart';
-import 'package:curesee/users/features/history/domain/repositories/history_repository.dart';
+import '../entities/history_scan.dart';
+import '../repositories/history_repository.dart';
 
 class GetAllScansUseCase {
   final HistoryRepository repository;
 
   GetAllScansUseCase(this.repository);
 
-  Future<List<HistoryScan>> execute() {
+  Future<List<HistoryScan>> call() {
     return repository.getAllScans();
   }
 }
