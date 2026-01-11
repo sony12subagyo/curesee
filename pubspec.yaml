@@ -51,13 +51,10 @@ dependencies:
   path_provider: ^2.1.5
   intl: ^0.20.2
   url_launcher: ^6.3.2
-<<<<<<< HEAD
   lottie: ^3.3.2
   path: ^1.9.1
  
-=======
   video_player: ^2.10.1
->>>>>>> 552bd27 (menambahkan splash screen,on boarding,dan animasi)
 
 dev_dependencies:
   flutter_test:
