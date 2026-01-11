@@ -11,7 +11,7 @@ import 'user_card.dart';
 import 'confirm_delete_dialog.dart';
 
 class UserListMobile extends StatelessWidget {
-  final List<UserEntity> users;
+  final List<User> users;
 
   const UserListMobile({
     super.key,

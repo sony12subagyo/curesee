@@ -7,7 +7,7 @@ import 'user_card.dart';
 import 'confirm_delete_dialog.dart';
 
 class UserListTablet extends StatelessWidget {
-  final List<UserEntity> users;
+  final List<User> users;
 
   const UserListTablet({
     super.key,

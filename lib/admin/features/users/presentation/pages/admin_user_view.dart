@@ -1,6 +1,6 @@
+import 'package:curesee/admin/app/responsive_layout.dart';
 import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
 import 'package:curesee/admin/features/users/presentation/widgets/user_list_dekstop.dart';
-import 'package:curesee/responsive_desain/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +13,6 @@ import '../widgets/admin_bottom_nav.dart';
 import '../widgets/user_list_mobile.dart';
 import '../widgets/user_list_tablet.dart';
 
-
 class AdminUserView extends StatelessWidget {
   const AdminUserView({super.key});
 
@@ -22,21 +21,20 @@ class AdminUserView extends StatelessWidget {
     final isDesktop = MediaQuery.of(context).size.width >= 1024;
 
     return Scaffold(
-    bottomNavigationBar: isDesktop
-    ? null
-    : AdminBottomNav(
-        currentIndex: 1,
-       onTap: (index) {
-  if (index == 0) {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (_) => const BlogPage()),
-      (route) => false,
-    );
-  }
-}
-
-      ),
+      bottomNavigationBar: isDesktop
+          ? null
+          : AdminBottomNav(
+              currentIndex: 1,
+              onTap: (index) {
+                if (index == 0) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const BlogPage()),
+                    (route) => false,
+                  );
+                }
+              },
+            ),
 
       body: BackgroundWrapper(
         child: BlocBuilder<UserBloc, UserState>(
@@ -54,14 +52,13 @@ class AdminUserView extends StatelessWidget {
               );
             }
 
-           if (state is UserLoaded) {
-  return ResponsiveLayout(
-    mobile: UserListMobile(users: state.users),
-    tablet: UserListTablet(users: state.users),
-    desktop: UserListDesktop(users: state.users),
-  );
-}
-
+            if (state is UserLoaded) {
+              return ResponsiveLayout(
+                mobile: UserListMobile(users: state.users),
+                tablet: UserListTablet(users: state.users),
+                desktop: UserListDesktop(users: state.users),
+              );
+            }
 
             return const SizedBox.shrink();
           },

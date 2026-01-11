@@ -6,7 +6,7 @@ class GetUsersUseCase {
 
   GetUsersUseCase(this.repository);
 
-  Future<List<UserEntity>> call() {
+  Future<List<User>> call() {
     return repository.getUsers();
   }
 }
