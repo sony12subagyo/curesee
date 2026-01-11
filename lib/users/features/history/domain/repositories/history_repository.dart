@@ -1,5 +1,3 @@
-
-
 import '../entities/history_scan.dart';
 
 abstract class HistoryRepository {
