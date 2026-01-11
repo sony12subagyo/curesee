@@ -7,13 +7,11 @@ class UserInitial extends UserState {}
 class UserLoading extends UserState {}
 
 class UserLoaded extends UserState {
-  final List<UserEntity> users;
-
+  final List<User> users;
   UserLoaded(this.users);
 }
 
-class UserError extends UserState {
+class UserFailure extends UserState {
   final String message;
-
-  UserError(this.message);
+  UserFailure(this.message);
 }

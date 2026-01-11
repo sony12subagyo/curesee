@@ -2,7 +2,7 @@ import 'package:curesee/admin/features/users/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {
-  final UserEntity user;
+  final User user;
   final VoidCallback onDelete;
 
   const UserCard({super.key, required this.user, required this.onDelete});
@@ -18,7 +18,17 @@ class UserCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const CircleAvatar(radius: 24, backgroundColor: Colors.grey),
+          CircleAvatar(
+            radius: 24,
+            backgroundColor: Colors.grey.shade300,
+            backgroundImage: user.imageUrl != null
+                ? NetworkImage(user.imageUrl!)
+                : null,
+            child: user.imageUrl == null
+                ? const Icon(Icons.person, color: Colors.white)
+                : null,
+          ),
+
           const SizedBox(width: 12),
           Expanded(
             child: Column(
