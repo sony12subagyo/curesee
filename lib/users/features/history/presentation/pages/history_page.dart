@@ -1,3 +1,4 @@
+import 'package:curesee/admin/app/navigation/background_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,6 +6,7 @@ import '../bloc/history_bloc.dart';
 import '../bloc/history_event.dart';
 import '../bloc/history_state.dart';
 import '../widgets/history_card.dart';
+
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -22,9 +24,8 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Riwayat Scan")),
-      body: BlocBuilder<HistoryBloc, HistoryState>(
+    return BackgroundWrapper(
+      child: BlocBuilder<HistoryBloc, HistoryState>(
         builder: (context, state) {
           if (state is HistoryLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -36,13 +37,16 @@ class _HistoryPageState extends State<HistoryPage> {
             }
 
             return ListView.builder(
+              padding: const EdgeInsets.only(top: 12, bottom: 90),
               itemCount: state.scans.length,
               itemBuilder: (context, i) {
                 final scan = state.scans[i];
                 return HistoryCard(
                   scan: scan,
                   onDelete: () {
-                    context.read<HistoryBloc>().add(DeleteScanEvent(scan.id));
+                    context
+                        .read<HistoryBloc>()
+                        .add(DeleteScanEvent(scan.id));
                   },
                 );
               },

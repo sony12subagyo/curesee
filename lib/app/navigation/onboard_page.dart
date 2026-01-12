@@ -106,8 +106,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                   const SizedBox(height: 12),
                   const Text(
-                    'CureSee adalah aplikasi pemindaian kulit cerdas yang membantu Anda mengidentifikasi kondisi kulit secara cepat dan akurat.\n\n'
-                    'Cukup ambil foto, sistem akan menganalisisnya dan memberikan hasil yang jelas serta rekomendasi perawatan yang mudah, cepat, dan sesuai untuk mendukung kesehatan kulit Anda setiap hari.',
+                    'CureSee adalah aplikasi pemindaian kulit cerdas yang membantu Anda mengidentifikasi kondisi kulit secara cepat.\n\n'
+                    'Cukup ambil foto, sistem akan menganalisisnya dan memberikan 3 top prediksi yang sesuai dengan gambar yang di scan.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white70,
@@ -153,6 +153,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ),

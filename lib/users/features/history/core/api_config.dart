@@ -1,4 +1,4 @@
 class ApiConfig {
   static const String baseUrl =
-      'https://b476e502e988.ngrok-free.app/api';
+      'https://7a35e0a1f094.ngrok-free.app/api';
 }
