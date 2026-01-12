@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactSection extends StatelessWidget {
-  const ContactSection({super.key});
-
-  Future<void> _openEmail() async {
-    final Uri gmailUri = Uri.parse("googlegmail://co?to=cureseeapp@gmail.com");
-
-    if (!await launchUrl(gmailUri)) {
-      // fallback kalau Gmail tidak ada
-      final Uri fallback = Uri(scheme: 'mailto', path: '23sa11a045@gmail.com');
-      await launchUrl(fallback);
-    }
-  }
+class KontakKami extends StatelessWidget {
+  const KontakKami({super.key});
 
   Future<void> _openWhatsapp() async {
     final Uri waUri = Uri.parse(
@@ -38,12 +28,11 @@ class ContactSection extends StatelessWidget {
           const SizedBox(height: 12),
 
           InkWell(
-            onTap: _openEmail,
             child: Row(
               children: const [
                 Icon(Icons.email, color: Colors.blue),
                 SizedBox(width: 10),
-                Text("23sa11a045@gmail.com"),
+                Text("cureseeapp@gmail.com"),
               ],
             ),
           ),
