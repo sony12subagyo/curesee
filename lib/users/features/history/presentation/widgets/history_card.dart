@@ -18,12 +18,12 @@ class HistoryCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
+        Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(builder: (_) => HistoryDetailPage(scan: scan)),
         );
       },
       child: Card(
+        color: const Color.fromARGB(255, 0, 128, 255),
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -39,19 +39,20 @@ class HistoryCard extends StatelessWidget {
                 width: 100,
                 height: 100,
                 child: hasImage
-                    ? Image.network(
-                        scan.imagePath,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, progress) {
-                          if (progress == null) return child;
-                          return const Center(
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          debugPrint("❌ Image load failed: $error");
-                          return const Icon(Icons.broken_image, size: 40);
-                        },
+                    ? Hero(
+                        tag: scan.id, // ID unik tiap history
+                        child: Image.network(
+                          scan.imagePath,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, progress) {
+                            if (progress == null) return child;
+                            return const Center(
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            );
+                          },
+                          errorBuilder: (_, __, ___) =>
+                              const Icon(Icons.broken_image, size: 40),
+                        ),
                       )
                     : const Icon(Icons.image_not_supported, size: 40),
               ),
@@ -71,6 +72,7 @@ class HistoryCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
 
@@ -78,14 +80,14 @@ class HistoryCard extends StatelessWidget {
 
                     Text(
                       "Confidence: ${(scan.predictions.first.confidence * 100).toStringAsFixed(1)}%",
-                      style: const TextStyle(fontSize: 13),
+                      style: const TextStyle(fontSize: 13, color: Colors.white),
                     ),
 
                     const SizedBox(height: 6),
 
                     Text(
                       "Scan: ${scan.createdAt.toLocal().toString().substring(0, 16)}",
-                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                      style: const TextStyle(fontSize: 11, color: Colors.white),
                     ),
                   ],
                 ),

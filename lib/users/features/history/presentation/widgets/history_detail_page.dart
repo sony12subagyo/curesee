@@ -9,7 +9,16 @@ class HistoryDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Detail Scan")),
+      appBar: AppBar(
+        title: const Text("Detail Scan"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            // 🔥 Pop dari ROOT navigator (bukan tab navigator)
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -19,11 +28,14 @@ class HistoryDetailPage extends StatelessWidget {
             if (scan.imagePath.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  scan.imagePath,
-                  height: 220,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+                child: Hero(
+                  tag: scan.id, // HARUS sama dengan di HistoryCard
+                  child: Image.network(
+                    scan.imagePath,
+                    height: 220,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
 
@@ -31,10 +43,7 @@ class HistoryDetailPage extends StatelessWidget {
 
             Text(
               scan.predictions.first.label.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 10),
