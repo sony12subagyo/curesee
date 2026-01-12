@@ -1,37 +1,42 @@
+import 'package:curesee/users/features/beranda/domain/entities/beranda.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../domain/entities/beranda.dart';
+
 
 class BerandaRemoteDatasource {
   final Dio dio;
+
   BerandaRemoteDatasource(this.dio);
 
   Future<List<Beranda>> getBeranda() async {
     final user = FirebaseAuth.instance.currentUser;
+
     if (user == null) {
-      throw Exception('LOGIN_REQUIRED');
+      throw Exception('USER_NOT_LOGGED_IN');
     }
 
-    final token = await user.getIdToken(true);
+    final firebaseToken = await user.getIdToken();
 
     final response = await dio.get(
       '/blog',
       options: Options(
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $firebaseToken',
           'Accept': 'application/json',
         },
       ),
     );
 
-    final data = response.data as List;
+    final List data = response.data as List;
 
     return data.map((e) {
       return Beranda(
         id: e['id'],
-        title: e['title'],
+        title: e['title'] ?? '',
         description: e['content'] ?? '',
-        imageUrl: e['image'] ?? '',
+        imageUrl: e['image'] != null
+            ? 'https://dbd21fec81a1.ngrok-free.app/storage/${e['image']}'
+            : '',
       );
     }).toList();
   }
