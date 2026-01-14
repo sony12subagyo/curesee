@@ -35,7 +35,7 @@ class BerandaRemoteDatasource {
         title: e['title'] ?? '',
         description: e['content'] ?? '',
         imageUrl: e['image'] != null
-            ? 'https://dbd21fec81a1.ngrok-free.app.dev/storage/${e['image']}'
+            ? 'https://67d4390a3ec1.ngrok-free.app/storage/${e['image']}'
             : '',
       );
     }).toList();

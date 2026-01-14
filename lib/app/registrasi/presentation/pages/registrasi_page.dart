@@ -110,10 +110,31 @@ class RegistrasiPage extends StatelessWidget {
           }
         },
         child: Scaffold(
-          body: ResponsiveLayout(
-            mobile: content(double.infinity),
-            tablet: content(520),
-            desktop: content(460),
+          body: Stack(
+            children: [
+              ResponsiveLayout(
+                mobile: content(double.infinity),
+                tablet: content(520),
+                desktop: content(460),
+              ),
+
+              /// 🔙 BACK BUTTON (POJOK KIRI ATAS)
+              SafeArea(
+                child: Positioned(
+                  top: 8,
+                  left: 8,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

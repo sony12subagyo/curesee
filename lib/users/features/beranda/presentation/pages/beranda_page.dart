@@ -26,7 +26,7 @@ class BerandaPage extends StatelessWidget {
       create: (_) {
         final dio = Dio(
           BaseOptions(
-            baseUrl: 'https://henrietta-unsized-tillie.ngrok-free.dev/api',
+            baseUrl: 'https://67d4390a3ec1.ngrok-free.app/api',
           ),
         );
         return BerandaBloc(BerandaRepositoryImpl(BerandaRemoteDatasource(dio)))

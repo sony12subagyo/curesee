@@ -10,7 +10,7 @@ class AdminDio {
 
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'https://7a35e0a1f094.ngrok-free.app/api',
+        baseUrl: 'https://67d4390a3ec1.ngrok-free.app/api',
         validateStatus: (code) => code != null && code < 500,
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),

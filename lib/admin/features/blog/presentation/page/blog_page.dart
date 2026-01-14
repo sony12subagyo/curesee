@@ -121,13 +121,13 @@ class _BlogPageState extends State<BlogPage> {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 25,
-                              color: Color.fromARGB(179, 255, 255, 255),
+                              color: Color.fromARGB(179, 0, 0, 0),
                             ),
                           ),
                           const SizedBox(height: 4),
                           const Text(
                             'Information Skin Type',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 0, 0, 0)),
                           ),
                           const SizedBox(height: 16),
 
@@ -139,7 +139,7 @@ class _BlogPageState extends State<BlogPage> {
                             final blog = entry.value;
 
                             final img =
-                                "https://dbd21fec81a1.ngrok-free.app/storage/${blog.imageUrl}";
+                                "https://67d4390a3ec1.ngrok-free.app/storage/${blog.imageUrl}";
 
                             return TweenAnimationBuilder<double>(
                               tween: Tween(begin: 0, end: 1),
@@ -204,7 +204,7 @@ class _BlogPageState extends State<BlogPage> {
                       ),
                       child: const Icon(
                         Icons.logout_rounded,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 0, 0, 0),
                         size: 22,
                       ),
                     ),
