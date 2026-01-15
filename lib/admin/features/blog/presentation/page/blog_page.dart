@@ -8,7 +8,7 @@ import 'package:curesee/admin/app/navigation/background_wrapper.dart';
 import 'package:curesee/app/login/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:curesee/app/config/app_config.dart';
 import '../../domain/entities/blog.dart';
 
 class BlogController {
@@ -127,7 +127,10 @@ class _BlogPageState extends State<BlogPage> {
                           const SizedBox(height: 4),
                           const Text(
                             'Information Skin Type',
-                            style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 0, 0, 0)),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
                           ),
                           const SizedBox(height: 16),
 
@@ -138,12 +141,13 @@ class _BlogPageState extends State<BlogPage> {
                             final index = entry.key;
                             final blog = entry.value;
 
-                            final img =
-                                "https://67d4390a3ec1.ngrok-free.app/storage/${blog.imageUrl}";
+                            final img = "${AppConfig.storageUrl}/${blog.imageUrl}";
 
                             return TweenAnimationBuilder<double>(
                               tween: Tween(begin: 0, end: 1),
-                              duration: Duration(milliseconds: 900 + (index * 130)),
+                              duration: Duration(
+                                milliseconds: 900 + (index * 130),
+                              ),
                               curve: Curves.easeOutCubic,
                               builder: (context, value, child) {
                                 return Opacity(

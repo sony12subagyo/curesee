@@ -1,16 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/entities/user_entity.dart';
+import 'package:curesee/app/config/app_config.dart';
 
 class UserRemoteDatasource {
   late final Dio dio;
   UserRemoteDatasource() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://67d4390a3ec1.ngrok-free.app/api',
-        headers: {
-          'Accept': 'application/json',
-        },
+        baseUrl: AppConfig.baseUrl,
+        headers: {'Accept': 'application/json'},
       ),
     );
 

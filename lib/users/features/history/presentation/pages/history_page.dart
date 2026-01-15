@@ -1,12 +1,10 @@
 import 'package:curesee/admin/app/navigation/background_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/history_bloc.dart';
 import '../bloc/history_event.dart';
 import '../bloc/history_state.dart';
 import '../widgets/history_card.dart';
-
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});

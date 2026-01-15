@@ -2,13 +2,11 @@ import 'package:curesee/users/features/beranda/data/data_source.dart/Beranda_rem
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
-// DATA
+import 'package:curesee/app/config/app_config.dart';
 import 'package:curesee/users/features/beranda/data/repository/beranda_repository_impl.dart';
-// BLOC
 import 'package:curesee/users/features/beranda/presentation/bloc/beranda_bloc.dart';
 import 'package:curesee/users/features/beranda/presentation/bloc/beranda_event.dart';
 import 'package:curesee/users/features/beranda/presentation/bloc/beranda_state.dart';
-// UI
 import 'package:curesee/users/features/beranda/presentation/widgets/card_page.dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/card_detail_page..dart';
 import 'package:curesee/users/features/beranda/presentation/widgets/carousel/beranda_carousel.dart';
@@ -24,11 +22,7 @@ class BerandaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) {
-        final dio = Dio(
-          BaseOptions(
-            baseUrl: 'https://67d4390a3ec1.ngrok-free.app/api',
-          ),
-        );
+        final dio = Dio(BaseOptions(baseUrl: AppConfig.baseUrl));
         return BerandaBloc(BerandaRepositoryImpl(BerandaRemoteDatasource(dio)))
           ..add(GetBerandaRequested());
       },

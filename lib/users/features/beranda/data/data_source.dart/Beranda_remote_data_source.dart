@@ -1,7 +1,7 @@
 import 'package:curesee/users/features/beranda/domain/entities/beranda.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:curesee/app/config/app_config.dart';
 
 class BerandaRemoteDatasource {
   final Dio dio;
@@ -35,7 +35,7 @@ class BerandaRemoteDatasource {
         title: e['title'] ?? '',
         description: e['content'] ?? '',
         imageUrl: e['image'] != null
-            ? 'https://67d4390a3ec1.ngrok-free.app/storage/${e['image']}'
+            ? "${AppConfig.storageUrl}/${e['image']}"
             : '',
       );
     }).toList();

@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../../core/api_config.dart';
 import '../models/history_scan_model.dart';
+import 'package:curesee/app/config/app_config.dart';
+
 
 class HistoryRemoteApi {
   final Future<String> Function() getToken;
@@ -15,7 +16,7 @@ class HistoryRemoteApi {
     final token = await getToken();
 
     final res = await http.get(
-      Uri.parse('${ApiConfig.baseUrl}/history'),
+      Uri.parse('${AppConfig.baseUrl}/history'),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
@@ -37,7 +38,7 @@ class HistoryRemoteApi {
     final token = await getToken();
 
     final res = await http.get(
-      Uri.parse('${ApiConfig.baseUrl}/history/$id'),
+      Uri.parse('${AppConfig.baseUrl}/history/$id'),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
@@ -59,7 +60,7 @@ class HistoryRemoteApi {
     final token = await getToken();
 
     final res = await http.delete(
-      Uri.parse('${ApiConfig.baseUrl}/history/$id'),
+      Uri.parse('${AppConfig.baseUrl}/history/$id'),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
@@ -82,7 +83,7 @@ class HistoryRemoteApi {
   }) async {
     final token = await getToken();
 
-    final uri = Uri.parse('${ApiConfig.baseUrl}/history');
+    final uri = Uri.parse('${AppConfig.baseUrl}/history');
 
     final request = http.MultipartRequest('POST', uri);
 

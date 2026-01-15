@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:curesee/users/features/history/domain/entities/history_scan.dart';
-import 'package:curesee/users/features/history/core/api_config.dart';
+import 'package:curesee/app/config/app_config.dart';
 
 class HistoryScanModel extends HistoryScan {
   HistoryScanModel({
@@ -61,7 +61,7 @@ class HistoryScanModel extends HistoryScan {
         imageUrl = rawPath.toString(); // sudah full URL
       } else {
         // baseUrl: https://xxxx.ngrok-free.app/api
-        final base = ApiConfig.baseUrl.replaceAll("/api", "");
+        final base = AppConfig.baseUrl.replaceAll("/api", "");
         imageUrl = base + rawPath.toString(); // 🔥 jadi https://xxx/storage/...
       }
     }

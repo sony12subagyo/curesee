@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:curesee/app/config/app_config.dart';
+
 
 class AdminDio {
   static Dio? _dio;
@@ -10,7 +12,7 @@ class AdminDio {
 
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'https://67d4390a3ec1.ngrok-free.app/api',
+        baseUrl: AppConfig.baseUrl,
         validateStatus: (code) => code != null && code < 500,
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),

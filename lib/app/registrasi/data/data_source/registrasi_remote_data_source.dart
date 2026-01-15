@@ -1,11 +1,14 @@
 import 'package:curesee/app/registrasi/domain/entities/registrasi_entitity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:curesee/app/config/app_config.dart';
+
 
 class RegistrasiRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final String baseUrl = 'https://67d4390a3ec1.ngrok-free.app/api/register';
+  final String baseUrl = "${AppConfig.baseUrl}/register";
+
 
   Future<void> register(RegistrasiEntity entity) async {
     try {

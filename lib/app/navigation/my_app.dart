@@ -5,7 +5,6 @@ import 'package:curesee/users/features/history/domain/use_case/get_all_scans_use
 import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
 import 'package:curesee/users/features/history/presentation/bloc/history_event.dart';
 import 'package:curesee/app/splash_screen/splash_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +18,7 @@ import 'package:curesee/users/features/history/domain/use_case/get_scan_usecase.
 import 'package:curesee/users/features/history/domain/use_case/delete_scan_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-
+import 'package:curesee/app/config/app_config.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,9 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //login untuk pengguna
-    final loginRemote = LoginRemoteDataSource(
-      baseUrl: 'https://67d4390a3ec1.ngrok-free.app/api',
-    );
+    final loginRemote = LoginRemoteDataSource(baseUrl: AppConfig.baseUrl);
 
     final userRepo = UserLoginRepositoryImpl(loginRemote);
     final userLoginUsecase = UserLoginUsecase(userRepo);
@@ -37,8 +34,7 @@ class MyApp extends StatelessWidget {
     //login untuk admin
     final adminRepository = AdminLoginRepositoryImpl(
       client: http.Client(),
-
-      baseUrl: 'https://67d4390a3ec1.ngrok-free.app/api',
+      baseUrl: AppConfig.baseUrl,
     );
     final adminLoginUsecase = AdminLoginUsecase(adminRepository);
 
@@ -79,11 +75,11 @@ class MyApp extends StatelessWidget {
             },
           ),
         ],
-        
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
-      ),
+
+        child: const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
+        ),
       ),
     );
   }

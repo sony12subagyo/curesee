@@ -2,10 +2,14 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:curesee/users/features/profile/domain/entities/profile.dart';
+import 'package:curesee/app/config/app_config.dart';
+
 
 class ProfileRemoteDataSource {
-  final String baseUrl =
-      "https://5ba2d3a5fd7f.ngrok-free.app/api/profile";
+
+  //final String baseUrl ="https://5ba2d3a5fd7f.ngrok-free.app/api/profile";
+
+  final String baseUrl = "${AppConfig.baseUrl}/register";
 
   /// =========================
   /// GET PROFILE
