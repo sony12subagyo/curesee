@@ -77,3 +77,6 @@ class DetectionResultList extends StatelessWidget {
     );
   }
 }
+
+
+//menampilkan ringkasan hasil scan kulit

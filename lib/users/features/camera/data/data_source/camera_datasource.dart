@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import '../../domain/entities/captured_image.dart';
 
+//mengambil foto dari kamera HP.
+
 abstract class CameraDataSource {
   Future<CapturedImage> takePicture();
 }

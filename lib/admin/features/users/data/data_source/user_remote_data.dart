@@ -7,7 +7,7 @@ class UserRemoteDatasource {
   UserRemoteDatasource() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://dbd21fec81a1.ngrok-free.app/api',
+        baseUrl: 'https://7a35e0a1f094.ngrok-free.app/api',
         headers: {
           'Accept': 'application/json',
         },

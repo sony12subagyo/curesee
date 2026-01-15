@@ -13,3 +13,5 @@ class CameraRepositoryImpl implements CameraRepository {
     return dataSource.takePicture();
   }
 }
+
+//penghubung antara aplikasi dan kamera.

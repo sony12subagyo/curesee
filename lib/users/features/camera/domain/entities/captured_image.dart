@@ -3,3 +3,5 @@ class CapturedImage {
 
   CapturedImage(this.path);
 }
+
+//menyimpan alamat file gambar

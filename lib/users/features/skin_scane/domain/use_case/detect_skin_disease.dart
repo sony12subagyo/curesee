@@ -11,3 +11,5 @@ class DetectSkinDisease {
     return repository.detectSkinDisease(image);
   }
 }
+
+//penghubung antara UI dan sistem AI untuk menjalankan proses deteksi penyakit kulit.

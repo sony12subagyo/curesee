@@ -16,3 +16,5 @@ class SkinDetectionError extends SkinDetectionState {
 
   SkinDetectionError(this.message);
 }
+
+//digunakan untuk mengatur tampilan UI berdasarkan kondisi proses deteksi AI (loading, hasil, atau error).

@@ -155,3 +155,9 @@ class CameraView extends StatelessWidget {
     );
   }
 }
+
+// Preview kamera
+// Tombol flash
+// Tombol ganti kamera
+// Tombol ambil foto
+// Header “SCAN”

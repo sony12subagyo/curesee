@@ -9,3 +9,5 @@ class SkinDetectionModel {
     return 'SkinDetectionModel(label: $label, confidence: $confidence)';
   }
 }
+
+//menyimpan hasil prediksi AI berupa nama penyakit dan tingkat akurasi

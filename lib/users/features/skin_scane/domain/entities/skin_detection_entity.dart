@@ -10,3 +10,5 @@ class SkinDetectionEntity {
 
   SkinDetectionEntity(this.top3);
 }
+
+//menyimpan hasil akhir analisis penyakit kulit yang akan ditampilkan ke pengguna

@@ -26,3 +26,5 @@ class SkinDetectionBloc extends Bloc<SkinDetectionEvent, SkinDetectionState> {
     }
   }
 }
+
+//mengatur alur proses scan kulit dari foto sampai hasil AI muncul di layar.

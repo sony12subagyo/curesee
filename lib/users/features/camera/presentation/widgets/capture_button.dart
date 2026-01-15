@@ -38,3 +38,5 @@ class CaptureButton extends StatelessWidget {
     );
   }
 }
+
+// tombol utama untuk mengambil foto di fitur scan kulit CureSee

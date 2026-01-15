@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:curesee/app/navigation/background_wrapper.dart';
 import 'package:curesee/admin/features/users/presentation/bloc/user_bloc.dart';
-import 'package:curesee/admin/features/users/presentation/bloc/user_event.dart';
 import 'package:curesee/admin/features/users/presentation/bloc/user_state.dart';
 
 import '../widgets/admin_bottom_nav.dart';

@@ -20,3 +20,5 @@ class SwitchCameraButton extends StatelessWidget {
     );
   }
 }
+
+//Widget ini adalah tombol untuk mengganti kamera.

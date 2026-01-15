@@ -11,3 +11,5 @@ class TakePicture {
     return await repository.takePicture();
   }
 }
+
+//perintah resmi di CureSee untuk memotret gambar

@@ -1,14 +1,10 @@
 import 'package:curesee/users/features/history/data/data_source/history_remote_api.dart';
-import 'package:curesee/users/features/history/data/models/history_scan_model.dart';
-import 'package:curesee/users/features/history/presentation/bloc/history_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:curesee/users/features/skin_scane/presentation/skin_detection_bloc.dart';
 import 'package:curesee/users/features/skin_scane/presentation/skin_detection_state.dart';
-import 'package:curesee/users/features/history/domain/entities/history_scan.dart';
-import 'package:curesee/users/features/history/presentation/bloc/history_bloc.dart';
+
 
 class PreviewActionButtons extends StatelessWidget {
   final String imagePath;

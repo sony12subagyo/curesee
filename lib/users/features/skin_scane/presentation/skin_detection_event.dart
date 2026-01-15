@@ -7,3 +7,5 @@ class DetectSkinFromImage extends SkinDetectionEvent {
 
   DetectSkinFromImage(this.image);
 }
+
+//pemicu awal agar AI mulai menganalisis gambar kulit.

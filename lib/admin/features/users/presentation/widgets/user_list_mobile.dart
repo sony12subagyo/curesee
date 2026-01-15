@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import '../../domain/entities/user_entity.dart';
-import '../bloc/user_bloc.dart';
-import '../bloc/user_event.dart';
-
 import 'total_user_card.dart';
 import 'user_card.dart';
 import 'confirm_delete_dialog.dart';

@@ -48,3 +48,5 @@ class FlashButton extends StatelessWidget {
     );
   }
 }
+
+//kontrol flash kamera saat melakukan scan kulit.

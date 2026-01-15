@@ -4,10 +4,6 @@ import 'package:path/path.dart';
 class HistoryLocalDb {
   static Database? _db;
 
-  // =============================================
-  // ================ CRUD METHOD ================
-  // =============================================
-
   /// Insert Scan
   Future<void> insertScan(Map<String, dynamic> data) async {
     final db = await database;

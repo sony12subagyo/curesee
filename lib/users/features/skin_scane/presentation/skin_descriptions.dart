@@ -10,3 +10,5 @@ const Map<String, String> skinDescriptions = {
   "rosacea": "Kondisi kulit wajah yang menyebabkan kemerahan dan pembuluh darah tampak.",
   "bukan_kulit": "Gambar tidak terdeteksi sebagai area kulit.",
 };
+
+//menampilkan keterangan penyakit di halaman hasil scan agar pengguna tidak hanya melihat nama penyakit, tapi juga arti dan penjelasannya.

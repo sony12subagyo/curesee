@@ -46,3 +46,6 @@ class PhotoPreviewCard extends StatelessWidget {
     );
   }
 }
+
+
+//menampilkan foto kulit sebelum atau saat hasil deteksi AI ditampilkan
