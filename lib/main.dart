@@ -1,4 +1,4 @@
-import 'package:curesee/firebase_options.dart';
+import 'package:curesee/app/config/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'app/navigation/my_app.dart';
