@@ -26,19 +26,37 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginSuccess) {
-          if (state.isAdmin) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => const BlogPage()),
-            );
-          } else {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => const HomeLayout()),
-            );
-          }
-        }
+        // if (state is LoginSuccess) {
+        //   if (state.isAdmin) {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(builder: (_) => const BlogPage()),
+        //     );
+        //   } else {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(builder: (_) => const HomeLayout()),
+        //     );
+        //   }
+        // }
+
+if (state is LoginSuccess) {
+  if (state.isAdmin) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const BlogPage()),
+    );
+  } else {
+    // 🔥 TUNGGU 300ms BIAR BACKEND SELESAI SIMPAN
+    Future.delayed(const Duration(milliseconds: 300), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeLayout()),
+      );
+    });
+  }
+}
+
 
         if (state is LoginFailure) {
           _showMessage(context, state.message);

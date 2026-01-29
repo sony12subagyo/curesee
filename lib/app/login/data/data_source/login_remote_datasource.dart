@@ -3,15 +3,103 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+// class LoginRemoteDataSource {
+//   final FirebaseAuth _auth;
+
+//   /// 🔥 BASE URL BACKEND (di-inject dari luar kalau mau)
+//   final String baseUrl;
+//   LoginRemoteDataSource({FirebaseAuth? auth, this.baseUrl = ''})
+//     : _auth = auth ?? FirebaseAuth.instance;
+
+//   // login pengguna ke firebase
+//   Future<String> loginUser(String email, String password) async {
+//     final credential = await _auth.signInWithEmailAndPassword(
+//       email: email,
+//       password: password,
+//     );
+
+//     final user = credential.user;
+//     if (user == null) {
+//       throw Exception('User Firebase tidak ditemukan');
+//     }
+
+//     await user.reload();
+
+//     if (!user.emailVerified) {
+//       await FirebaseAuth.instance.signOut();
+//       throw Exception('Email belum diverifikasi. Silakan cek email.');
+//     }
+
+//     final String? token = await user.getIdToken(true);
+//     if (token == null || token.isEmpty) {
+//       throw Exception('Firebase ID Token kosong');
+//     }
+
+//     // ambil data local hasil registrasi
+//     final prefs = await SharedPreferences.getInstance();
+//     final name = prefs.getString('reg_name');
+//     final gender = prefs.getString('reg_gender');
+//     final age = prefs.getInt('reg_age');
+
+//     // cuman menyingkronkan kalau ada data
+//     if (name != null && gender != null && age != null) {
+//       await _syncUserToBackend(
+//         token: token,
+//         name: name,
+//         gender: gender,
+//         age: age,
+//       );
+
+//       // hapus setelah berhasil
+//       await prefs.remove('reg_name');
+//       await prefs.remove('reg_gender');
+//       await prefs.remove('reg_age');
+//     }
+
+//     return token;
+//   }
+
+//   /// singkron firebase ke laravel
+//   Future<void> _syncUserToBackend({
+//     required String token,
+//     required String name,
+//     required String gender,
+//     required int age,
+//   }) async {
+//     final response = await http.post(
+//       Uri.parse('$baseUrl/register'),
+//       headers: {
+//         'Authorization': 'Bearer $token',
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//       },
+//       body: jsonEncode({'name': name, 'gender': gender, 'age': age}),
+//     );
+
+//     if (response.statusCode != 200 && response.statusCode != 201) {
+//       throw Exception('Gagal menyimpan user ke database');
+//     }
+//   }
+
+//   Future<void> logout() async {
+//     await _auth.signOut();
+//   }
+// }
+
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+
 class LoginRemoteDataSource {
   final FirebaseAuth _auth;
-
-  /// 🔥 BASE URL BACKEND (di-inject dari luar kalau mau)
   final String baseUrl;
-  LoginRemoteDataSource({FirebaseAuth? auth, this.baseUrl = ''})
-    : _auth = auth ?? FirebaseAuth.instance;
 
-  // login pengguna ke firebase
+  LoginRemoteDataSource({FirebaseAuth? auth, required this.baseUrl})
+      : _auth = auth ?? FirebaseAuth.instance;
+
+  /// ===============================
+  /// LOGIN USER VIA FIREBASE
+  /// ===============================
   Future<String> loginUser(String email, String password) async {
     final credential = await _auth.signInWithEmailAndPassword(
       email: email,
@@ -23,61 +111,41 @@ class LoginRemoteDataSource {
       throw Exception('User Firebase tidak ditemukan');
     }
 
+    // reload supaya emailVerified update
     await user.reload();
 
+    // BLOCK kalau belum verifikasi email
     if (!user.emailVerified) {
-      await FirebaseAuth.instance.signOut();
+      await _auth.signOut();
       throw Exception('Email belum diverifikasi. Silakan cek email.');
     }
 
+    // ambil token
     final String? token = await user.getIdToken(true);
     if (token == null || token.isEmpty) {
       throw Exception('Firebase ID Token kosong');
     }
 
-    // ambil data local hasil registrasi
-    final prefs = await SharedPreferences.getInstance();
-    final name = prefs.getString('reg_name');
-    final gender = prefs.getString('reg_gender');
-    final age = prefs.getInt('reg_age');
-
-    // cuman menyingkronkan kalau ada data
-    if (name != null && gender != null && age != null) {
-      await _syncUserToBackend(
-        token: token,
-        name: name,
-        gender: gender,
-        age: age,
-      );
-
-      // hapus setelah berhasil
-      await prefs.remove('reg_name');
-      await prefs.remove('reg_gender');
-      await prefs.remove('reg_age');
-    }
+    // 🔥 SINKRON KE BACKEND (AUTO CREATE / UPDATE USER)
+    await _syncUserToBackend(token);
 
     return token;
   }
 
-  /// singkron firebase ke laravel
-  Future<void> _syncUserToBackend({
-    required String token,
-    required String name,
-    required String gender,
-    required int age,
-  }) async {
+  /// ===============================
+  /// SYNC FIREBASE → LARAVEL
+  /// ===============================
+  Future<void> _syncUserToBackend(String token) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register'),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
       },
-      body: jsonEncode({'name': name, 'gender': gender, 'age': age}),
     );
 
     if (response.statusCode != 200 && response.statusCode != 201) {
-      throw Exception('Gagal menyimpan user ke database');
+      throw Exception('Gagal sinkronisasi user ke database');
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:curesee/app/registrasi/presentation/pages/registrasi_page.dart';
 import 'package:flutter/material.dart';
-import 'package:curesee/responsive_desain/responsive_layout.dart';
+import 'package:curesee/app/responsive_desain/responsive_layout.dart';
 import '../widgets/login_header.dart';
 import '../widgets/login_form.dart';
 import '../widgets/login_button.dart';

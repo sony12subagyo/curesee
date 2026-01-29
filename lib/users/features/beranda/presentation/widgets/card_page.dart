@@ -71,7 +71,7 @@ class CardPage extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -86,7 +86,7 @@ class CardPage extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          color: Colors.white70,
+                          color: Color.fromARGB(179, 255, 255, 255),
                           fontSize: 13,
                         ),
                       ),
@@ -96,7 +96,7 @@ class CardPage extends StatelessWidget {
 
                     const Text(
                       "more  →",
-                      style: TextStyle(color: Colors.white70, fontSize: 13),
+                      style: TextStyle(color: Color.fromARGB(179, 255, 255, 255), fontSize: 13),
                     ),
                   ],
                 ),

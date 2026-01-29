@@ -32,7 +32,7 @@ class CustomHeader extends StatelessWidget {
         ],
       ),
       child: SafeArea(
-        bottom: false, // ⭐ penting biar ga terlalu tinggi
+        bottom: false, 
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 24, 16, 28),
           child: Row(

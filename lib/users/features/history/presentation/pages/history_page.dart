@@ -34,20 +34,23 @@ class _HistoryPageState extends State<HistoryPage> {
               return const Center(child: Text("Belum ada riwayat"));
             }
 
-            return ListView.builder(
-              padding: const EdgeInsets.only(top: 12, bottom: 90),
-              itemCount: state.scans.length,
-              itemBuilder: (context, i) {
-                final scan = state.scans[i];
-                return HistoryCard(
-                  scan: scan,
-                  onDelete: () {
-                    context
-                        .read<HistoryBloc>()
-                        .add(DeleteScanEvent(scan.id));
-                  },
-                );
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<HistoryBloc>().add(LoadHistoryEvent());
               },
+              child: ListView.builder(
+                padding: const EdgeInsets.only(top: 12, bottom: 90),
+                itemCount: state.scans.length,
+                itemBuilder: (context, i) {
+                  final scan = state.scans[i];
+                  return HistoryCard(
+                    scan: scan,
+                    onDelete: () {
+                      context.read<HistoryBloc>().add(DeleteScanEvent(scan.id));
+                    },
+                  );
+                },
+              ),
             );
           }
 

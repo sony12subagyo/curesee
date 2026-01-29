@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:curesee/responsive_desain/responsive_layout.dart';
+import 'package:curesee/app/responsive_desain/responsive_layout.dart';
 import '../../data/data_source/registrasi_remote_data_source.dart';
 import '../../data/repositories/registrasi_repository_impl.dart';
 import '../../domain/use_case/registrasi_use_case.dart';

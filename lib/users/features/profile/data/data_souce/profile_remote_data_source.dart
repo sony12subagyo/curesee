@@ -7,20 +7,91 @@ import 'package:curesee/app/config/app_config.dart';
 
 class ProfileRemoteDataSource {
 
-  //final String baseUrl ="https://5ba2d3a5fd7f.ngrok-free.app/api/profile";
+  final String baseUrl ="https://a4349cd9162c.ngrok-free.app/api/profile";
 
-  final String baseUrl = "${AppConfig.baseUrl}/register";
+  //final String baseUrl = "${AppConfig.baseUrl}/register";
 
   /// =========================
   /// GET PROFILE
   /// =========================
+//   Future<Profile> getProfile() async {
+//     final user = FirebaseAuth.instance.currentUser;
+//     if (user == null) {
+//       throw Exception("User belum login");
+//     }
+
+//     final token = await user.getIdToken();
+
+//     final response = await http.get(
+//       Uri.parse(baseUrl),
+//       headers: {
+//         "Authorization": "Bearer $token",
+//         "Accept": "application/json",
+//       },
+//     );
+
+//     if (response.statusCode != 200) {
+//       throw Exception("Gagal memuat profile (${response.statusCode})");
+//     }
+
+//     final body = jsonDecode(response.body);
+
+//     /// 🔥 SUPPORT 2 FORMAT RESPONSE
+//     /// 1. { id, name, gender, age }
+//     /// 2. { user: { id, name, gender, age } }
+//     final data = body['user'] ?? body;
+
+//     return Profile(
+//       id: data['id'],
+//       name: data['name'] ?? '',
+//       gender: data['gender'] ?? '',
+//       email: data['email'] ?? '',
+//       age: data['age'] ?? 0,
+//     );
+//   }
+
+//   /// =========================
+//   /// UPDATE PROFILE
+//   /// =========================
+//   Future<void> updateProfile(Profile profile) async {
+//     final user = FirebaseAuth.instance.currentUser;
+//     if (user == null) {
+//       throw Exception("User belum login");
+//     }
+
+//     final token = await user.getIdToken();
+
+//     final response = await http.put(
+//       Uri.parse(baseUrl),
+//       headers: {
+//         "Authorization": "Bearer $token",
+//         "Accept": "application/json",
+//         "Content-Type": "application/json",
+//       },
+//       body: jsonEncode({
+//         "name": profile.name,
+//         "gender": profile.gender,
+//         "age": profile.age,
+//       }),
+//     );
+
+//     if (response.statusCode != 200) {
+//       throw Exception("Gagal update profile (${response.statusCode})");
+//     }
+//   }
+// }
+
+  /// ===============================
+  /// GET PROFILE DARI MYSQL
+  /// ===============================
   Future<Profile> getProfile() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       throw Exception("User belum login");
     }
 
-    final token = await user.getIdToken();
+    // 🔥 WAJIB refresh token supaya backend pasti kenal user
+    final token = await user.getIdToken(true);
 
     final response = await http.get(
       Uri.parse(baseUrl),
@@ -30,36 +101,31 @@ class ProfileRemoteDataSource {
       },
     );
 
-    if (response.statusCode != 200) {
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      return Profile(
+        id: data['id'],
+        email: data['email'] ?? "",
+        name: data['name'] ?? "",
+        gender: data['gender'] ?? "",
+        age: data['age'] ?? 0,
+      );
+    } else {
       throw Exception("Gagal memuat profile (${response.statusCode})");
     }
-
-    final body = jsonDecode(response.body);
-
-    /// 🔥 SUPPORT 2 FORMAT RESPONSE
-    /// 1. { id, name, gender, age }
-    /// 2. { user: { id, name, gender, age } }
-    final data = body['user'] ?? body;
-
-    return Profile(
-      id: data['id'],
-      name: data['name'] ?? '',
-      gender: data['gender'] ?? '',
-      email: data['email'] ?? '',
-      age: data['age'] ?? 0,
-    );
   }
 
-  /// =========================
-  /// UPDATE PROFILE
-  /// =========================
-  Future<void> updateProfile(Profile profile) async {
+  /// ===============================
+  /// UPDATE PROFILE KE MYSQL
+  /// ===============================
+  Future<void> updateProfile(Profile fp) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       throw Exception("User belum login");
     }
 
-    final token = await user.getIdToken();
+    final token = await user.getIdToken(true);
 
     final response = await http.put(
       Uri.parse(baseUrl),
@@ -69,9 +135,9 @@ class ProfileRemoteDataSource {
         "Content-Type": "application/json",
       },
       body: jsonEncode({
-        "name": profile.name,
-        "gender": profile.gender,
-        "age": profile.age,
+        "name": fp.name,
+        "gender": fp.gender,
+        "age": fp.age,
       }),
     );
 

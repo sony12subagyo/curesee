@@ -70,7 +70,7 @@ class _Header extends StatelessWidget {
                 width: 36,
                 height: 36,
                 decoration: const BoxDecoration(
-                  color: Color(0xFFF0F0F0),
+                  color: Color.fromARGB(255, 164, 164, 164),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.arrow_back, color: Colors.blue),
@@ -86,7 +86,7 @@ class _Header extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.white,
+                color: Color.fromARGB(255, 150, 150, 150),
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
