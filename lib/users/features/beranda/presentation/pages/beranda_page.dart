@@ -94,75 +94,82 @@ class _BerandaView extends StatelessWidget {
   Widget _buildList(BuildContext context) {
     return BlocBuilder<BerandaBloc, BerandaState>(
       builder: (context, state) {
-        return ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            const SizedBox(height: 8),
+        return RefreshIndicator(
+          onRefresh: () async {
+            context.read<BerandaBloc>().add(GetBerandaRequested());
+          },
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.all(20),
+            children: [
+              const SizedBox(height: 8),
 
-            // carousel yang pake API
-            if (state is BerandaLoaded) ...[
-              BerandaCarousel(blogs: state.beranda),
-              const SizedBox(height: 24),
-            ] else ...[
-              const SizedBox(height: 160),
-              const SizedBox(height: 24),
-            ],
+              // CAROUSEL
+              if (state is BerandaLoaded) ...[
+                BerandaCarousel(blogs: state.beranda),
+                const SizedBox(height: 24),
+              ] else ...[
+                const SizedBox(height: 160),
+                const SizedBox(height: 24),
+              ],
 
-            const SizedBox(height: 24),
-            //ini buat yang informasi terbaru
-            if (state is BerandaLoaded) ...[
-              RecommendedInformation(blogs: state.beranda, limit: 4),
+              const SizedBox(height: 24),
+
+              // RECOMMENDED
+              if (state is BerandaLoaded) ...[
+                RecommendedInformation(blogs: state.beranda, limit: 4),
+                const SizedBox(height: 16),
+              ],
+
               const SizedBox(height: 16),
-            ],
 
-            const SizedBox(height: 16),
-
-            const Text(
-              'Informasi Tentang Kulit',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 12),
-
-            // LOADING
-            if (state is BerandaLoading)
-              const Center(child: CircularProgressIndicator()),
-
-            // DATA FROM API
-            if (state is BerandaLoaded)
-              ...state.beranda.map((blog) {
-                return Column(
-                  children: [
-                    CardPage(
-                      image: NetworkImage(blog.imageUrl),
-                      title: blog.title,
-                      subtitle: blog.description,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => CardDetail(
-                              title: blog.title,
-                              description: blog.description,
-                              imageUrl: blog.imageUrl,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                );
-              }).toList(),
-
-            // ERROR
-            if (state is BerandaFailure)
-              Center(
-                child: Text(
-                  state.message,
-                  style: const TextStyle(color: Colors.red),
-                ),
+              const Text(
+                'Informasi Tentang Kulit',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
-          ],
+              const SizedBox(height: 12),
+
+              // LOADING
+              if (state is BerandaLoading)
+                const Center(child: CircularProgressIndicator()),
+
+              // DATA
+              if (state is BerandaLoaded)
+                ...state.beranda.map((blog) {
+                  return Column(
+                    children: [
+                      CardPage(
+                        image: NetworkImage(blog.imageUrl),
+                        title: blog.title,
+                        subtitle: blog.description,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CardDetail(
+                                title: blog.title,
+                                description: blog.description,
+                                imageUrl: blog.imageUrl,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  );
+                }).toList(),
+
+              // ERROR
+              if (state is BerandaFailure)
+                Center(
+                  child: Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+            ],
+          ),
         );
       },
     );

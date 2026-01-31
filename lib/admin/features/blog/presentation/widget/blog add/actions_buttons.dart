@@ -5,7 +5,7 @@ import '../../bloc/blog_bloc.dart';
 import '../../bloc/blog_event.dart';
 import '../../bloc/blog_state.dart';
 
-import '../../../image/add_image_bloc.dart';
+import '../../../view_image/add_image_bloc.dart';
 import 'description_page.dart';
 
 class ActionButtons extends StatelessWidget {

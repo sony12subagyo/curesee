@@ -22,11 +22,14 @@ class _ProfilePageState extends State<ProfilePage> {
     context.read<ProfileBloc>().add(LoadProfileEvent());
   }
 
+  Future<void> _onRefresh() async {
+    context.read<ProfileBloc>().add(LoadProfileEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
-        // Jika logout berhasil → arahkan ke Login
         if (state is ProfileLoggedOut) {
           Navigator.pushAndRemoveUntil(
             context,
@@ -35,7 +38,6 @@ class _ProfilePageState extends State<ProfilePage> {
           );
         }
 
-        // Jika ada error → tampilkan Snackbar
         if (state is ProfileError) {
           ScaffoldMessenger.of(
             context,
@@ -47,24 +49,31 @@ class _ProfilePageState extends State<ProfilePage> {
           if (state is ProfileLoaded) {
             final Profile user = state.profile;
 
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                child: Column(
-                  children: [
-                    ProfileCard(profile: user),
-                    const SizedBox(height: 16),
-                    ProfileForm(profile: user),
-                  ],
+            return RefreshIndicator(
+              onRefresh: _onRefresh,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  child: Column(
+                    children: [
+                      ProfileCard(profile: user),
+                      const SizedBox(height: 16),
+                      ProfileForm(profile: user),
+                    ],
+                  ),
                 ),
               ),
             );
           }
 
-          // Untuk state lain (misal setelah logout) tampilkan kosong
+          if (state is ProfileLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
           return const SizedBox.shrink();
         },
       ),

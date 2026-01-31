@@ -1,4 +1,4 @@
-import 'package:curesee/admin/features/blog/image/add_image_usecase.dart';
+import 'package:curesee/admin/features/blog/view_image/add_image_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -6,8 +6,8 @@ import 'package:dio/dio.dart';
 
 import 'package:curesee/admin/features/blog/core/network/admin_dio.dart';
 
-import '../../image/add_image_bloc.dart';
-import '../../image/image_repository_impl.dart';
+import '../../view_image/add_image_bloc.dart';
+import '../../view_image/image_repository_impl.dart';
 
 import '../bloc/blog_bloc.dart';
 import '../../data/datasource/blog_remote_datasource.dart';

@@ -20,17 +20,37 @@ class ButtonEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 12,
-      mainAxisSpacing: 12,
-      childAspectRatio: 3.5,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        _button("Hapus", Colors.red, () => _delete(context)),
-        _button("Batal", Colors.grey, () => Navigator.pop(context)),
-        _button("Simpan", Colors.green, () => _save(context)),
+        // Baris 2 tombol kecil
+        Row(
+          children: [
+            Expanded(
+              child: _button("Hapus", Colors.red, () => _delete(context)),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _button(
+                "Batal",
+                Colors.grey,
+                () => Navigator.pop(context),
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 12),
+
+        // Tombol Simpan full lebar
+        SizedBox(
+          width: double.infinity,
+          child: _button(
+            "Simpan",
+            const Color.fromARGB(255, 36, 84, 255),
+            () => _save(context),
+          ),
+        ),
       ],
     );
   }
@@ -42,8 +62,14 @@ class ButtonEdit extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
       onPressed: onTap,
-      child: Text(text),
-    );
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          )
+        ),  
+      );
   }
 
   // ================= POPUP LOTTIE ANIMASI ==================
@@ -75,7 +101,7 @@ class ButtonEdit extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -108,9 +134,8 @@ class ButtonEdit extends StatelessWidget {
       '_method': 'PATCH',
       'title': titleController.text,
       'content': descController.text,
-      
-      if (imagePath != null)
-        'image': await MultipartFile.fromFile(imagePath!),
+
+      if (imagePath != null) 'image': await MultipartFile.fromFile(imagePath!),
     });
 
     await ds.updateBlog(id, data);

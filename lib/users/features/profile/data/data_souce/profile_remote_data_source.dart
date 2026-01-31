@@ -7,7 +7,7 @@ import 'package:curesee/app/config/app_config.dart';
 
 class ProfileRemoteDataSource {
 
-  final String baseUrl ="https://a4349cd9162c.ngrok-free.app/api/profile";
+  final String baseUrl ="https://231dc5cee71b.ngrok-free.app/api/profile";
 
   //final String baseUrl = "${AppConfig.baseUrl}/register";
 

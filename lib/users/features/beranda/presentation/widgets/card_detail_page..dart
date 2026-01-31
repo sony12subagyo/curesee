@@ -93,6 +93,7 @@ class CardDetail extends StatelessWidget {
                       // DESCRIPTION
                       Text(
                         description,
+                        textAlign: TextAlign.justify,
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.black87,
