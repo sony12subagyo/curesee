@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:curesee/admin/features/blog/view_image/add_bloc_event.dart';
-import 'package:curesee/admin/features/blog/view_image/add_image_bloc.dart';
-import 'package:curesee/admin/features/blog/view_image/add_image_state.dart';
+import 'package:curesee/admin/features/blog/presentation/pages/view_image/add_bloc_event.dart';
+import 'package:curesee/admin/features/blog/presentation/pages/view_image/add_image_bloc.dart';
+import 'package:curesee/admin/features/blog/presentation/pages/view_image/add_image_state.dart';
 
 class ImagePickerCard extends StatelessWidget {
   const ImagePickerCard({super.key});

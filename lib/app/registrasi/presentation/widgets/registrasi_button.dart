@@ -70,7 +70,7 @@ class RegistrasiButton extends StatelessWidget {
                   },
             child: isLoading
                 ? const CircularProgressIndicator(color: Colors.white)
-                : const Text('Create your account'),
+                : const Text('Create your account',style: TextStyle(color: Color.fromARGB(255, 0, 128, 255)),),
           ),
         );
       },

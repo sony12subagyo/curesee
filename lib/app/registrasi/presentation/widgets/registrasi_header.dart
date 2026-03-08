@@ -25,7 +25,7 @@ class RegistrasiHeader extends StatelessWidget {
         const SizedBox(height: 8),
         const Text(
           'Sign up and improve your health today',
-          style: TextStyle(color: Colors.black54),
+          style: TextStyle(color: Color.fromARGB(255, 0, 128, 255)),
         ),
       ],
     );

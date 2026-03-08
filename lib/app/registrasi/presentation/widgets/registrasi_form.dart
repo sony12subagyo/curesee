@@ -47,52 +47,52 @@ class _RegistrasiFormState extends State<RegistrasiForm> {
         ),
 
         const SizedBox(height: 8),
-        const Text(
-          'Gender',
-          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-        ),
+        // const Text(
+        //   'Gender',
+        //   style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+        // ),
 
-        ValueListenableBuilder<String?>(
-          valueListenable: widget.gender,
-          builder: (_, value, __) => Column(
-            children: [
-              RadioListTile(
-                title: const Text(
-                  'Laki-laki',
-                  style: TextStyle(color: Colors.white),
-                ),
-                value: 'L',
-                groupValue: value,
-                activeColor: Colors.black,
-                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                  return Colors.white;
-                }),
-                onChanged: (v) => widget.gender.value = v,
-              ),
-              RadioListTile(
-                title: const Text(
-                  'Perempuan',
-                  style: TextStyle(color: Colors.white),
-                ),
-                value: 'P',
-                groupValue: value,
-                activeColor: Colors.black,
-                fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                  return Colors.white;
-                }),
-                onChanged: (v) => widget.gender.value = v,
-              ),
-            ],
-          ),
-        ),
+        // ValueListenableBuilder<String?>(
+        //   valueListenable: widget.gender,
+        //   builder: (_, value, __) => Column(
+        //     children: [
+        //       RadioListTile(
+        //         title: const Text(
+        //           'Laki-laki',
+        //           style: TextStyle(color: Colors.white),
+        //         ),
+        //         value: 'L',
+        //         groupValue: value,
+        //         activeColor: Colors.black,
+        //         fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+        //           return Colors.white;
+        //         }),
+        //         onChanged: (v) => widget.gender.value = v,
+        //       ),
+        //       RadioListTile(
+        //         title: const Text(
+        //           'Perempuan',
+        //           style: TextStyle(color: Colors.white),
+        //         ),
+        //         value: 'P',
+        //         groupValue: value,
+        //         activeColor: Colors.black,
+        //         fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+        //           return Colors.white;
+        //         }),
+        //         onChanged: (v) => widget.gender.value = v,
+        //       ),
+        //     ],
+        //   ),
+        // ),
 
-        _field(
-          label: 'Age',
-          controller: widget.ageC,
-          keyboardType: TextInputType.number,
-          validator: (v) =>
-              int.tryParse(v ?? '') == null ? 'Umur tidak valid' : null,
-        ),
+        // _field(
+        //   label: 'Age',
+        //   controller: widget.ageC,
+        //   keyboardType: TextInputType.number,
+        //   validator: (v) =>
+        //       int.tryParse(v ?? '') == null ? 'Umur tidak valid' : null,
+        // ),
 
         _passwordField(),
       ],

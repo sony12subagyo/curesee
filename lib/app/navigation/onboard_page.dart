@@ -16,9 +16,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Timer? _timer;
 
   final List<String> images = const [
-    'assets/foto_onboard/onboard_1.jpg',
-    'assets/foto_onboard/onboard_2.jpg',
     'assets/foto_onboard/onboard_3.jpg',
+    'assets/foto_onboard/onboard_4.jpg',
+    'assets/foto_onboard/onboard_7.png',
   ];
 
   @override

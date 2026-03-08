@@ -71,6 +71,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       body: BackgroundWrapper(
         child: PageView(
           controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
           onPageChanged: (index) {
             setState(() {
               _currentIndex = index;

@@ -19,7 +19,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    context.read<ProfileBloc>().add(LoadProfileEvent());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProfileBloc>().add(LoadProfileEvent());
+    });
   }
 
   Future<void> _onRefresh() async {

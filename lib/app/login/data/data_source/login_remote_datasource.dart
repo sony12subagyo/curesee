@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -46,19 +48,32 @@ class LoginRemoteDataSource {
   /// ===============================
   /// SYNC FIREBASE → LARAVEL
   /// ===============================
-  Future<void> _syncUserToBackend(String token) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/register'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Accept': 'application/json',
-      },
-    );
+ Future<void> _syncUserToBackend(String token) async {
+  final user = FirebaseAuth.instance.currentUser;
 
-    if (response.statusCode != 200 && response.statusCode != 201) {
-      throw Exception('Gagal sinkronisasi user ke database');
-    }
+  if (user == null) {
+    throw Exception("User Firebase tidak ditemukan");
   }
+
+  final response = await http.post(
+    Uri.parse('$baseUrl/register'),
+    headers: {
+      'Authorization': 'Bearer $token',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode({
+      "firebase_uid": user.uid,
+      "firebase_email": user.email,
+      "firebase_verified": user.emailVerified,
+      "name": user.displayName ?? "User",
+    }),
+  );
+
+  if (response.statusCode != 200 && response.statusCode != 201) {
+    throw Exception('Gagal sinkronisasi user ke database');
+  }
+}
 
   Future<void> logout() async {
     await _auth.signOut();

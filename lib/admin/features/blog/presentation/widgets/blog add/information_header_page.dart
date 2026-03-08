@@ -13,7 +13,7 @@ class InformationHeaderAdd extends StatelessWidget {
         children: [
           // ===== BACK BUTTON =====
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 50, 121, 252)),
             onPressed: onBack ?? () => Navigator.pop(context),
           ),
 
@@ -23,7 +23,7 @@ class InformationHeaderAdd extends StatelessWidget {
           const Text(
             'Add Information',
             style: TextStyle(
-              color: Colors.white,
+              color: Color.fromARGB(255, 50, 121, 252),
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

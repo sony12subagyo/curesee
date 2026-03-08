@@ -78,7 +78,7 @@ class CardPageAdmin extends StatelessWidget {
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          color: Colors.white70,
+                          color: Colors.white,
                           fontSize: 13,
                         ),
                       ),
@@ -87,7 +87,7 @@ class CardPageAdmin extends StatelessWidget {
                     const SizedBox(height: 4),
                     const Text(
                       "more  →",
-                      style: TextStyle(color: Colors.white70, fontSize: 13),
+                      style: TextStyle(color: Colors.white, fontSize: 13),
                     ),
                   ],
                 ),

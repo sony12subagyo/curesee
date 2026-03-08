@@ -6,7 +6,7 @@ import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
 
 import '../../../navigation/home_layout.dart';
-import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
+import 'package:curesee/admin/features/blog/presentation/pages/blog_page.dart';
 
 class LoginButton extends StatelessWidget {
   final TextEditingController emailController;

@@ -12,11 +12,12 @@ class AdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => UserBloc(
-        UserRepositoryImpl(
-          UserRemoteDatasource(),
-        ),
-      )..add(GetUsersRequested()),
+      create: (_) =>
+          UserBloc(
+            UserRepositoryImpl(
+              UserRemoteDatasource(),
+            ),
+          )..add(GetUsersRequested()),
       child: const AdminUserView(),
     );
   }

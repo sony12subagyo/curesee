@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:curesee/admin/features/blog/presentation/page/blog_page.dart';
+import 'package:curesee/admin/features/blog/presentation/pages/blog_page.dart';
 import 'package:curesee/app/login/presentation/pages/login_page.dart';
 
 class AdminSidebar extends StatelessWidget {

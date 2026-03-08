@@ -50,7 +50,7 @@ class RegistrasiPage extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4CA6FE),
+                    color: const Color.fromARGB(255, 0, 128, 255),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Form(
