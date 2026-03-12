@@ -9,8 +9,13 @@ class RegistrasiButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController nameC;
   final TextEditingController emailC;
+
+  // SEMENTARA TIDAK DIGUNAKAN
   final TextEditingController ageC;
+
   final TextEditingController passC;
+
+  // SEMENTARA TIDAK DIGUNAKAN
   final ValueNotifier<String?> gender;
 
   const RegistrasiButton({
@@ -18,9 +23,9 @@ class RegistrasiButton extends StatelessWidget {
     required this.formKey,
     required this.nameC,
     required this.emailC,
-    required this.ageC,
+    required this.ageC, // masih disimpan
     required this.passC,
-    required this.gender,
+    required this.gender, // masih disimpan
   });
 
   @override
@@ -37,6 +42,8 @@ class RegistrasiButton extends StatelessWidget {
                 : () {
                     if (!formKey.currentState!.validate()) return;
 
+                    /// VALIDASI GENDER (DI-NONAKTIFKAN SEMENTARA)
+                    /*
                     if (gender.value == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -45,7 +52,10 @@ class RegistrasiButton extends StatelessWidget {
                       );
                       return;
                     }
+                    */
 
+                    /// VALIDASI AGE (DI-NONAKTIFKAN SEMENTARA)
+                    /*
                     final age = int.tryParse(ageC.text);
                     if (age == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -55,14 +65,18 @@ class RegistrasiButton extends StatelessWidget {
                       );
                       return;
                     }
+                    */
 
                     context.read<RegistrasiBloc>().add(
                       RegistrasiSubmitted(
                         RegistrasiEntity(
                           name: nameC.text.trim(),
                           email: emailC.text.trim(),
-                          gender: gender.value!,
-                          age: age,
+
+                          // SEMENTARA DIISI DEFAULT
+                          gender: "", 
+                          age: 0,
+
                           password: passC.text.trim(),
                         ),
                       ),
@@ -70,7 +84,12 @@ class RegistrasiButton extends StatelessWidget {
                   },
             child: isLoading
                 ? const CircularProgressIndicator(color: Colors.white)
-                : const Text('Create your account',style: TextStyle(color: Color.fromARGB(255, 0, 128, 255)),),
+                : const Text(
+                    'Create your account',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0, 128, 255),
+                    ),
+                  ),
           ),
         );
       },
