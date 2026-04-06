@@ -1,85 +1,90 @@
-# Curesee – Aplikasi Mobile Pemberdayaan Kesehatan
+# Curesee – Mobile Health Empowerment Application
 
-Curesee adalah aplikasi kesehatan berbasis mobile yang dikembangkan menggunakan Flutter dengan tujuan meningkatkan kesadaran dan pemahaman masyarakat terhadap kondisi kesehatan melalui teknologi digital dan kecerdasan buatan (AI), khususnya dalam membantu deteksi awal penyakit kulit secara mandiri dan mudah diakses.
-
----
-
-## 📱 Gambaran Umum
-
-Akses terhadap informasi kesehatan, khususnya terkait deteksi awal penyakit kulit, masih menjadi tantangan bagi banyak masyarakat. Tidak semua individu memiliki akses langsung ke tenaga medis atau fasilitas kesehatan untuk melakukan pemeriksaan dini. Curesee hadir sebagai solusi kesehatan digital berbasis mobile yang mengintegrasikan teknologi kecerdasan buatan (machine learning) untuk membantu pengguna mendeteksi potensi penyakit kulit melalui analisis gambar. Selain fitur deteksi, Curesee juga menyediakan edukasi kesehatan dan pencatatan riwayat kesehatan guna meningkatkan kesadaran dan pencegahan sejak dini.
+Curesee is a mobile health application developed using Flutter, aimed at improving public awareness and understanding of health conditions through digital technology and artificial intelligence (AI), particularly in assisting early detection of skin diseases in an accessible and user-friendly way.
 
 ---
 
-## 🎯 Identifikasi Masalah
+## 📱 Overview
 
-Permasalahan yang melatarbelakangi pengembangan Curesee antara lain:
+Access to health information, especially for early detection of skin diseases, remains a challenge for many communities. Not everyone has direct access to medical professionals or healthcare facilities for early diagnosis.
 
-- Terbatasnya akses masyarakat terhadap edukasi kesehatan dasar
-- Rendahnya kesadaran terhadap kondisi kesehatan sejak dini
-- Ketimpangan akses layanan kesehatan digital
-- Minimnya aplikasi kesehatan yang sederhana dan ramah pengguna
+Curesee provides a mobile-based digital health solution that integrates artificial intelligence (machine learning) to help users detect potential skin diseases through image analysis. In addition to detection features, Curesee also offers health education and health history tracking to promote awareness and preventive care.
 
 ---
 
-## 💡 Solusi dan Fitur Utama
+## 🎯 Problem Identification
 
-Curesee menawarkan solusi kesehatan digital dengan mengintegrasikan teknologi kecerdasan buatan (AI) dan sistem informasi kesehatan melalui beberapa fitur utama berikut:
+The main problems that motivated the development of Curesee include:
 
-- Autentikasi pengguna menggunakan Firebase
-- Pengelolaan profil kesehatan pengguna
-- Pemantauan dan riwayat kesehatan
-- Informasi dan edukasi kesehatan
-- Deteksi penyakit kulit menggunakan teknologi machine learning berbasis analisis citra
-- Fitur berbasis kamera untuk pengambilan dan analisis gambar kulit
-- Pemisahan peran pengguna dan admin dalam pengelolaan data dan sistem
+- Limited access to basic health education
+- Low awareness of early health condition detection
+- Inequality in access to digital health services
+- Lack of simple and user-friendly health applications
 
 ---
 
-## 🧑‍🤝‍🧑 Target Pengguna
+## 💡 Solution and Key Features
 
-- Masyarakat umum
-- Individu yang ingin meningkatkan kesadaran kesehatan
-- Komunitas dengan keterbatasan akses fasilitas kesehatan
-- Pelajar dan mahasiswa
+Curesee offers a digital health solution by integrating artificial intelligence (AI) and health information systems through the following key features:
 
----
-
-## 🏗️ Arsitektur Sistem
-
-Curesee menerapkan **Clean Architecture** untuk memastikan aplikasi bersifat modular, mudah dikembangkan, dan mudah dipelihara.
-Lapisan arsitektur:
-
-- **Presentation Layer**: Antarmuka pengguna, state management (BLoC), dan interaksi pengguna
-- **Domain Layer**: Logika bisnis dan use case
-- **Data Layer**: Pengelolaan API, repository, dan sumber data
-  Pendekatan ini memungkinkan pengembangan aplikasi yang skalabel dan berkelanjutan.
+- User authentication using Firebase
+- User health profile management
+- Health monitoring and history tracking
+- Health information and educational content
+- Skin disease detection using machine learning-based image analysis
+- Camera-based feature for capturing and analyzing skin images
+- Separation of user and admin roles for system and data management
 
 ---
 
-## 🤖 Alur Machine Learning
-Model machine learning dikembangkan dan dilatih menggunakan Google Colab dengan bahasa pemrograman Python. Data citra kulit diproses melalui tahapan preprocessing, pelatihan model, dan evaluasi performa. Model hasil pelatihan kemudian diintegrasikan ke dalam aplikasi mobile dalam bentuk file tflite untuk membantu proses deteksi awal penyakit kulit.
+## 🧑‍🤝‍🧑 Target Users
+
+- General public
+- Individuals who want to improve their health awareness
+- Communities with limited access to healthcare facilities
+- Students and young adults
 
 ---
 
-## 🔗 API dan Integrasi
+## 🏗️ System Architecture
 
-- RESTful API berbasis Laravel
-- Komunikasi data menggunakan format JSON
-- Integrasi Firebase untuk autentikasi pengguna
-- Dukungan integrasi eksternal untuk pengembangan lanjutan
+Curesee implements **Clean Architecture** to ensure modularity, scalability, and maintainability.
+
+Architecture layers:
+
+- **Presentation Layer**: User interface, state management (BLoC), and user interaction
+- **Domain Layer**: Business logic and use cases
+- **Data Layer**: API handling, repositories, and data sources
+
+This approach allows the application to be easily maintained and further developed.
 
 ---
 
-## 🚀 Instalasi dan Konfigurasi
+## 🤖 Machine Learning Workflow
 
-### Prasyarat
+The machine learning model is developed and trained using Google Colab with Python. Skin image data is processed through preprocessing, model training, and evaluation stages. The trained model is then integrated into the mobile application in the form of a `.tflite` file to support early skin disease detection.
+
+---
+
+## 🔗 API and Integrations
+
+- RESTful API built with Laravel
+- JSON-based data communication
+- Firebase integration for user authentication
+- Support for future external integrations
+
+---
+
+## 🚀 Installation and Setup
+
+### Prerequisites
 
 - Flutter SDK
 - Dart SDK
-- Android Studio atau VS Code
-- Emulator atau perangkat Android fisik
+- Android Studio or VS Code
+- Emulator or physical Android device
 
-### Langkah Instalasi
+### Installation Steps
 
 ```bash
 git clone https://github.com/sony12subagyo/curesee.git
@@ -89,20 +94,20 @@ flutter pub get
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Technologies Used
 
-- **Frontend Mobile**: Flutter (Dart)
+- **Mobile Frontend**: Flutter (Dart)
 - **State Management**: BLoC
 - **Backend API**: Laravel REST API
 - **Database**: MySQL (phpMyAdmin)
-- **Autentikasi**: Firebase Authentication
+- **Authentication**: Firebase Authentication
 
 - **Machine Learning**:
-  - Google Colab (training dan evaluasi model)
-  - Python (pengolahan data dan pemodelan)
-  - Model Machine Learning untuk deteksi penyakit kulit berbasis citra
+  - Google Colab (model training and evaluation)
+  - Python (data processing and modeling)
+  - Machine learning model for image-based skin disease detection
 
-- **Version Control**: Git dan GitHub
+- **Version Control**: Git and GitHub
 
 ---
 
@@ -111,21 +116,21 @@ flutter pub get
 ```text
 lib/
  ├── admin/
- │   └── Fitur khusus untuk admin dalam pengelolaan data dan sistem
+ │   └── Admin features for managing system and user data
  ├── app/
- │   └── Berisi konfigurasi inti aplikasi seperti routing, tema, dan pengaturan global
+ │   └── Core application configuration such as routing, theme, and global settings
  ├── users/
- │   ├── features/        # Fitur-fitur utama yang digunakan oleh pengguna
- │   ├── data/            # Implementasi API, repository, dan data source
- │   ├── domain/          # Entity dan use case (logika bisnis)
- │   └── presentation/    # UI, halaman, widget, dan BLoC
+ │   ├── features/        # Main features used by users
+ │   ├── data/            # API implementation, repositories, and data sources
+ │   ├── domain/          # Entities and business logic (use cases)
+ │   └── presentation/    # UI, pages, widgets, and BLoC
  └── main.dart
-     └── Entry point utama aplikasi
+     └── Application entry point
 ```
 
 ---
 
-## ▶️ Menjalankan Aplikasi
+## ▶️ Running the Application
 
 ```bash
 flutter run
